@@ -12,6 +12,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yuzawa Transit Directory</title>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
     :root {
       --bg: #0f172a;
@@ -552,6 +554,127 @@
       border-radius: 10px;
       font-size: 0.9rem;
     }
+
+    /* Interactive Boarding Map Card (Leaflet + GSI Japan Tiles) */
+    .map-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 18px -6px rgba(15, 23, 42, 0.55);
+    }
+    .map-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.55);
+    }
+    .map-title {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .map-controls {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .map-btn {
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 4px 10px;
+      border-radius: 7px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .map-btn:hover { background: rgba(56, 189, 248, 0.25); }
+    .map-btn.active {
+      background: var(--accent);
+      color: #0f172a;
+      border-color: var(--accent);
+    }
+    .map-btn.gps {
+      background: rgba(16, 185, 129, 0.14);
+      color: #34d399;
+      border-color: rgba(52, 211, 153, 0.4);
+    }
+    .map-btn.gps:hover { background: rgba(16, 185, 129, 0.28); }
+    #boardingMap {
+      width: 100%;
+      height: 290px;
+      background: #0b1220;
+      z-index: 1;
+    }
+    .map-footer-note {
+      padding: 6px 14px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.45);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pulse-pin {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #10b981;
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.75);
+      animation: pinPulse 1.8s infinite;
+    }
+    @keyframes pinPulse {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.75); }
+      70% { box-shadow: 0 0 0 14px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .other-pin {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #38bdf8;
+      border: 2px solid #fff;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    }
+    .user-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #3b82f6;
+      border: 2.5px solid #fff;
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.9);
+    }
+    .leaflet-popup-content-wrapper, .leaflet-popup-tip {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid #334155;
+    }
+    .leaflet-popup-content { margin: 10px 12px; }
+    .popup-walk-btn {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      background: #10b981;
+      color: #fff !important;
+      text-decoration: none;
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
   </style>
 </head>
 <body>
@@ -650,6 +773,24 @@
 
   <!-- Pinned Dual Hero Cards: Next Bus + Where to Board -->
   <div id="nextBusHeroContainer"></div>
+
+  <!-- Interactive Boarding Stop Map -->
+  <div id="boardingMapSection" class="map-card" style="display:none;">
+    <div class="map-header">
+      <span class="map-title" id="mapTitleLabel">🗺️ Boarding Stop Map</span>
+      <div class="map-controls">
+        <button type="button" class="map-btn active" id="btnMapStreet">🗺️ Map</button>
+        <button type="button" class="map-btn" id="btnMapSatellite">🛰️ Satellite</button>
+        <button type="button" class="map-btn gps" id="btnMapLocate">📍 Where am I?</button>
+        <button type="button" class="map-btn" id="btnMapRecenter">🎯 Re-center</button>
+      </div>
+    </div>
+    <div id="boardingMap"></div>
+    <div class="map-footer-note">
+      <span id="mapCoordNote"></span>
+      <span>© <a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">GSI Japan</a></span>
+    </div>
+  </div>
 
   <!-- Timetable List -->
   <div id="scheduleContainer">
@@ -763,6 +904,16 @@
       inHrsMins: { en: 'in {h}h {m}m', jp: 'あと{h}時間{m}分', zh_tr: '{h}小時{m}分後', zh_si: '{h}小时{m}分后', ko: '{h}시간 {m}분 후' },
       departingNow: { en: 'Departing now', jp: 'まもなく発車', zh_tr: '即將發車', zh_si: '即将发车', ko: '곧 출발' },
       following: { en: 'Next after:', jp: 'その次:', zh_tr: '後續班次:', zh_si: '后续班次:', ko: '다음 편:' },
+      mapTitle: { en: '🗺️ Boarding Stop Map', jp: '🗺️ のりば・停留所マップ', zh_tr: '🗺️ 乘車月台地圖', zh_si: '🗺️ 乘车站台地图', ko: '🗺️ 탑승 정류장 지도' },
+      mapStreet: { en: '🗺️ Map', jp: '🗺️ 地図', zh_tr: '🗺️ 地圖', zh_si: '🗺️ 地图', ko: '🗺️ 지도' },
+      mapSatellite: { en: '🛰️ Satellite', jp: '🛰️ 航空写真', zh_tr: '🛰️ 衛星圖', zh_si: '🛰️ 卫星图', ko: '🗺️ 위성지도' },
+      locateMe: { en: '📍 Where am I?', jp: '📍 現在地', zh_tr: '📍 我的位置', zh_si: '📍 我的位置', ko: '📍 내 위치' },
+      recenter: { en: '🎯 Re-center', jp: '🎯 中心へ', zh_tr: '🎯 重新置中', zh_si: '🎯 重新居中', ko: '🎯 중심 이동' },
+      walkHere: { en: '📍 Walk Here (Google Maps) ↗', jp: '📍 ここへの徒歩ルート ↗', zh_tr: '📍 步行導航 (Google 地圖) ↗', zh_si: '📍 步行导航 (Google 地图) ↗', ko: '📍 도보 길찾기 (Google 지도) ↗' },
+      youAreHere: { en: 'You are here', jp: '現在地', zh_tr: '您的位置', zh_si: '您的位置', ko: '현재 위치' },
+      gpsUnsupported: { en: 'Geolocation is not supported in this browser.', jp: 'このブラウザは位置情報に対応していません。', zh_tr: '此瀏覽器不支援定位功能。', zh_si: '此浏览器不支持定位功能。', ko: '이 브라우저에서는 위치 정보를 지원하지 않습니다.' },
+      gpsDenied: { en: 'Location permission denied or unavailable.', jp: '位置情報の取得が許可されていないか、利用できません。', zh_tr: '無法取得定位權限或目前無法使用。', zh_si: '无法获取定位权限或当前不可用。', ko: '위치 권한이 거부되었거나 사용할 수 없습니다.' },
+      approxBayNote: { en: 'Approximate station bay pin — add Lat/Lng in Stops sheet to fine-tune.', jp: '駅のりばの目安位置（シートのLat/Lngで微調整可能）', zh_tr: '車站月台參考位置（可在表單 Lat/Lng 微調）', zh_si: '车站站台参考位置（可在表单 Lat/Lng 微调）', ko: '역 승강장 참고 위치 (시트 Lat/Lng에서 미세 조정 가능)' },
       stopsAt: { en: 'Stops / Resorts:', jp: '主な停車スキー場・停留所:', zh_tr: '停靠雪場 / 站點:', zh_si: '停靠雪场 / 站点:', ko: '정차 스키장 / 정류장:' },
       loading: { en: 'Loading timetables...', jp: '時刻表を読み込み中...', zh_tr: '正在載入時刻表...', zh_si: '正在加载时刻表...', ko: '시간표를 불러오는 중...' },
       noDepartures: { en: 'No departures found for this selection.', jp: '該当する運行便がありません。', zh_tr: '沒有找到符合條件的班次。', zh_si: '没有找到符合条件的班次。', ko: '해당 조건의 운행 정보가 없습니다.' },
@@ -1681,12 +1832,242 @@
     return loopReturnText[currentLang] || loopReturnText.en;
   }
 
+
+  // === Interactive Boarding Map (Leaflet + GSI Japan Tiles) ===
+  let boardingMap = null;
+  let boardingLayerStreet = null;
+  let boardingLayerSat = null;
+  let boardingMarkers = [];
+  let boardingUserMarker = null;
+  let activeStopCoords = null;
+  let lastMapRenderKey = '';
+
+  const STATION_BAY_FALLBACK_COORDS = {
+    '1': { lat: 36.93612, lng: 138.81005 },
+    '2': { lat: 36.93595, lng: 138.81018 },
+    '3': { lat: 36.93580, lng: 138.81030 },
+    'ROTARY': { lat: 36.93565, lng: 138.81042 },
+    'WEST': { lat: 36.93622, lng: 138.80872 }
+  };
+
+  function resolveStopCoords(stopObj, route, isStation) {
+    if (!stopObj) return null;
+    const rawLat = stopObj.Lat ?? stopObj.lat ?? stopObj.Latitude ?? stopObj.latitude;
+    const rawLng = stopObj.Lng ?? stopObj.lng ?? stopObj.Lon ?? stopObj.lon ?? stopObj.Longitude ?? stopObj.longitude;
+    const lat = parseFloat(String(rawLat ?? '').trim());
+    const lng = parseFloat(String(rawLng ?? '').trim());
+    if (Number.isFinite(lat) && Number.isFinite(lng) && lat !== 0 && lng !== 0) {
+      return { lat, lng, source: 'sheet' };
+    }
+    const gUrl = String(stopObj.Google_Maps_URL || '');
+    const m = gUrl.match(/[@=](-?\d+\.\d+),\s*(-?\d+\.\d+)/);
+    if (m) {
+      const uLat = parseFloat(m[1]);
+      const uLng = parseFloat(m[2]);
+      if (Number.isFinite(uLat) && Number.isFinite(uLng)) {
+        return { lat: uLat, lng: uLng, source: 'url' };
+      }
+    }
+    const jp = String(stopObj.Stop_Name_JP || '');
+    const en = String(stopObj.Stop_Name_EN || '');
+    const bay = isStation ? String(getStationBay(route) || '') : '';
+    const combined = `${jp} ${en} ${bay}`;
+    if (isStation || /越後湯沢|湯沢駅|Echigo-Yuzawa/i.test(combined)) {
+      if (/西口|West|Inamoto|いなもと/i.test(combined)) return { ...STATION_BAY_FALLBACK_COORDS.WEST, source: 'approx' };
+      if (/ロータリー|Rotary|シャトル/i.test(combined)) return { ...STATION_BAY_FALLBACK_COORDS.ROTARY, source: 'approx' };
+      if (/3番|#3|Pole 3|Platform 3/i.test(combined)) return { ...STATION_BAY_FALLBACK_COORDS['3'], source: 'approx' };
+      if (/2番|#2|Pole 2|Platform 2/i.test(combined)) return { ...STATION_BAY_FALLBACK_COORDS['2'], source: 'approx' };
+      if (/1番|#1|Pole 1|Platform 1/i.test(combined)) return { ...STATION_BAY_FALLBACK_COORDS['1'], source: 'approx' };
+      return { ...STATION_BAY_FALLBACK_COORDS['1'], source: 'approx' };
+    }
+    return null;
+  }
+
+  function ensureBoardingMap() {
+    if (typeof L === 'undefined') return null;
+    if (boardingMap) return boardingMap;
+    boardingMap = L.map('boardingMap', { zoomControl: true }).setView([36.93595, 138.8100], 17);
+    boardingLayerStreet = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png', {
+      attribution: '地理院タイル',
+      maxZoom: 18
+    }).addTo(boardingMap);
+    boardingLayerSat = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg', {
+      attribution: '地理院タイル',
+      maxZoom: 18
+    });
+
+    const btnStreet = document.getElementById('btnMapStreet');
+    const btnSat = document.getElementById('btnMapSatellite');
+    const btnLocate = document.getElementById('btnMapLocate');
+    const btnRecenter = document.getElementById('btnMapRecenter');
+
+    if (btnStreet && btnSat) {
+      btnStreet.addEventListener('click', () => {
+        if (!boardingMap.hasLayer(boardingLayerStreet)) boardingMap.addLayer(boardingLayerStreet);
+        if (boardingMap.hasLayer(boardingLayerSat)) boardingMap.removeLayer(boardingLayerSat);
+        btnStreet.classList.add('active');
+        btnSat.classList.remove('active');
+      });
+      btnSat.addEventListener('click', () => {
+        if (!boardingMap.hasLayer(boardingLayerSat)) boardingMap.addLayer(boardingLayerSat);
+        if (boardingMap.hasLayer(boardingLayerStreet)) boardingMap.removeLayer(boardingLayerStreet);
+        btnSat.classList.add('active');
+        btnStreet.classList.remove('active');
+      });
+    }
+
+    if (btnLocate) {
+      btnLocate.addEventListener('click', () => {
+        if (!navigator.geolocation) {
+          alert(I18N.ui.gpsUnsupported[currentLang] || I18N.ui.gpsUnsupported.en);
+          return;
+        }
+        navigator.geolocation.getCurrentPosition(
+          pos => {
+            const uLat = pos.coords.latitude;
+            const uLng = pos.coords.longitude;
+            if (boardingUserMarker) boardingMap.removeLayer(boardingUserMarker);
+            const uIcon = L.divIcon({ className: '', html: '<div class="user-dot"></div>', iconSize: [14, 14], iconAnchor: [7, 7] });
+            boardingUserMarker = L.marker([uLat, uLng], { icon: uIcon, zIndexOffset: 900 }).addTo(boardingMap);
+            boardingUserMarker.bindTooltip(I18N.ui.youAreHere[currentLang] || 'You are here', { direction: 'top', offset: [0, -8] }).openTooltip();
+            if (activeStopCoords) {
+              boardingMap.fitBounds([[uLat, uLng], [activeStopCoords.lat, activeStopCoords.lng]], { padding: [50, 50], maxZoom: 18 });
+            } else {
+              boardingMap.flyTo([uLat, uLng], 17, { duration: 0.5 });
+            }
+          },
+          () => alert(I18N.ui.gpsDenied[currentLang] || I18N.ui.gpsDenied.en)
+        );
+      });
+    }
+
+    if (btnRecenter) {
+      btnRecenter.addEventListener('click', () => {
+        if (activeStopCoords && boardingMap) {
+          boardingMap.flyTo([activeStopCoords.lat, activeStopCoords.lng], 18, { duration: 0.5 });
+        }
+      });
+    }
+
+    return boardingMap;
+  }
+
+  function updateMapLabels() {
+    const t = document.getElementById('mapTitleLabel');
+    const bS = document.getElementById('btnMapStreet');
+    const bSat = document.getElementById('btnMapSatellite');
+    const bL = document.getElementById('btnMapLocate');
+    const bR = document.getElementById('btnMapRecenter');
+    if (t) t.textContent = I18N.ui.mapTitle[currentLang] || I18N.ui.mapTitle.en;
+    if (bS) bS.textContent = I18N.ui.mapStreet[currentLang] || I18N.ui.mapStreet.en;
+    if (bSat) bSat.textContent = I18N.ui.mapSatellite[currentLang] || I18N.ui.mapSatellite.en;
+    if (bL) bL.textContent = I18N.ui.locateMe[currentLang] || I18N.ui.locateMe.en;
+    if (bR) bR.textContent = I18N.ui.recenter[currentLang] || I18N.ui.recenter.en;
+  }
+
+  function renderBoardingMap({ route, fromStopObj, boardingStopId, isStationOrigin }) {
+    const section = document.getElementById('boardingMapSection');
+    if (!section) return;
+    updateMapLabels();
+
+    const activeCoords = resolveStopCoords(fromStopObj, route, isStationOrigin);
+    if (!activeCoords) {
+      section.style.display = 'none';
+      activeStopCoords = null;
+      lastMapRenderKey = '';
+      return;
+    }
+
+    section.style.display = 'block';
+    activeStopCoords = activeCoords;
+
+    const noteEl = document.getElementById('mapCoordNote');
+    if (noteEl) {
+      noteEl.textContent = activeCoords.source === 'approx'
+        ? (I18N.ui.approxBayNote[currentLang] || I18N.ui.approxBayNote.en)
+        : `📍 ${activeCoords.lat.toFixed(5)}, ${activeCoords.lng.toFixed(5)}`;
+    }
+
+    const renderKey = `${currentMode}|${route}|${boardingStopId}|${currentLang}|${activeCoords.lat},${activeCoords.lng}`;
+    if (renderKey === lastMapRenderKey) return;
+    lastMapRenderKey = renderKey;
+
+    const map = ensureBoardingMap();
+    if (!map) return;
+    setTimeout(() => map.invalidateSize(), 60);
+
+    boardingMarkers.forEach(m => map.removeLayer(m));
+    boardingMarkers = [];
+
+    const colKey = stopLangKeys[currentLang] || 'Stop_Name_EN';
+    const walkLabel = I18N.ui.walkHere[currentLang] || I18N.ui.walkHere.en;
+    const stopList = getRouteStopsList(currentMode, route);
+    const plottedIds = new Set();
+
+    function addStopPin(sObj, coords, isActive) {
+      const sId = (sObj.Stop_ID || '').trim();
+      const sName = sObj[colKey] || sObj['Stop_Name_EN'] || sId;
+      const sJp = sObj.Stop_Name_JP || '';
+      const bay = (isActive && isStationOrigin) ? getStationBay(route) : '';
+      const walkUrl = `https://www.google.com/maps/dir/?api=1&destination=${coords.lat},${coords.lng}&travelmode=walking`;
+      const icon = L.divIcon({
+        className: '',
+        html: `<div class="${isActive ? 'pulse-pin' : 'other-pin'}"></div>`,
+        iconSize: isActive ? [18, 18] : [12, 12],
+        iconAnchor: isActive ? [9, 9] : [6, 6]
+      });
+      const marker = L.marker([coords.lat, coords.lng], { icon, zIndexOffset: isActive ? 1000 : 100 }).addTo(map);
+      marker.bindPopup(`
+        <div style="font-size:0.82rem;line-height:1.4;min-width:180px;">
+          ${bay ? `<strong style="color:#34d399;">🚏 ${bay}</strong><br>` : ''}
+          <strong>${sName}</strong>
+          ${currentLang !== 'jp' && sJp && sJp !== sName ? `<br><span style="color:#94a3b8;font-size:0.75rem;">${sJp}</span>` : ''}
+          <br><a class="popup-walk-btn" href="${walkUrl}" target="_blank" rel="noopener">${walkLabel}</a>
+        </div>
+      `);
+      if (!isActive && sId) {
+        marker.on('click', () => {
+          const stopSel = document.getElementById('stopSelect');
+          if (stopSel && Array.from(stopSel.options).some(o => o.value === sId)) {
+            stopSel.value = sId;
+            renderTimetable();
+          }
+        });
+      }
+      boardingMarkers.push(marker);
+      return marker;
+    }
+
+    let activeMarker = null;
+    stopList.forEach(s => {
+      const sId = (s.Stop_ID || '').trim();
+      if (!sId || plottedIds.has(sId)) return;
+      const isAct = sId === boardingStopId;
+      const c = isAct ? activeCoords : resolveStopCoords(s, route, false);
+      if (!c) return;
+      plottedIds.add(sId);
+      const mk = addStopPin(s, c, isAct);
+      if (isAct) activeMarker = mk;
+    });
+
+    if (!activeMarker) {
+      activeMarker = addStopPin(fromStopObj, activeCoords, true);
+    }
+
+    map.flyTo([activeCoords.lat, activeCoords.lng], 18, { duration: 0.5 });
+    setTimeout(() => {
+      if (activeMarker) activeMarker.openPopup();
+    }, 550);
+  }
+
   function renderDualHeroCards({ route, fromStopObj, boardingStopId, isStationOrigin, isLoopSelection, destStopId, heroJourney, followingJourneys, isTomorrow, currentMins }) {
     const heroContainer = document.getElementById('nextBusHeroContainer');
     if (!heroContainer) return;
 
     if (!heroJourney) {
       heroContainer.innerHTML = '';
+      const mapSec = document.getElementById('boardingMapSection');
+      if (mapSec) mapSec.style.display = 'none';
       return;
     }
 
@@ -1712,8 +2093,11 @@
     const showJpSub = currentLang !== 'jp' && fromStopJp && fromStopJp !== fromStopName;
     const bayText = isStationOrigin ? getStationBay(route) : '';
 
-    const mapUrl = fromStopObj.Google_Maps_URL ||
-      `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((fromStopJp || fromStopName) + ' 湯沢 バス停')}`;
+    const resolvedCoords = resolveStopCoords(fromStopObj, route, isStationOrigin);
+    const mapUrl = resolvedCoords
+      ? `https://www.google.com/maps/dir/?api=1&destination=${resolvedCoords.lat},${resolvedCoords.lng}&travelmode=walking`
+      : (fromStopObj.Google_Maps_URL ||
+        `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((fromStopJp || fromStopName) + ' 湯沢 バス停')}`);
     const boardingTitle = I18N.ui.boardingAt[currentLang] || I18N.ui.boardingAt.en;
     const stopMapLabel = I18N.ui.stopMap[currentLang] || I18N.ui.stopMap.en;
 
@@ -1758,6 +2142,7 @@
         </div>
       </div>
     `;
+    renderBoardingMap({ route, fromStopObj, boardingStopId, isStationOrigin });
   }
 
   function renderTimetable() {
