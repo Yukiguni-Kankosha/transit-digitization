@@ -1,82 +1,664 @@
-Route_Code	Stop_ID	Stop_Name_EN	Stop_Name_JP	Stop_Name_ZH_TR	Stop_Name_ZH_SI	Stop_Name_KO	Google_Maps_URL	Stop_Order	Fare
-BLUE	BL-01	NASPA Snow Garden	NASPA	NASPA滑雪花園	NASPA滑雪花园	NASPA 스노우 가든	https://www.google.com/maps/search/?api=1&query=NASPAニューオータニ	1	100
-BLUE	BL-02	Hirokawa Hotel	広川ホテル	廣川飯店	广川饭店	히로카와 호텔	https://www.google.com/maps/search/?api=1&query=広川ホテル	2	100
-BLUE	BL-03	Lions Mansion No. 3	ライオンズ第3	獅子公寓第3棟	狮子公寓第3栋	라이온스 맨션 제3	https://www.google.com/maps/search/?api=1&query=ライオンズマンション第3	3	100
-BLUE	BL-04	Echigo-Yuzawa Sta. West Exit (Inamoto)	越後湯沢駅西口(いなもと前)	越後湯澤站西口(稻本前)	越后汤泽站西口(稻本前)	에치고유자와역 서쪽 출구 (이나모토 앞)	https://www.google.com/maps/search/?api=1&query=越後湯沢駅西口	4	100
-BLUE	BL-05	Shosenkaku Kagetsu Hotel	松泉閣花月	松泉閣花月	松泉阁花月	쇼센카쿠 카게츠	https://www.google.com/maps/search/?api=1&query=松泉閣+花月	5	100
-BLUE	BL-06	Snow Country Museum (Yukigunikan)	雪国館	雪國館	雪国馆	유키구니칸 (설국관)	https://www.google.com/maps/search/?api=1&query=雪国館	6	100
-BLUE	BL-07	Yuzawa Kogen Ski Resort	湯沢高原	湯澤高原	汤泽高原	유자와 코겐 스키장	https://www.google.com/maps/search/?api=1&query=湯沢高原スキー場	7	100
-BLUE	BL-08	Nunoba South Exit	布場南口	布場南口	布场南口	누노바 남쪽 출구	https://www.google.com/maps/search/?api=1&query=布場南口	8	100
-BLUE	BL-09	GALA Yuzawa	GALA湯沢	GALA湯澤滑雪場	GALA汤泽滑雪场	갈라 유자와	https://www.google.com/maps/search/?api=1&query=ガーラ湯沢駅	9	100
-BLUE	BL-10	Ishiuchi Maruyama (Central Entrance)	石打丸山(中央口)	石打丸山(中央口)	石打丸山(中央口)	이시우치 마루야마 (중앙 출구)	https://www.google.com/maps/search/?api=1&query=石打丸山スキー場+中央口	10	100
-BLUE	BL-11	Echigo-Yuzawa Sta. East Exit (Pole #5)	越後湯沢駅東口(5番のりば)	越後湯澤站東口(5號月台)	越后汤泽站东口(5号站台)	에치고유자와역 동쪽 출구 (5번 정류장)	https://www.google.com/maps/search/?api=1&query=越後湯沢駅東口	11	100
-BLUE	BL-12	Sakuratei Hotel	さくら亭前	櫻亭飯店前	樱亭饭店前	사쿠라테이 호텔 앞	https://www.google.com/maps/search/?api=1&query=さくら亭	12	100
-ORANGE	OL-01	NASPA Ski Garden	NASPA	NASPA滑雪花園	NASPA滑雪花园	NASPA 스키 가든	https://www.google.com/maps/search/?api=1&query=NASPAニューオータニ+シャトルバス	1	100
-ORANGE	OL-02	Hirokawa Hotel	広川ホテル	廣川飯店	广川饭店	히로카와 호텔	https://www.google.com/maps/search/?api=1&query=広川ホテル+湯沢町	2	100
-ORANGE	OL-03	Sakuratei Hotel	さくら亭前	櫻亭飯店前	樱亭饭店前	사쿠라테이 호텔 앞	https://www.google.com/maps/search/?api=1&query=湯沢スキーハウス+さくら亭	3	100
-ORANGE	OL-04	Echigo-Yuzawa Sta. East Exit (Pole #5)	越後湯沢駅東口(5番のりば)	越後湯澤站東口(5號月台)	越后汤泽站东口(5号站台)	에치고유자와역 동쪽 출구 (5번 정류장)	https://www.google.com/maps/search/?api=1&query=越後湯沢駅東口+シャトルバスのりば	4	100
-ORANGE	OL-05	Yuzawa Kogen Ski Resort	湯沢高原	湯澤高原	汤泽高原	유자와 코겐 스키장	https://www.google.com/maps/search/?api=1&query=湯沢高原ロープウェイ+山麓駅	5	100
-ORANGE	OL-06	Nunoba South Exit	布場南口	布場南口	布场南口	누노바 남쪽 출구	https://www.google.com/maps/search/?api=1&query=布場スキー場+湯沢町	6	100
-ORANGE	OL-07	GALA Yuzawa	GALA湯沢	GALA湯澤滑雪場	GALA汤泽滑雪场	갈라 유자와	https://www.google.com/maps/search/?api=1&query=ガーラ湯沢駅+スキー場	7	100
-ORANGE	OL-08	Ishiuchi Maruyama (Central Entrance)	石打丸山(中央口)	石打丸山(中央口)	石打丸山(中央口)	이시우치 마루야마 (중앙 출구)	https://www.google.com/maps/search/?api=1&query=石打丸山スキー場+中央口	8	100
-ORANGE	OL-09	Snow Country Museum (Yukigunikan)	雪国資料館	雪國館	雪国馆	유키구니칸 (설국관)	https://www.google.com/maps/search/?api=1&query=雪国館+湯沢町	9	100
-ORANGE	OL-10	Shosenkaku Kagetsu Hotel	松泉閣花月	松泉閣花月	松泉阁花月	쇼센카쿠 카게츠	https://www.google.com/maps/search/?api=1&query=松泉閣花月+湯沢町	10	100
-ORANGE	OL-11	Echigo-Yuzawa Sta. West Exit (Inamoto)	越後湯沢駅西口(いなもと前)	越後湯澤站西口(稻本前)	越后汤泽站西口(稻本前)	에치고유자와역 서쪽 출구 (이나모토 앞)	https://www.google.com/maps/search/?api=1&query=湯沢温泉通+いなもと前	11	100
-ORANGE	OL-12	Lions Mansion No. 3	ライオンズ第3	獅子公寓第3棟	狮子公寓第3栋	라이온스 맨션 제3	https://www.google.com/maps/search/?api=1&query=ライオンズマンション越後湯沢第3	12	100
-ISHIUCHI_DIRECT	IM-01	Ishiuchi Maruyama (Resort Center)	石打丸山(中央口リゾートセンター)	石打丸山(中央口度假中心)	石打丸山(中央口度假中心)	이시우치 마루야마 (중앙구 리조트 센터)	https://www.google.com/maps/search/?api=1&query=石打丸山スキー場+中央口	1	0
-ISHIUCHI_DIRECT	IM-02	Hatsukaishi Entrance	ハツカ石口	初日石口	初日石口	하츠카이시 입구	https://www.google.com/maps/search/?api=1&query=石打ハツカ石口	2	0
-ISHIUCHI_DIRECT	IM-03	Echigo-Yuzawa Sta. East Exit	越後湯沢駅東口	越後湯澤站東口	越后汤泽站东口	에치고유자와역 동쪽 출구	https://www.google.com/maps/search/?api=1&query=越後湯沢駅東口	3	0
-ISHIUCHI_LOOP	IM-04	Yung Parnas (Spa)	ユングパルナス	Yung Parnas溫泉飯店	Yung Parnas温泉饭店	융파르나스	https://www.google.com/maps/search/?api=1&query=ユングパルナス	4	0
-ISHIUCHI_LOOP	IM-05	Ishiuchi North Entrance	北口(観光口)	北口(觀光口)	北口(观光口)	북구 (관광구)	https://www.google.com/maps/search/?api=1&query=石打丸山スキー場+北口	5	0
-ISHIUCHI_LOOP	IM-06	Resort Center Annex	アネックス	附屬館 (Annex)	附属馆 (Annex)	리조트 센터 별관	https://www.google.com/maps/search/?api=1&query=石打丸山+アネックス	6	0
-ISHIUCHI_NIGHT	IM-01	Ishiuchi Maruyama Resort Center	中央口リゾートセンター	中央口度假中心	中央口度假中心	이시우치-마루ヤ마-리조트센터	https://www.google.com/maps/search/?api=1&query=石打丸山リゾートセンター	1	0
-ISHIUCHI_NIGHT	IM-02	Hatsukaishi-guchi	ハツカ石口	初卡石口	初卡石口	하츠카이시구치	https://www.google.com/maps/search/?api=1&query=石打丸山スキー場+ハツカ石口	2	0
-ISHIUCHI_NIGHT	IM-03	Echigo-Yuzawa Sta. East Exit	越後湯沢駅(東口)	越後湯澤站(東口)	越后汤泽站(东口)	에치고유자와역-동구	https://www.google.com/maps/search/?api=1&query=越後湯沢駅東口+シャトルバスのりば	3	0
-IWAHARA	IW-01	Echigo-Yuzawa Sta. East Exit Info Desk	越後湯沢駅東口案内所	越後湯澤站東口諮詢處	越后汤泽站东口问讯处	에치고유자와역-동구안내소	https://www.google.com/maps/search/?api=1&query=越後湯沢駅東口案内所	1	0
-IWAHARA	IW-02	Iwappara Sanroku Resort Center 1	岩原山麓 リゾートセンター1	岩原山麓度假中心1	岩原山麓度假中心1	이와파라-산로쿠-리조트센터1	https://www.google.com/maps/search/?api=1&query=岩原スキー場+リゾートセンター1	2	0
-IWAHARA	IW-03	Iwappara Chufuku Resort Center 2	岩原中腹 リゾートセンター2	岩原中腹度假中心2	岩原中腹度假中心2	이와파라-추후쿠-리조트센터2	https://www.google.com/maps/search/?api=1&query=岩原スキー場+リゾートセンター2	3	0
-IWAHARA_JOKOKU	IW-03	Iwappara Chufuku Resort Center 2	岩原中腹 リゾートセンター2	岩原中腹度假中心2	岩原中腹度假中心2	이와파라-추후쿠-리조트센터2	https://www.google.com/maps/search/?api=1&query=岩原スキー場+リゾートセンター2	1	0
-IWAHARA_JOKOKU	IW-02	Iwappara Sanroku Resort Center 1	岩原山麓 リゾートセンター1	岩原山麓度假中心1	岩原山麓度假中心1	이와파라-산로쿠-리조트센터1	https://www.google.com/maps/search/?api=1&query=岩原スキー場+リゾートセンター1	2	0
-IWAHARA_JOKOKU	IW-05	Yuzawa Denkiya	湯沢湯沢でんき屋	湯澤湯澤電器屋	汤泽汤泽电器屋	유자와-덴키야	https://www.google.com/maps/search/?api=1&query=越後湯沢温泉+ホテル湯沢湯沢でんき屋	3	0
-IWAHARA_JOKOKU	IW-06	Famille Villa No. 2	ファミールヴィラ第2	Famille Villa第2	Famille Villa第2	파밀-빌라-제2	https://www.google.com/maps/search/?api=1&query=ファミールヴィラ越後湯沢弐番館	4	0
-IWAHARA_JOKOKU	IW-07	White Plaza Yuzawa	ホワイトプラザ湯沢	White Plaza湯澤	White Plaza汤泽	화이트-플라자-유자와	https://www.google.com/maps/search/?api=1&query=ホワイトプラザ湯沢岩原	5	0
-IWAHARA_JOKOKU	IW-08	Kyu Est Club Iwappara	旧エストクラブ岩原	舊Est Club岩原	旧Est Club岩原	구-에스트클럽-이와파라	https://www.google.com/maps/search/?api=1&query=エストクラブ岩原	6	0
-IWAHARA_JOKOKU	IW-01	Echigo-Yuzawa Sta. East Exit Info Desk	越後湯沢駅東口案内所	越後湯澤站東口諮詢處	越后汤泽站东口问讯处	에치고유자와역-동구안내소	https://www.google.com/maps/search/?api=1&query=越後湯沢駅東口案内所	7	0
-IWAHARA_JOKOKU	IW-04	Joetsu Kokusai Ski Resort Sta.	上越国際スキー場駅	上越國際滑雪場站	上越国际滑雪场站	조에츠코쿠사이-스키장역	https://www.google.com/maps/search/?api=1&query=上越国際スキー場駅	8	0
-IWAHARA_LOOP_A	IW-09	Former Sporia	旧スポーリア	舊Sporia	旧Sporia	구 스포리아	https://www.google.com/maps/search/?api=1&query=スポーリア湯沢	4	0
-IWAHARA_LOOP_A	IW-10	Lions Mansion III	ライオンズマンションIII	獅子公寓III	狮子公寓III	라이온즈 맨션 3	https://www.google.com/maps/search/?api=1&query=ライオンズマンション第3	5	0
-IWAHARA_LOOP_A	IW-11	Echigo no Yado Inamoto	越後の宿 いなもと	越後之宿 稻本	越后之宿 稻本	에치고노야도 이나모토	https://www.google.com/maps/search/?api=1&query=越後の宿+いなもと	6	0
-IWAHARA_LOOP_A	IW-12	History & Folklore Museum	歴史民俗資料館	歷史民俗資料館	历史民俗资料馆	역사 민속 자료관	https://www.google.com/maps/search/?api=1&query=湯沢町歴史民俗資料館+雪国館	7	0
-IWAHARA_LOOP_B	IW-13	Oshita Ryokan	大下旅館	大下旅館	大下旅馆	오시타 료칸	https://www.google.com/maps/search/?api=1&query=大下旅館	8	0
-IWAHARA_LOOP_B	IW-14	Foret 1	フォーレ1	Foret 1	Foret 1	포레 1	https://www.google.com/maps/search/?api=1&query=フォーレ1	10	0
-IWAHARA_LOOP_B	IW-15	Angel Plage	エンゼルプラージュ	Angel Plage	Angel Plage	엔젤 플라주	https://www.google.com/maps/search/?api=1&query=エンゼルプラージュ	11	0
-IWAHARA_LOOP_B	IW-16	Angel Grandia	エンゼルグランディア	Angel Grandia	Angel Grandia	엔젤 그란디아	https://www.google.com/maps/search/?api=1&query=エンゼルグランディア越後中里	12	0
-IWAHARA_LOOP_B	IW-17	Nakazato Sta. Intersection	中里駅前十字路	中里站前十字路	中里站前十字路	나카자토역 앞 사거리	https://www.google.com/maps/search/?api=1&query=越後中里駅	13	0
-IWAHARA_LOOP_B	IW-18	Watashi no Uchi Nakaya	私の家中屋	我的家中屋	我的家中屋	와타시노우치 나카야	https://www.google.com/maps/search/?api=1&query=私の家中屋	14	0
-NAKASATO	NK-01	Echigo-Yuzawa Sta. West Exit (Angel Grandia Desk)	越後湯沢駅西口(エンゼルグランディア案内所)	越後湯澤站西口(天使格蘭帝亞諮詢處)	越后汤泽站西口(天使格兰帝亚问讯处)	에치고유자와역-서구(엔젤그란디아-안내소)	https://www.google.com/maps/search/?api=1&query=エンゼルグランディア越後中里+シャトルバス案内所	1	0
-NAKASATO	NK-02	Yuzawa Nakasato Snow Resort (Echigo-Nakasato Sta. West Exit)	湯沢中里スノーリゾート(越後中里駅西口)	湯澤中里滑雪度假村(越後中里站西口)	汤泽中里滑雪度假村(越后中里站西口)	유자와-나카사토-스노우리조트(에치고나카사토역-서구)	https://www.google.com/maps/search/?api=1&query=越後中里駅西口+湯沢中里スノーリゾート	2	0
-CHATEAU_YUZAWA	CS-01	Echigo-Yuzawa Sta.	越後湯沢駅	越後湯澤站	越后汤泽站	에치고유자와역	https://www.google.com/maps/search/?api=1&query=越後湯沢駅	1	0
-CHATEAU_YUZAWA	CS-02	Chateau-tel Ipponsugi	シャトーテル一本杉	Chateau-tel一本杉	Chateau-tel一本杉	샤토텔 잇폰스기	https://www.google.com/maps/search/?api=1&query=シャトーテル一本杉	2	0
-CHATEAU_YUZAWA	CS-03	Chateau-tel Yoshisato	シャトーテル吉里	Chateau-tel吉里	Chateau-tel吉里	샤토텔 요시사토	https://www.google.com/maps/search/?api=1&query=シャトーテル吉里	3	0
-CHATEAU_SHIOZAWA	CS-04	Shiozawa Sta.	塩沢駅	塩沢站	盐泽站	시오자와역	https://www.google.com/maps/search/?api=1&query=塩沢駅	1	0
-CHATEAU_SHIOZAWA	CS-03	Chateau-tel Yoshisato	シャトーテル吉里	Chateau-tel吉里	Chateau-tel吉里	샤토텔 요시사토	https://www.google.com/maps/search/?api=1&query=シャトーテル吉里	2	0
-CHATEAU_SHIOZAWA	CS-02	Chateau-tel Ipponsugi	シャトーテル一本杉	Chateau-tel一本杉	Chateau-tel一本杉	샤토텔 잇폰스기	https://www.google.com/maps/search/?api=1&query=シャトーテル一本杉	3	0
-KAGURA_NAEBA	KG-01	Echigo-Yuzawa Sta. East Exit	越後湯沢駅	越後湯澤站	越后汤泽站	에치고유자와역	https://www.google.com/maps/search/?api=1&query=越後湯沢駅東口	1	0
-KAGURA_NAEBA	KG-02	Kagura Mitsumata Ski Resort	かぐら三俣スキー場	Kagura三俣滑雪場	Kagura三俣滑雪场	카구라 미츠마타 스키장	https://www.google.com/maps/search/?api=1&query=かぐらスキー場+みつまたステーション	2	0
-KAGURA_NAEBA	KG-03	Kaikake Onsen	貝掛温泉	貝掛溫泉	贝挂温泉	카이카케 온천	https://www.google.com/maps/search/?api=1&query=貝掛温泉	3	0
-KAGURA_NAEBA	KG-04	Futai Tashiro Ski Resort (Hwy)	二居田代スキー場前	二居田代滑雪場前	二居田代滑雪场前	후타이 타시로 스키장 앞	https://www.google.com/maps/search/?api=1&query=二居田代スキー場前	4	0
-KAGURA_NAEBA	KG-05	Tashiro Ski Resort (Rotary)	田代スキー場	田代滑雪場	田代滑雪场	타시로 스키장	https://www.google.com/maps/search/?api=1&query=かぐらスキー場+田代ステーション	5	0
-KAGURA_NAEBA	KG-06	Naeba Ski Resort	苗場スキー場	苗場滑雪場	苗场滑雪场	나에바 스키장	https://www.google.com/maps/search/?api=1&query=苗場スキー場	6	0
-KAGURA_NAEBA	KG-07	Seibu Villa Entrance	西武ヴィラ入口	西武別墅入口	西武别墅入口	세이부 빌라 입구	https://www.google.com/maps/search/?api=1&query=西武ヴィラ入口	7	0
-KAGURA_NAEBA	KG-08	Naeba Prince Hotel	苗場プリンスホテル	苗場王子大飯店	苗场王子大饭店	나에바 프린스 호텔	https://www.google.com/maps/search/?api=1&query=苗場プリンスホテル	8	0
-KAGURA_NAEBA	KG-09	Seibu Crystal	西武クリスタル	西武水晶	西武水晶	세이부 크리스탈	https://www.google.com/maps/search/?api=1&query=西武クリスタル	9	0
-MAIKO_HOTEL	MK-01	Echigo-Yuzawa Sta. East Exit	越後湯沢駅東口	越後湯澤站東口	越后汤泽站东口	에치고유자와역-동구	https://www.google.com/maps/search/?api=1&query=越後湯沢駅東口+舞子シャトルバスのりば	1	0
-MAIKO_HOTEL	MK-02	Kadoya Rental-mae	レンタルかどや前	Kadoya雪具店前	Kadoya雪具店前	렌탈-카도야-앞	https://www.google.com/maps/search/?api=1&query=レンタルかどや+南魚沼市	2	0
-MAIKO_HOTEL	MK-03	Maiko Parking	舞子パーキング	舞子停車場	舞子停车场	마이코-주차장	https://www.google.com/maps/search/?api=1&query=舞子パーキング+南魚沼市	3	0
-MAIKO_HOTEL	MK-04	Maiko Kogen Hotel	舞子高原ホテル	舞子高原飯店	舞子高原饭店	마이코-코겐-호텔	https://www.google.com/maps/search/?api=1&query=舞子高原ホテル	4	0
-MAIKO_DIRECT	MK-01	Echigo-Yuzawa Sta. East Exit	越後湯沢駅東口	越後湯澤站東口	越后汤泽站东口	에치고유자와역-동구	https://www.google.com/maps/search/?api=1&query=越後湯沢駅東口+舞子シャトルバスのりば	1	0
-MAIKO_DIRECT	MK-05	Maiko Day Ski Center (Gondola)	日帰りスキーセンター	日帰り滑雪中心	日归滑雪中心	당일치기-스키센터(곤돌라)	https://www.google.com/maps/search/?api=1&query=舞子スノーリゾート+日帰りスキーセンター	2	0
-MAIKO_CONNECTION	MK-02	Maiko Day Trip Ski Center	舞子日帰りスキーセンター	舞子一日遊滑雪中心	舞子一日游滑雪中心	마이코 당일치기 스키 센터	https://www.google.com/maps/search/?api=1&query=舞子スノーリゾート+日帰りスキーセンター	1	0
-MAIKO_CONNECTION	MK-03	Maiko Kogen Hotel	舞子高原ホテル	舞子高原飯店	舞子高原饭店	마이코 고원 호텔	https://www.google.com/maps/search/?api=1&query=舞子高原ホテル	2	0
-MUICA	MC-01	Muikamachi Sta. East Exit	六日町駅東口	六日町站東口	六日町站东口	무이카마치역-동구	https://www.google.com/maps/search/?api=1&query=六日町駅東口	1	0
-MUICA	MC-02	Muica Snow Resort (Hotel Main Entrance)	ムイカスノーリゾート(正面玄関前)	Muica滑雪度假村(正面大門前)	Muica滑雪度假村(正面大门前)	무이카-스노우리조트(정문-앞)	https://www.google.com/maps/search/?api=1&query=むいか温泉ホテル+正面玄関	2	0
+Schedule_ID	Route_Code	Stop_ID	Trip_Number	Direction	Operating_Days	Departure_Time
+IMS-01	ISHIUCHI_DIRECT	IM-01	1	Outbound_Loop	Daily	7:20
+IMS-02	ISHIUCHI_DIRECT	IM-03	1	To_Resort	Daily	7:35
+IMS-03	ISHIUCHI_DIRECT	IM-01	2	Outbound_Loop	Daily	8:05
+IMS-04	ISHIUCHI_DIRECT	IM-03	2	To_Resort	Daily	8:20
+IMS-05	ISHIUCHI_DIRECT	IM-01	3	Outbound_Loop	Daily	9:00
+IMS-06	ISHIUCHI_DIRECT	IM-03	3	To_Resort	Daily	9:15
+IMS-07	ISHIUCHI_DIRECT	IM-01	4	Outbound_Loop	Daily	9:40
+IMS-08	ISHIUCHI_DIRECT	IM-03	4	To_Resort	Daily	9:55
+IMS-09	ISHIUCHI_DIRECT	IM-01	5	Outbound_Loop	Daily	10:15
+IMS-10	ISHIUCHI_DIRECT	IM-03	5	To_Resort	Daily	10:30
+IMS-11	ISHIUCHI_DIRECT	IM-01	6	Outbound_Loop	Daily	11:25
+IMS-12	ISHIUCHI_DIRECT	IM-03	6	To_Resort	Daily	11:40
+IMS-13	ISHIUCHI_DIRECT	IM-01	7	To_Station	Daily	13:30
+IMS-14	ISHIUCHI_DIRECT	IM-03	7	To_Resort	Daily	13:47
+IMS-15	ISHIUCHI_DIRECT	IM-01	8	To_Station	Daily	14:45
+IMS-16	ISHIUCHI_DIRECT	IM-03	8	To_Resort	Daily	15:02
+IMS-17	ISHIUCHI_DIRECT	IM-01	9	To_Station	Daily	15:40
+IMS-18	ISHIUCHI_DIRECT	IM-03	9	To_Resort	Daily	15:57
+IMS-19	ISHIUCHI_DIRECT	IM-01	10	To_Station	Daily	16:35
+IMS-20	ISHIUCHI_DIRECT	IM-03	10	To_Resort	Daily	16:52
+IMS-21	ISHIUCHI_DIRECT	IM-01	11	To_Station	Daily	17:30
+IMS-22	ISHIUCHI_DIRECT	IM-03	11	To_Resort	Daily	17:47
+IML-01	ISHIUCHI_LOOP	IM-01	1	Loop	Daily	8:15
+IML-02	ISHIUCHI_LOOP	IM-01	2	Loop	Daily	9:00
+IML-03	ISHIUCHI_LOOP	IM-01	3	Loop	Daily	9:45
+IML-04	ISHIUCHI_LOOP	IM-01	4	Loop	Daily	10:30
+IML-05	ISHIUCHI_LOOP	IM-01	5	Loop	Daily	11:10
+IML-06	ISHIUCHI_LOOP	IM-01	6	Loop	Daily	13:00
+IML-07	ISHIUCHI_LOOP	IM-01	7	Loop	Daily	14:00
+IML-08	ISHIUCHI_LOOP	IM-01	8	Loop	Daily	14:55
+IML-09	ISHIUCHI_LOOP	IM-01	9	Loop	Daily	15:40
+IML-10	ISHIUCHI_LOOP	IM-01	10	Loop	Daily	16:25
+IMN-01	ISHIUCHI_NIGHT	IM-01	1	To_Station	Night_Ski_Days	18:20
+IMN-02	ISHIUCHI_NIGHT	IM-01	2	To_Station	Night_Ski_Days	19:20
+IMN-03	ISHIUCHI_NIGHT	IM-01	3	To_Station	Night_Ski_Days	20:20
+IWS-01	IWAHARA	IW-01	1	To_Resort	Weekday	7:45
+IWS-02	IWAHARA	IW-01	2	To_Resort	Weekday	8:15
+IWS-03	IWAHARA	IW-01	3	To_Resort	Weekday	8:45
+IWS-04	IWAHARA	IW-01	4	To_Resort	Weekday	9:15
+IWS-05	IWAHARA	IW-01	5	To_Resort	Weekday	10:00
+IWS-06	IWAHARA	IW-01	6	To_Resort	Weekday	13:00
+IWS-07	IWAHARA	IW-01	7	To_Resort	Weekday	14:00
+IWS-08	IWAHARA	IW-01	8	To_Resort	Weekday	15:00
+IWS-09	IWAHARA	IW-01	9	To_Resort	Weekday	17:15
+IWS-10	IWAHARA	IW-03	1	To_Station	Weekday	9:40
+IWS-11	IWAHARA	IW-03	2	To_Station	Weekday	13:30
+IWS-12	IWAHARA	IW-03	3	To_Station	Weekday	14:30
+IWS-13	IWAHARA	IW-03	4	To_Station	Weekday	15:30
+IWS-14	IWAHARA	IW-03	5	To_Station	Weekday	16:00
+IWS-15	IWAHARA	IW-03	6	To_Station	Weekday	16:30
+IWS-16	IWAHARA	IW-03	7	To_Station	Weekday	17:00
+IWS-17	IWAHARA	IW-03	8	To_Station	Weekday	17:30
+IWS-18	IWAHARA	IW-01	1	To_Resort	Weekend/Holiday	7:40
+IWS-19	IWAHARA	IW-01	2	To_Resort	Weekend/Holiday	8:00
+IWS-20	IWAHARA	IW-01	3	To_Resort	Weekend/Holiday	8:30
+IWS-21	IWAHARA	IW-01	4	To_Resort	Weekend/Holiday	9:00
+IWS-22	IWAHARA	IW-01	5	To_Resort	Weekend/Holiday	9:20
+IWS-23	IWAHARA	IW-01	6	To_Resort	Weekend/Holiday	9:40
+IWS-24	IWAHARA	IW-01	7	To_Resort	Weekend/Holiday	10:00
+IWS-25	IWAHARA	IW-01	8	To_Resort	Weekend/Holiday	10:40
+IWS-26	IWAHARA	IW-01	9	To_Resort	Weekend/Holiday	11:10
+IWS-27	IWAHARA	IW-01	10	To_Resort	Weekend/Holiday	12:00
+IWS-28	IWAHARA	IW-01	11	To_Resort	Weekend/Holiday	12:40
+IWS-29	IWAHARA	IW-01	12	To_Resort	Weekend/Holiday	13:40
+IWS-30	IWAHARA	IW-01	13	To_Resort	Weekend/Holiday	14:40
+IWS-31	IWAHARA	IW-01	14	To_Resort	Weekend/Holiday	15:40
+IWS-32	IWAHARA	IW-01	15	To_Resort	Weekend/Holiday	16:40
+IWS-33	IWAHARA	IW-01	16	To_Resort	Weekend/Holiday	17:40
+IWS-34	IWAHARA	IW-03	1	To_Station	Weekend/Holiday	9:40
+IWS-35	IWAHARA	IW-03	2	To_Station	Weekend/Holiday	10:20
+IWS-36	IWAHARA	IW-03	3	To_Station	Weekend/Holiday	11:00
+IWS-37	IWAHARA	IW-03	4	To_Station	Weekend/Holiday	11:40
+IWS-38	IWAHARA	IW-03	5	To_Station	Weekend/Holiday	12:20
+IWS-39	IWAHARA	IW-03	6	To_Station	Weekend/Holiday	13:20
+IWS-40	IWAHARA	IW-03	7	To_Station	Weekend/Holiday	14:00
+IWS-41	IWAHARA	IW-03	8	To_Station	Weekend/Holiday	14:20
+IWS-42	IWAHARA	IW-03	9	To_Station	Weekend/Holiday	15:00
+IWS-43	IWAHARA	IW-03	10	To_Station	Weekend/Holiday	15:20
+IWS-44	IWAHARA	IW-03	11	To_Station	Weekend/Holiday	16:00
+IWS-45	IWAHARA	IW-03	12	To_Station	Weekend/Holiday	16:20
+IWS-46	IWAHARA	IW-03	13	To_Station	Weekend/Holiday	17:00
+IWS-47	IWAHARA	IW-03	14	To_Station	Weekend/Holiday	17:20
+IWS-48	IWAHARA	IW-03	15	To_Station	Weekend/Holiday	18:20
+IWJ-01	IWAHARA_JOKOKU	IW-05	1	To_Joetsu_Kokusai	Daily_Reservation	8:20
+IWJ-02	IWAHARA_JOKOKU	IW-03	2	To_Joetsu_Kokusai	Daily_Reservation	9:45
+IWJ-03	IWAHARA_JOKOKU	IW-03	3	To_Joetsu_Kokusai	Daily_Direct	16:10
+IWJ-04	IWAHARA_JOKOKU	IW-03	4	To_Joetsu_Kokusai	Weekend_Holiday_Only	17:40
+IWJ-05	IWAHARA_JOKOKU	IW-04	1	To_Iwappara	Daily_Direct	9:10
+IWJ-06	IWAHARA_JOKOKU	IW-04	2	To_Iwappara	Daily_Reservation	15:30
+IWJ-07	IWAHARA_JOKOKU	IW-04	3	To_Iwappara	Weekend_Holiday_Only	17:00
+NKS-01	NAKASATO	NK-01	1	To_Resort	Daily	8:00
+NKS-02	NAKASATO	NK-01	2	To_Resort	Daily	8:20
+NKS-03	NAKASATO	NK-01	3	To_Resort	Daily	8:40
+NKS-04	NAKASATO	NK-01	4	To_Resort	Daily	9:00
+NKS-05	NAKASATO	NK-01	5	To_Resort	Daily	9:20
+NKS-06	NAKASATO	NK-01	6	To_Resort	Daily	9:40
+NKS-07	NAKASATO	NK-01	7	To_Resort	Daily	10:00
+NKS-08	NAKASATO	NK-01	8	To_Resort	Daily	10:20
+NKS-09	NAKASATO	NK-01	9	To_Resort	Daily	10:40
+NKS-10	NAKASATO	NK-01	10	To_Resort	Daily	11:00
+NKS-11	NAKASATO	NK-01	11	To_Resort	Daily	11:20
+NKS-12	NAKASATO	NK-01	12	To_Resort	Daily	11:40
+NKS-13	NAKASATO	NK-01	13	To_Resort	Daily	13:00
+NKS-14	NAKASATO	NK-01	14	To_Resort	Daily	13:20
+NKS-15	NAKASATO	NK-01	15	To_Resort	Daily	13:40
+NKS-16	NAKASATO	NK-01	16	To_Resort	Daily	14:00
+NKS-17	NAKASATO	NK-01	17	To_Resort	Daily	14:20
+NKS-18	NAKASATO	NK-01	18	To_Resort	Daily	14:40
+NKS-19	NAKASATO	NK-01	19	To_Resort	Daily	15:00
+NKS-20	NAKASATO	NK-01	20	To_Resort	Daily	15:20
+NKS-21	NAKASATO	NK-01	21	To_Resort	Daily	15:40
+NKS-22	NAKASATO	NK-01	22	To_Resort	Daily	16:00
+NKS-23	NAKASATO	NK-01	23	To_Resort	Daily	16:20
+NKS-24	NAKASATO	NK-01	24	To_Resort	Daily	16:40
+NKS-25	NAKASATO	NK-01	25	To_Resort	Daily	17:00
+NKS-26	NAKASATO	NK-02	1	To_Station	Daily	9:50
+NKS-27	NAKASATO	NK-02	2	To_Station	Daily	10:10
+NKS-28	NAKASATO	NK-02	3	To_Station	Daily	10:30
+NKS-29	NAKASATO	NK-02	4	To_Station	Daily	10:50
+NKS-30	NAKASATO	NK-02	5	To_Station	Daily	11:10
+NKS-31	NAKASATO	NK-02	6	To_Station	Daily	12:30
+NKS-32	NAKASATO	NK-02	7	To_Station	Daily	12:50
+NKS-33	NAKASATO	NK-02	8	To_Station	Daily	13:10
+NKS-34	NAKASATO	NK-02	9	To_Station	Daily	13:30
+NKS-35	NAKASATO	NK-02	10	To_Station	Daily	13:50
+NKS-36	NAKASATO	NK-02	11	To_Station	Daily	14:10
+NKS-37	NAKASATO	NK-02	12	To_Station	Daily	14:30
+NKS-38	NAKASATO	NK-02	13	To_Station	Daily	14:50
+NKS-39	NAKASATO	NK-02	14	To_Station	Daily	15:10
+NKS-40	NAKASATO	NK-02	15	To_Station	Daily	15:30
+NKS-41	NAKASATO	NK-02	16	To_Station	Daily	15:50
+NKS-42	NAKASATO	NK-02	17	To_Station	Daily	16:10
+NKS-43	NAKASATO	NK-02	18	To_Station	Daily	16:30
+NKS-44	NAKASATO	NK-02	19	To_Station	Daily	16:50
+NKS-45	NAKASATO	NK-02	20	To_Station	Daily	17:10
+NKS-46	NAKASATO	NK-02	21	To_Station	Daily	17:30
+CSS-01	CHATEAU_SHIOZAWA	CS-01	1	To_Resort	Daily_Guests_Only	9:00
+CSS-02	CHATEAU_SHIOZAWA	CS-01	2	To_Resort	Daily_Guests_Only	9:30
+CSS-03	CHATEAU_SHIOZAWA	CS-01	3	To_Resort	Daily_Guests_Only	10:00
+CSS-04	CHATEAU_SHIOZAWA	CS-01	4	To_Resort	Daily_Guests_Only	11:00
+CSS-05	CHATEAU_SHIOZAWA	CS-02	1	To_Resort	Daily_Guests_Only	11:50
+CSS-06	CHATEAU_SHIOZAWA	CS-02	2	To_Resort	Daily_Guests_Only	12:40
+CSS-07	CHATEAU_SHIOZAWA	CS-02	3	To_Resort	Daily_Guests_Only	13:40
+CSS-08	CHATEAU_SHIOZAWA	CS-02	4	To_Resort	Daily_Guests_Only	14:40
+CSS-09	CHATEAU_SHIOZAWA	CS-02	5	To_Resort	Daily_Guests_Only	15:40
+CSS-10	CHATEAU_SHIOZAWA	CS-02	6	To_Resort	Daily_Guests_Only	16:30
+CSS-11	CHATEAU_SHIOZAWA	CS-02	7	To_Resort	Daily_Guests_Only	17:30
+CSS-12	CHATEAU_SHIOZAWA	CS-03	1	To_Shiozawa_Sta	Daily_Guests_Only	9:00
+CSS-13	CHATEAU_SHIOZAWA	CS-04	1	To_Shiozawa_Sta	Daily_Guests_Only	9:10
+CSS-14	CHATEAU_SHIOZAWA	CS-03	2	To_Shiozawa_Sta	Daily_Guests_Only	10:00
+CSS-15	CHATEAU_SHIOZAWA	CS-04	2	To_Shiozawa_Sta	Daily_Guests_Only	10:10
+CSS-16	CHATEAU_SHIOZAWA	CS-03	3	To_Shiozawa_Sta	Daily_Guests_Only	11:00
+CSS-17	CHATEAU_SHIOZAWA	CS-04	3	To_Shiozawa_Sta	Daily_Guests_Only	11:10
+CSS-18	CHATEAU_SHIOZAWA	CS-03	4	To_Shiozawa_Sta	Daily_Guests_Only	12:00
+CSS-19	CHATEAU_SHIOZAWA	CS-04	4	To_Shiozawa_Sta	Daily_Guests_Only	12:10
+CSS-20	CHATEAU_SHIOZAWA	CS-03	5	To_Yuzawa_Sta	Daily_Guests_Only	14:20
+CSS-21	CHATEAU_SHIOZAWA	CS-04	5	To_Yuzawa_Sta	Daily_Guests_Only	14:30
+CSS-22	CHATEAU_SHIOZAWA	CS-03	6	To_Yuzawa_Sta	Daily_Guests_Only	15:20
+CSS-23	CHATEAU_SHIOZAWA	CS-04	6	To_Yuzawa_Sta	Daily_Guests_Only	15:30
+CSS-24	CHATEAU_SHIOZAWA	CS-03	7	To_Yuzawa_Sta	Daily_Guests_Only	16:10
+CSS-25	CHATEAU_SHIOZAWA	CS-04	7	To_Yuzawa_Sta	Daily_Guests_Only	16:20
+CSS-26	CHATEAU_SHIOZAWA	CS-03	8	To_Yuzawa_Sta	Daily_Guests_Only	16:50
+CSS-27	CHATEAU_SHIOZAWA	CS-04	8	To_Yuzawa_Sta	Daily_Guests_Only	17:00
+CSS-28	CHATEAU_SHIOZAWA	CS-03	9	To_Yuzawa_Sta	Daily_Guests_Only	17:20
+CSS-29	CHATEAU_SHIOZAWA	CS-04	9	To_Station	Daily_Guests_Only	17:30
+KNS-01	KAGURA_LOCAL	KN-01	1	To_Naeba	Daily	5:35
+KNS-02	KAGURA_EXPRESS	KN-01	2	To_Naeba	Weekday	7:40
+KNS-03	KAGURA_EXPRESS	KN-01	2	To_Naeba	Weekend/Holiday	7:40
+KNS-04	KAGURA_LOCAL	KN-01	3	To_Naeba	Daily	8:20
+KNS-05	KAGURA_EXPRESS	KN-01	4	To_Naeba	Daily	8:40
+KNS-06	KAGURA_EXPRESS	KN-01	5	To_Naeba	Weekend/Holiday	9:10
+KNS-07	KAGURA_LOCAL	KN-01	6	To_Naeba	Daily	9:40
+KNS-08	KAGURA_EXPRESS	KN-01	7	To_Naeba	Weekend/Holiday	10:00
+KNS-09	KAGURA_EXPRESS	KN-01	8	To_Naeba	Daily	11:00
+KNS-10	KAGURA_LOCAL	KN-01	9	To_Naeba	Daily	11:50
+KNS-11	KAGURA_LOCAL	KN-01	10	To_Naeba	Daily	13:10
+KNS-12	KAGURA_EXPRESS	KN-02	11	To_Naeba	Weekend/Holiday	15:33
+KNS-13	KAGURA_LOCAL	KN-01	12	To_Naeba	Daily	15:30
+KNS-14	KAGURA_EXPRESS	KN-02	13	To_Naeba	Daily	15:58
+KNS-15	KAGURA_EXPRESS	KN-02	14	To_Naeba	Weekend/Holiday	16:43
+KNS-16	KAGURA_LOCAL	KN-01	15	To_Naeba	Daily	17:15
+KNS-17	KAGURA_LOCAL	KN-01	16	To_Naeba	Daily	18:40
+KNS-18	KAGURA_LOCAL	KN-09	1	To_Station	Daily	6:20
+KNS-19	KAGURA_EXPRESS	KN-08	2	To_Station	Weekend/Holiday	8:35
+KNS-20	KAGURA_LOCAL	KN-09	3	To_Station	Daily	9:20
+KNS-21	KAGURA_EXPRESS	KN-08	4	To_Station	Daily	9:35
+KNS-22	KAGURA_EXPRESS	KN-08	5	To_Station	Weekend/Holiday	10:05
+KNS-23	KAGURA_LOCAL	KN-09	6	To_Station	Daily	10:40
+KNS-24	KAGURA_EXPRESS	KN-08	7	To_Station	Weekend/Holiday	10:55
+KNS-25	KAGURA_EXPRESS	KN-08	8	To_Station	Daily	11:55
+KNS-26	KAGURA_LOCAL	KN-09	9	To_Station	Daily	12:50
+KNS-27	KAGURA_LOCAL	KN-09	10	To_Station	Daily	14:10
+KNS-28	KAGURA_EXPRESS	KN-08	11	To_Station	Weekend/Holiday	14:40
+KNS-29	KAGURA_EXPRESS	KN-05	12	To_Station	Weekday	14:55
+KNS-30	KAGURA_EXPRESS	KN-08	13	To_Station	Weekend/Holiday	15:10
+KNS-31	KAGURA_EXPRESS	KN-08	14	To_Station	Weekend/Holiday	16:10
+KNS-32	KAGURA_EXPRESS	KN-05	15	To_Station	Weekday	16:25
+KNS-33	KAGURA_EXPRESS	KN-08	16	To_Station	Daily	16:35
+KNS-34	KAGURA_LOCAL	KN-09	17	To_Station	Daily	16:45
+KNS-35	KAGURA_EXPRESS	KN-08	18	To_Station	Weekend/Holiday	17:20
+KNS-36	KAGURA_LOCAL	KN-09	19	To_Station	Daily	18:15
+KNS-37	KAGURA_LOCAL	KN-09	20	To_Station	Daily	19:32
+MHS-01	MAIKO_HOTEL	MK-01	1	To_Hotel	Daily	8:10
+MHS-02	MAIKO_HOTEL	MK-04	1	To_Station	Daily	8:50
+MHS-03	MAIKO_HOTEL	MK-01	2	To_Hotel	Daily	9:30
+MHS-04	MAIKO_HOTEL	MK-01	3	To_Hotel	Daily	10:50
+MHS-05	MAIKO_HOTEL	MK-04	2	To_Station	Daily	10:10
+MHS-06	MAIKO_HOTEL	MK-04	3	To_Station	Daily	11:30
+MHS-07	MAIKO_HOTEL	MK-01	4	To_Hotel	Daily	12:10
+MHS-08	MAIKO_HOTEL	MK-04	4	To_Station	Daily	13:50
+MHS-09	MAIKO_HOTEL	MK-01	5	To_Hotel	Daily	14:30
+MHS-10	MAIKO_HOTEL	MK-04	5	To_Station	Daily	15:10
+MHS-11	MAIKO_HOTEL	MK-01	6	To_Hotel	Daily	15:50
+MHS-12	MAIKO_HOTEL	MK-04	6	To_Station	Daily	16:20
+MHS-13	MAIKO_HOTEL	MK-01	7	To_Hotel	Daily	17:00
+MHS-14	MAIKO_HOTEL	MK-04	7	To_Station	Daily	17:40
+MHS-15	MAIKO_HOTEL	MK-01	8	To_Hotel	Guests_Only_Reservation	18:20
+MHS-16	MAIKO_HOTEL	MK-04	8	To_Station	Night_Sun_Holiday	19:15
+MHS-17	MAIKO_HOTEL	MK-04	9	To_Station	Night_Sat_Special	20:15
+MDS-01	MAIKO_DIRECT	MK-01	1	To_Resort	Weekend/Holiday	7:50
+MDS-02	MAIKO_DIRECT	MK-01	2	To_Resort	Weekday	8:00
+MDS-03	MAIKO_DIRECT	MK-01	3	To_Resort	Daily	8:20
+MDS-04	MAIKO_DIRECT	MK-01	4	To_Resort	Daily	8:40
+MDS-05	MAIKO_DIRECT	MK-01	5	To_Resort	Daily	9:00
+MDS-06	MAIKO_DIRECT	MK-01	6	To_Resort	Daily	9:20
+MDS-07	MAIKO_DIRECT	MK-01	7	To_Resort	Daily	9:40
+MDS-08	MAIKO_DIRECT	MK-01	8	To_Resort	Weekend/Holiday	10:00
+MDS-09	MAIKO_DIRECT	MK-01	9	To_Resort	Daily	10:30
+MDS-10	MAIKO_DIRECT	MK-01	10	To_Resort	Daily	11:30
+MDS-11	MAIKO_DIRECT	MK-05	1	To_Station	Daily	13:30
+MDS-12	MAIKO_DIRECT	MK-05	2	To_Station	Daily	14:30
+MDS-13	MAIKO_DIRECT	MK-05	3	To_Station	Daily	15:30
+MDS-14	MAIKO_DIRECT	MK-05	4	To_Station	Daily	16:00
+MDS-15	MAIKO_DIRECT	MK-05	5	To_Station	Daily	16:20
+MDS-16	MAIKO_DIRECT	MK-05	6	To_Station	Daily	16:40
+MDS-17	MAIKO_DIRECT	MK-05	7	To_Station	Daily	17:00
+MDS-18	MAIKO_DIRECT	MK-05	8	To_Station	Daily	17:20
+MDS-19	MAIKO_DIRECT	MK-05	9	To_Station	Daily	17:40
+MDS-20	MAIKO_DIRECT	MK-05	10	To_Station	Weekend/Holiday	18:10
+MCS-01	MUICA	MC-01	1	To_Resort	Daily	8:50
+MCS-02	MUICA	MC-01	2	To_Resort	Daily	9:40
+MCS-03	MUICA	MC-01	3	To_Resort	Daily	11:10
+MCS-04	MUICA	MC-01	4	To_Resort	Daily	12:50
+MCS-05	MUICA	MC-01	5	To_Resort	Daily	13:50
+MCS-06	MUICA	MC-01	6	To_Resort	Daily	14:50
+MCS-07	MUICA	MC-01	7	To_Resort	Daily	15:50
+MCS-08	MUICA	MC-02	1	To_Station	Daily	8:25
+MCS-09	MUICA	MC-02	2	To_Station	Daily	9:10
+MCS-10	MUICA	MC-02	3	To_Station	Daily	10:30
+MCS-11	MUICA	MC-02	4	To_Station	Daily	12:10
+MCS-12	MUICA	MC-02	5	To_Station	Daily	13:05
+MCS-13	MUICA	MC-02	6	To_Station	Daily	14:20
+MCS-14	MUICA	MC-02	7	To_Station	Daily	15:05
+MCS-15	MUICA	MC-02	8	To_Station	Daily	16:05
+MCS-16	MUICA	MC-02	9	To_Station	Daily	17:00
+BLS-001	BLUE	BL-01	1	Loop	Daily	8:00
+BLS-002	BLUE	BL-02	1	Loop	Daily	8:01
+BLS-003	BLUE	BL-03	1	Loop	Daily	8:01
+BLS-004	BLUE	BL-04	1	Loop	Daily	8:02
+BLS-005	BLUE	BL-05	1	Loop	Daily	8:02
+BLS-006	BLUE	BL-06	1	Loop	Daily	8:02
+BLS-007	BLUE	BL-07	1	Loop	Daily	8:03
+BLS-008	BLUE	BL-08	1	Loop	Daily	8:04
+BLS-009	BLUE	BL-09	1	Loop	Daily	8:07
+BLS-010	BLUE	BL-10	1	Loop	Daily	8:20
+BLS-011	BLUE	BL-09	1	Loop	Daily	8:35
+BLS-012	BLUE	BL-08	1	Loop	Daily	8:36
+BLS-013	BLUE	BL-07	1	Loop	Daily	8:37
+BLS-014	BLUE	BL-11	1	Loop	Daily	8:40
+BLS-015	BLUE	BL-12	1	Loop	Daily	8:42
+BLS-016	BLUE	BL-02	1	Loop	Daily	8:42
+BLS-017	BLUE	BL-01	1	Loop	Daily	8:45
+BLS-018	BLUE	BL-01	2	Loop	Daily	8:30
+BLS-019	BLUE	BL-02	2	Loop	Daily	8:31
+BLS-020	BLUE	BL-03	2	Loop	Daily	8:31
+BLS-021	BLUE	BL-04	2	Loop	Daily	8:32
+BLS-022	BLUE	BL-05	2	Loop	Daily	8:32
+BLS-023	BLUE	BL-06	2	Loop	Daily	8:32
+BLS-024	BLUE	BL-07	2	Loop	Daily	8:33
+BLS-025	BLUE	BL-08	2	Loop	Daily	8:34
+BLS-026	BLUE	BL-09	2	Loop	Daily	8:37
+BLS-027	BLUE	BL-10	2	Loop	Daily	8:50
+BLS-028	BLUE	BL-09	2	Loop	Daily	9:05
+BLS-029	BLUE	BL-08	2	Loop	Daily	9:06
+BLS-030	BLUE	BL-07	2	Loop	Daily	9:07
+BLS-031	BLUE	BL-11	2	Loop	Daily	9:10
+BLS-032	BLUE	BL-12	2	Loop	Daily	9:12
+BLS-033	BLUE	BL-02	2	Loop	Daily	9:12
+BLS-034	BLUE	BL-01	2	Loop	Daily	9:15
+BLS-035	BLUE	BL-01	3	Loop	Daily	9:00
+BLS-036	BLUE	BL-02	3	Loop	Daily	9:01
+BLS-037	BLUE	BL-03	3	Loop	Daily	9:01
+BLS-038	BLUE	BL-04	3	Loop	Daily	9:02
+BLS-039	BLUE	BL-05	3	Loop	Daily	9:02
+BLS-040	BLUE	BL-06	3	Loop	Daily	9:02
+BLS-041	BLUE	BL-07	3	Loop	Daily	9:03
+BLS-042	BLUE	BL-08	3	Loop	Daily	9:04
+BLS-043	BLUE	BL-09	3	Loop	Daily	9:07
+BLS-044	BLUE	BL-10	3	Loop	Daily	9:20
+BLS-045	BLUE	BL-09	3	Loop	Daily	9:35
+BLS-046	BLUE	BL-08	3	Loop	Daily	9:36
+BLS-047	BLUE	BL-07	3	Loop	Daily	9:37
+BLS-048	BLUE	BL-11	3	Loop	Daily	9:40
+BLS-049	BLUE	BL-12	3	Loop	Daily	9:42
+BLS-050	BLUE	BL-02	3	Loop	Daily	9:42
+BLS-051	BLUE	BL-01	3	Loop	Daily	9:45
+BLS-052	BLUE	BL-01	4	Loop	Daily	9:30
+BLS-053	BLUE	BL-02	4	Loop	Daily	9:31
+BLS-054	BLUE	BL-03	4	Loop	Daily	9:31
+BLS-055	BLUE	BL-04	4	Loop	Daily	9:32
+BLS-056	BLUE	BL-05	4	Loop	Daily	9:32
+BLS-057	BLUE	BL-06	4	Loop	Daily	9:32
+BLS-058	BLUE	BL-07	4	Loop	Daily	9:33
+BLS-059	BLUE	BL-08	4	Loop	Daily	9:34
+BLS-060	BLUE	BL-09	4	Loop	Daily	9:37
+BLS-061	BLUE	BL-10	4	Loop	Daily	9:50
+BLS-062	BLUE	BL-09	4	Loop	Daily	10:05
+BLS-063	BLUE	BL-08	4	Loop	Daily	10:06
+BLS-064	BLUE	BL-07	4	Loop	Daily	10:07
+BLS-065	BLUE	BL-11	4	Loop	Daily	10:10
+BLS-066	BLUE	BL-12	4	Loop	Daily	10:12
+BLS-067	BLUE	BL-02	4	Loop	Daily	10:12
+BLS-068	BLUE	BL-01	4	Loop	Daily	10:15
+BLS-069	BLUE	BL-01	5	Loop	Daily	10:00
+BLS-070	BLUE	BL-02	5	Loop	Daily	10:01
+BLS-071	BLUE	BL-03	5	Loop	Daily	10:01
+BLS-072	BLUE	BL-04	5	Loop	Daily	10:02
+BLS-073	BLUE	BL-05	5	Loop	Daily	10:02
+BLS-074	BLUE	BL-06	5	Loop	Daily	10:02
+BLS-075	BLUE	BL-07	5	Loop	Daily	10:03
+BLS-076	BLUE	BL-08	5	Loop	Daily	10:04
+BLS-077	BLUE	BL-09	5	Loop	Daily	10:07
+BLS-078	BLUE	BL-10	5	Loop	Daily	10:20
+BLS-079	BLUE	BL-09	5	Loop	Daily	10:35
+BLS-080	BLUE	BL-08	5	Loop	Daily	10:36
+BLS-081	BLUE	BL-07	5	Loop	Daily	10:37
+BLS-082	BLUE	BL-11	5	Loop	Daily	10:40
+BLS-083	BLUE	BL-12	5	Loop	Daily	10:42
+BLS-084	BLUE	BL-02	5	Loop	Daily	10:42
+BLS-085	BLUE	BL-01	5	Loop	Daily	10:45
+BLS-086	BLUE	BL-01	6	Loop	Daily	10:30
+BLS-087	BLUE	BL-02	6	Loop	Daily	10:31
+BLS-088	BLUE	BL-03	6	Loop	Daily	10:31
+BLS-089	BLUE	BL-04	6	Loop	Daily	10:32
+BLS-090	BLUE	BL-05	6	Loop	Daily	10:32
+BLS-091	BLUE	BL-06	6	Loop	Daily	10:32
+BLS-092	BLUE	BL-07	6	Loop	Daily	10:33
+BLS-093	BLUE	BL-08	6	Loop	Daily	10:34
+BLS-094	BLUE	BL-09	6	Loop	Daily	10:37
+BLS-095	BLUE	BL-10	6	Loop	Daily	10:50
+BLS-096	BLUE	BL-09	6	Loop	Daily	11:05
+BLS-097	BLUE	BL-08	6	Loop	Daily	11:06
+BLS-098	BLUE	BL-07	6	Loop	Daily	11:07
+BLS-099	BLUE	BL-11	6	Loop	Daily	11:10
+BLS-100	BLUE	BL-12	6	Loop	Daily	11:12
+BLS-101	BLUE	BL-02	6	Loop	Daily	11:12
+BLS-102	BLUE	BL-01	6	Loop	Daily	11:15
+BLS-103	BLUE	BL-01	7	Loop	Daily	12:00
+BLS-104	BLUE	BL-02	7	Loop	Daily	12:01
+BLS-105	BLUE	BL-03	7	Loop	Daily	12:01
+BLS-106	BLUE	BL-04	7	Loop	Daily	12:02
+BLS-107	BLUE	BL-05	7	Loop	Daily	12:02
+BLS-108	BLUE	BL-06	7	Loop	Daily	12:02
+BLS-109	BLUE	BL-07	7	Loop	Daily	12:03
+BLS-110	BLUE	BL-08	7	Loop	Daily	12:04
+BLS-111	BLUE	BL-09	7	Loop	Daily	12:07
+BLS-112	BLUE	BL-10	7	Loop	Daily	12:20
+BLS-113	BLUE	BL-09	7	Loop	Daily	12:35
+BLS-114	BLUE	BL-08	7	Loop	Daily	12:36
+BLS-115	BLUE	BL-07	7	Loop	Daily	12:37
+BLS-116	BLUE	BL-11	7	Loop	Daily	12:40
+BLS-117	BLUE	BL-12	7	Loop	Daily	12:42
+BLS-118	BLUE	BL-02	7	Loop	Daily	12:42
+BLS-119	BLUE	BL-01	7	Loop	Daily	12:45
+BLS-120	BLUE	BL-01	8	Loop	Daily	13:30
+BLS-121	BLUE	BL-02	8	Loop	Daily	13:31
+BLS-122	BLUE	BL-03	8	Loop	Daily	13:31
+BLS-123	BLUE	BL-04	8	Loop	Daily	13:32
+BLS-124	BLUE	BL-05	8	Loop	Daily	13:32
+BLS-125	BLUE	BL-06	8	Loop	Daily	13:32
+BLS-126	BLUE	BL-07	8	Loop	Daily	13:33
+BLS-127	BLUE	BL-08	8	Loop	Daily	13:34
+BLS-128	BLUE	BL-09	8	Loop	Daily	13:37
+BLS-129	BLUE	BL-10	8	Loop	Daily	13:50
+BLS-130	BLUE	BL-09	8	Loop	Daily	14:05
+BLS-131	BLUE	BL-08	8	Loop	Daily	14:06
+BLS-132	BLUE	BL-07	8	Loop	Daily	14:07
+BLS-133	BLUE	BL-11	8	Loop	Daily	14:10
+BLS-134	BLUE	BL-12	8	Loop	Daily	14:12
+BLS-135	BLUE	BL-02	8	Loop	Daily	14:12
+BLS-136	BLUE	BL-01	8	Loop	Daily	14:15
+BLS-137	BLUE	BL-01	9	Loop	Daily	15:30
+BLS-138	BLUE	BL-02	9	Loop	Daily	15:31
+BLS-139	BLUE	BL-03	9	Loop	Daily	15:31
+BLS-140	BLUE	BL-04	9	Loop	Daily	15:32
+BLS-141	BLUE	BL-05	9	Loop	Daily	15:32
+BLS-142	BLUE	BL-06	9	Loop	Daily	15:32
+BLS-143	BLUE	BL-07	9	Loop	Daily	15:33
+BLS-144	BLUE	BL-08	9	Loop	Daily	15:34
+BLS-145	BLUE	BL-09	9	Loop	Daily	15:37
+BLS-146	BLUE	BL-10	9	Loop	Daily	15:50
+BLS-147	BLUE	BL-09	9	Loop	Daily	16:05
+BLS-148	BLUE	BL-08	9	Loop	Daily	16:06
+BLS-149	BLUE	BL-07	9	Loop	Daily	16:07
+BLS-150	BLUE	BL-11	9	Loop	Daily	16:10
+BLS-151	BLUE	BL-12	9	Loop	Daily	16:12
+BLS-152	BLUE	BL-02	9	Loop	Daily	16:12
+BLS-153	BLUE	BL-01	9	Loop	Daily	16:15
+BLS-154	BLUE	BL-01	10	Loop	Daily	16:00
+BLS-155	BLUE	BL-02	10	Loop	Daily	16:01
+BLS-156	BLUE	BL-03	10	Loop	Daily	16:01
+BLS-157	BLUE	BL-04	10	Loop	Daily	16:02
+BLS-158	BLUE	BL-05	10	Loop	Daily	16:02
+BLS-159	BLUE	BL-06	10	Loop	Daily	16:02
+BLS-160	BLUE	BL-07	10	Loop	Daily	16:03
+BLS-161	BLUE	BL-08	10	Loop	Daily	16:04
+BLS-162	BLUE	BL-09	10	Loop	Daily	16:07
+BLS-163	BLUE	BL-10	10	Loop	Daily	16:20
+BLS-164	BLUE	BL-09	10	Loop	Daily	16:35
+BLS-165	BLUE	BL-08	10	Loop	Daily	16:36
+BLS-166	BLUE	BL-07	10	Loop	Daily	16:37
+BLS-167	BLUE	BL-11	10	Loop	Daily	16:40
+BLS-168	BLUE	BL-12	10	Loop	Daily	16:42
+BLS-169	BLUE	BL-02	10	Loop	Daily	16:42
+BLS-170	BLUE	BL-01	10	Loop	Daily	16:45
+BLS-171	BLUE	BL-01	11	Loop	Daily	16:30
+BLS-172	BLUE	BL-02	11	Loop	Daily	16:31
+BLS-173	BLUE	BL-03	11	Loop	Daily	16:31
+BLS-174	BLUE	BL-04	11	Loop	Daily	16:32
+BLS-175	BLUE	BL-05	11	Loop	Daily	16:32
+BLS-176	BLUE	BL-06	11	Loop	Daily	16:32
+BLS-177	BLUE	BL-07	11	Loop	Daily	16:33
+BLS-178	BLUE	BL-08	11	Loop	Daily	16:34
+BLS-179	BLUE	BL-09	11	Loop	Daily	16:37
+BLS-180	BLUE	BL-10	11	Loop	Daily	16:50
+BLS-181	BLUE	BL-09	11	Loop	Daily	17:05
+BLS-182	BLUE	BL-08	11	Loop	Daily	17:06
+BLS-183	BLUE	BL-07	11	Loop	Daily	17:07
+BLS-184	BLUE	BL-11	11	Loop	Daily	17:10
+BLS-185	BLUE	BL-12	11	Loop	Daily	17:12
+BLS-186	BLUE	BL-02	11	Loop	Daily	17:12
+BLS-187	BLUE	BL-01	11	Loop	Daily	17:15
+BLS-188	BLUE	BL-01	12	Loop	Daily	17:00
+BLS-189	BLUE	BL-02	12	Loop	Daily	17:01
+BLS-190	BLUE	BL-03	12	Loop	Daily	17:01
+BLS-191	BLUE	BL-04	12	Loop	Daily	17:02
+BLS-192	BLUE	BL-05	12	Loop	Daily	17:02
+BLS-193	BLUE	BL-06	12	Loop	Daily	17:02
+BLS-194	BLUE	BL-07	12	Loop	Daily	17:03
+BLS-195	BLUE	BL-08	12	Loop	Daily	17:04
+BLS-196	BLUE	BL-09	12	Loop	Daily	17:07
+BLS-197	BLUE	BL-10	12	Loop	Daily	17:20
+BLS-198	BLUE	BL-09	12	Loop	Daily	17:35
+BLS-199	BLUE	BL-08	12	Loop	Daily	17:36
+BLS-200	BLUE	BL-07	12	Loop	Daily	17:37
+BLS-201	BLUE	BL-11	12	Loop	Daily	17:40
+BLS-202	BLUE	BL-12	12	Loop	Daily	17:42
+BLS-203	BLUE	BL-02	12	Loop	Daily	17:42
+BLS-204	BLUE	BL-01	12	Loop	Daily	17:45
+OLS-001	ORANGE	OL-01	1	Loop	Daily	8:15
+OLS-002	ORANGE	OL-02	1	Loop	Daily	8:16
+OLS-003	ORANGE	OL-03	1	Loop	Daily	8:16
+OLS-004	ORANGE	OL-04	1	Loop	Daily	8:20
+OLS-005	ORANGE	OL-05	1	Loop	Daily	8:23
+OLS-006	ORANGE	OL-06	1	Loop	Daily	8:24
+OLS-007	ORANGE	OL-07	1	Loop	Daily	8:26
+OLS-008	ORANGE	OL-08	1	Loop	Daily	8:39
+OLS-009	ORANGE	OL-07	1	Loop	Daily	8:54
+OLS-010	ORANGE	OL-06	1	Loop	Daily	8:55
+OLS-011	ORANGE	OL-05	1	Loop	Daily	8:56
+OLS-012	ORANGE	OL-09	1	Loop	Daily	8:56
+OLS-013	ORANGE	OL-10	1	Loop	Daily	8:56
+OLS-014	ORANGE	OL-11	1	Loop	Daily	8:57
+OLS-015	ORANGE	OL-12	1	Loop	Daily	8:57
+OLS-016	ORANGE	OL-02	1	Loop	Daily	8:57
+OLS-017	ORANGE	OL-01	1	Loop	Daily	9:00
+OLS-018	ORANGE	OL-01	2	Loop	Daily	8:45
+OLS-019	ORANGE	OL-02	2	Loop	Daily	8:46
+OLS-020	ORANGE	OL-03	2	Loop	Daily	8:46
+OLS-021	ORANGE	OL-04	2	Loop	Daily	8:50
+OLS-022	ORANGE	OL-05	2	Loop	Daily	8:53
+OLS-023	ORANGE	OL-06	2	Loop	Daily	8:54
+OLS-024	ORANGE	OL-07	2	Loop	Daily	8:56
+OLS-025	ORANGE	OL-08	2	Loop	Daily	9:09
+OLS-026	ORANGE	OL-07	2	Loop	Daily	9:24
+OLS-027	ORANGE	OL-06	2	Loop	Daily	9:25
+OLS-028	ORANGE	OL-05	2	Loop	Daily	9:26
+OLS-029	ORANGE	OL-09	2	Loop	Daily	9:26
+OLS-030	ORANGE	OL-10	2	Loop	Daily	9:26
+OLS-031	ORANGE	OL-11	2	Loop	Daily	9:27
+OLS-032	ORANGE	OL-12	2	Loop	Daily	9:27
+OLS-033	ORANGE	OL-02	2	Loop	Daily	9:27
+OLS-034	ORANGE	OL-01	2	Loop	Daily	9:30
+OLS-035	ORANGE	OL-01	3	Loop	Daily	9:15
+OLS-036	ORANGE	OL-02	3	Loop	Daily	9:16
+OLS-037	ORANGE	OL-03	3	Loop	Daily	9:16
+OLS-038	ORANGE	OL-04	3	Loop	Daily	9:20
+OLS-039	ORANGE	OL-05	3	Loop	Daily	9:23
+OLS-040	ORANGE	OL-06	3	Loop	Daily	9:24
+OLS-041	ORANGE	OL-07	3	Loop	Daily	9:26
+OLS-042	ORANGE	OL-08	3	Loop	Daily	9:39
+OLS-043	ORANGE	OL-07	3	Loop	Daily	9:54
+OLS-044	ORANGE	OL-06	3	Loop	Daily	9:55
+OLS-045	ORANGE	OL-05	3	Loop	Daily	9:56
+OLS-046	ORANGE	OL-09	3	Loop	Daily	9:56
+OLS-047	ORANGE	OL-10	3	Loop	Daily	9:56
+OLS-048	ORANGE	OL-11	3	Loop	Daily	9:57
+OLS-049	ORANGE	OL-12	3	Loop	Daily	9:57
+OLS-050	ORANGE	OL-02	3	Loop	Daily	9:57
+OLS-051	ORANGE	OL-01	3	Loop	Daily	10:00
+OLS-052	ORANGE	OL-01	4	Loop	Daily	9:45
+OLS-053	ORANGE	OL-02	4	Loop	Daily	9:46
+OLS-054	ORANGE	OL-03	4	Loop	Daily	9:46
+OLS-055	ORANGE	OL-04	4	Loop	Daily	9:50
+OLS-056	ORANGE	OL-05	4	Loop	Daily	9:53
+OLS-057	ORANGE	OL-06	4	Loop	Daily	9:54
+OLS-058	ORANGE	OL-07	4	Loop	Daily	9:56
+OLS-059	ORANGE	OL-08	4	Loop	Daily	10:09
+OLS-060	ORANGE	OL-07	4	Loop	Daily	10:24
+OLS-061	ORANGE	OL-06	4	Loop	Daily	10:25
+OLS-062	ORANGE	OL-05	4	Loop	Daily	10:26
+OLS-063	ORANGE	OL-09	4	Loop	Daily	10:26
+OLS-064	ORANGE	OL-10	4	Loop	Daily	10:26
+OLS-065	ORANGE	OL-11	4	Loop	Daily	10:27
+OLS-066	ORANGE	OL-12	4	Loop	Daily	10:27
+OLS-067	ORANGE	OL-02	4	Loop	Daily	10:27
+OLS-068	ORANGE	OL-01	4	Loop	Daily	10:30
+OLS-069	ORANGE	OL-01	5	Loop	Daily	10:15
+OLS-070	ORANGE	OL-02	5	Loop	Daily	10:16
+OLS-071	ORANGE	OL-03	5	Loop	Daily	10:16
+OLS-072	ORANGE	OL-04	5	Loop	Daily	10:20
+OLS-073	ORANGE	OL-05	5	Loop	Daily	10:23
+OLS-074	ORANGE	OL-06	5	Loop	Daily	10:24
+OLS-075	ORANGE	OL-07	5	Loop	Daily	10:26
+OLS-076	ORANGE	OL-08	5	Loop	Daily	10:39
+OLS-077	ORANGE	OL-07	5	Loop	Daily	10:54
+OLS-078	ORANGE	OL-06	5	Loop	Daily	10:55
+OLS-079	ORANGE	OL-05	5	Loop	Daily	10:56
+OLS-080	ORANGE	OL-09	5	Loop	Daily	10:56
+OLS-081	ORANGE	OL-10	5	Loop	Daily	10:56
+OLS-082	ORANGE	OL-11	5	Loop	Daily	10:57
+OLS-083	ORANGE	OL-12	5	Loop	Daily	10:57
+OLS-084	ORANGE	OL-02	5	Loop	Daily	10:57
+OLS-085	ORANGE	OL-01	5	Loop	Daily	11:00
+OLS-086	ORANGE	OL-01	6	Loop	Daily	10:45
+OLS-087	ORANGE	OL-02	6	Loop	Daily	10:46
+OLS-088	ORANGE	OL-03	6	Loop	Daily	10:46
+OLS-089	ORANGE	OL-04	6	Loop	Daily	10:50
+OLS-090	ORANGE	OL-05	6	Loop	Daily	10:53
+OLS-091	ORANGE	OL-06	6	Loop	Daily	10:54
+OLS-092	ORANGE	OL-07	6	Loop	Daily	10:56
+OLS-093	ORANGE	OL-08	6	Loop	Daily	11:09
+OLS-094	ORANGE	OL-07	6	Loop	Daily	11:24
+OLS-095	ORANGE	OL-06	6	Loop	Daily	11:25
+OLS-096	ORANGE	OL-05	6	Loop	Daily	11:26
+OLS-097	ORANGE	OL-09	6	Loop	Daily	11:26
+OLS-098	ORANGE	OL-10	6	Loop	Daily	11:26
+OLS-099	ORANGE	OL-11	6	Loop	Daily	11:27
+OLS-100	ORANGE	OL-12	6	Loop	Daily	11:27
+OLS-101	ORANGE	OL-02	6	Loop	Daily	11:27
+OLS-102	ORANGE	OL-01	6	Loop	Daily	11:30
+OLS-103	ORANGE	OL-01	7	Loop	Daily	12:45
+OLS-104	ORANGE	OL-02	7	Loop	Daily	12:46
+OLS-105	ORANGE	OL-03	7	Loop	Daily	12:46
+OLS-106	ORANGE	OL-04	7	Loop	Daily	12:50
+OLS-107	ORANGE	OL-05	7	Loop	Daily	12:53
+OLS-108	ORANGE	OL-06	7	Loop	Daily	12:54
+OLS-109	ORANGE	OL-07	7	Loop	Daily	12:56
+OLS-110	ORANGE	OL-08	7	Loop	Daily	13:09
+OLS-111	ORANGE	OL-07	7	Loop	Daily	13:24
+OLS-112	ORANGE	OL-06	7	Loop	Daily	13:25
+OLS-113	ORANGE	OL-05	7	Loop	Daily	13:26
+OLS-114	ORANGE	OL-09	7	Loop	Daily	13:26
+OLS-115	ORANGE	OL-10	7	Loop	Daily	13:26
+OLS-116	ORANGE	OL-11	7	Loop	Daily	13:27
+OLS-117	ORANGE	OL-12	7	Loop	Daily	13:27
+OLS-118	ORANGE	OL-02	7	Loop	Daily	13:27
+OLS-119	ORANGE	OL-01	7	Loop	Daily	13:30
+OLS-120	ORANGE	OL-01	8	Loop	Daily	14:15
+OLS-121	ORANGE	OL-02	8	Loop	Daily	14:16
+OLS-122	ORANGE	OL-03	8	Loop	Daily	14:16
+OLS-123	ORANGE	OL-04	8	Loop	Daily	14:20
+OLS-124	ORANGE	OL-05	8	Loop	Daily	14:23
+OLS-125	ORANGE	OL-06	8	Loop	Daily	14:24
+OLS-126	ORANGE	OL-07	8	Loop	Daily	14:26
+OLS-127	ORANGE	OL-08	8	Loop	Daily	14:39
+OLS-128	ORANGE	OL-07	8	Loop	Daily	14:54
+OLS-129	ORANGE	OL-06	8	Loop	Daily	14:55
+OLS-130	ORANGE	OL-05	8	Loop	Daily	14:56
+OLS-131	ORANGE	OL-09	8	Loop	Daily	14:56
+OLS-132	ORANGE	OL-10	8	Loop	Daily	14:56
+OLS-133	ORANGE	OL-11	8	Loop	Daily	14:57
+OLS-134	ORANGE	OL-12	8	Loop	Daily	14:57
+OLS-135	ORANGE	OL-02	8	Loop	Daily	14:57
+OLS-136	ORANGE	OL-01	8	Loop	Daily	15:00
+OLS-137	ORANGE	OL-01	9	Loop	Daily	15:45
+OLS-138	ORANGE	OL-02	9	Loop	Daily	15:46
+OLS-139	ORANGE	OL-03	9	Loop	Daily	15:46
+OLS-140	ORANGE	OL-04	9	Loop	Daily	15:50
+OLS-141	ORANGE	OL-05	9	Loop	Daily	15:53
+OLS-142	ORANGE	OL-06	9	Loop	Daily	15:54
+OLS-143	ORANGE	OL-07	9	Loop	Daily	15:56
+OLS-144	ORANGE	OL-08	9	Loop	Daily	16:09
+OLS-145	ORANGE	OL-07	9	Loop	Daily	16:24
+OLS-146	ORANGE	OL-06	9	Loop	Daily	16:25
+OLS-147	ORANGE	OL-05	9	Loop	Daily	16:26
+OLS-148	ORANGE	OL-09	9	Loop	Daily	16:26
+OLS-149	ORANGE	OL-10	9	Loop	Daily	16:26
+OLS-150	ORANGE	OL-11	9	Loop	Daily	16:27
+OLS-151	ORANGE	OL-12	9	Loop	Daily	16:27
+OLS-152	ORANGE	OL-02	9	Loop	Daily	16:27
+OLS-153	ORANGE	OL-01	9	Loop	Daily	16:30
+OLS-154	ORANGE	OL-01	10	Loop	Daily	16:15
+OLS-155	ORANGE	OL-02	10	Loop	Daily	16:16
+OLS-156	ORANGE	OL-03	10	Loop	Daily	16:16
+OLS-157	ORANGE	OL-04	10	Loop	Daily	16:20
+OLS-158	ORANGE	OL-05	10	Loop	Daily	16:23
+OLS-159	ORANGE	OL-06	10	Loop	Daily	16:24
+OLS-160	ORANGE	OL-07	10	Loop	Daily	16:26
+OLS-161	ORANGE	OL-08	10	Loop	Daily	16:39
+OLS-162	ORANGE	OL-07	10	Loop	Daily	16:54
+OLS-163	ORANGE	OL-06	10	Loop	Daily	16:55
+OLS-164	ORANGE	OL-05	10	Loop	Daily	16:56
+OLS-165	ORANGE	OL-09	10	Loop	Daily	16:56
+OLS-166	ORANGE	OL-10	10	Loop	Daily	16:56
+OLS-167	ORANGE	OL-11	10	Loop	Daily	16:57
+OLS-168	ORANGE	OL-12	10	Loop	Daily	16:57
+OLS-169	ORANGE	OL-02	10	Loop	Daily	16:57
+OLS-170	ORANGE	OL-01	10	Loop	Daily	17:00
+OLS-171	ORANGE	OL-01	11	Loop	Daily	16:45
+OLS-172	ORANGE	OL-02	11	Loop	Daily	16:46
+OLS-173	ORANGE	OL-03	11	Loop	Daily	16:46
+OLS-174	ORANGE	OL-04	11	Loop	Daily	16:50
+OLS-175	ORANGE	OL-05	11	Loop	Daily	16:53
+OLS-176	ORANGE	OL-06	11	Loop	Daily	16:54
+OLS-177	ORANGE	OL-07	11	Loop	Daily	16:56
+OLS-178	ORANGE	OL-08	11	Loop	Daily	17:09
+OLS-179	ORANGE	OL-07	11	Loop	Daily	17:24
+OLS-180	ORANGE	OL-06	11	Loop	Daily	17:25
+OLS-181	ORANGE	OL-05	11	Loop	Daily	17:26
+OLS-182	ORANGE	OL-09	11	Loop	Daily	17:26
+OLS-183	ORANGE	OL-10	11	Loop	Daily	17:26
+OLS-184	ORANGE	OL-11	11	Loop	Daily	17:27
+OLS-185	ORANGE	OL-12	11	Loop	Daily	17:27
+OLS-186	ORANGE	OL-02	11	Loop	Daily	17:27
+OLS-187	ORANGE	OL-01	11	Loop	Daily	17:30
+OLS-188	ORANGE	OL-01	12	Loop	Daily	17:15
+OLS-189	ORANGE	OL-02	12	Loop	Daily	17:16
+OLS-190	ORANGE	OL-03	12	Loop	Daily	17:16
+OLS-191	ORANGE	OL-04	12	Loop	Daily	17:20
+OLS-192	ORANGE	OL-05	12	Loop	Daily	17:23
+OLS-193	ORANGE	OL-06	12	Loop	Daily	17:24
+OLS-194	ORANGE	OL-07	12	Loop	Daily	17:26
+OLS-195	ORANGE	OL-08	12	Loop	Daily	17:39
+OLS-196	ORANGE	OL-07	12	Loop	Daily	17:54
+OLS-197	ORANGE	OL-06	12	Loop	Daily	17:55
+OLS-198	ORANGE	OL-05	12	Loop	Daily	17:56
+OLS-199	ORANGE	OL-09	12	Loop	Daily	17:56
+OLS-200	ORANGE	OL-10	12	Loop	Daily	17:56
+OLS-201	ORANGE	OL-11	12	Loop	Daily	17:57
+OLS-202	ORANGE	OL-12	12	Loop	Daily	17:57
+OLS-203	ORANGE	OL-02	12	Loop	Daily	17:57
+OLS-204	ORANGE	OL-01	12	Loop	Daily	18:00
