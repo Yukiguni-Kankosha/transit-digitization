@@ -1,0 +1,23 @@
+Route_Code,Active,Season,Station_Bay_JP,Station_Bay_EN,Name_JP,Name_EN,Name_ZH_TR,Name_ZH_SI,Name_KO,Station_Bay_ZH_TR,Station_Bay_ZH_SI,Station_Bay_KO
+KIYOTSUKYO,TRUE,PUBLIC,東口 2番のりば,"East Exit, Platform 2",清津峡・津南・森宮野原線,"Kiyotsu Gorge, Tsunan, Morimiyanohara Line",清津峽、津南、森宮之原線,清津峡、津南、森宫之原线,기요 츠쿄 · 쓰난 · 모리 미야 노하라 선,東口 2號月台,东口 2号站台,동쪽 출구 2번 승강장
+SEIBU_CRYSTAL,TRUE,PUBLIC,東口 1番のりば,"East Exit, Platform 1",西武クリスタル・苗場線,Seibu Crystal Naeba Line,西武水晶苗場線,西武水晶苗场线,세이부 크리스탈·나에바선,東口 1號月台,东口 1号站台,동쪽 출구 1번 승강장
+DAIGENTA,TRUE,PUBLIC,東口 3番のりば,"East Exit, Platform 3",大源太線,Daigenta Line,大源太線,大源太线,다이겐타선,東口 3號月台,东口 3号站台,동쪽 출구 3번 승강장
+TSUCHITARU,TRUE,PUBLIC,東口 3番のりば,"East Exit, Platform 3",土樽・旭原線,Tsuchitaru-Asahihara Line,土樽・旭原線,土樽・旭原线,쓰치타루·아사히하라선,東口 3號月台,东口 3号站台,동쪽 출구 3번 승강장
+MAIKO,TRUE,PUBLIC,東口 2番のりば,"East Exit, Platform 2",湯沢・六日町線（舞子経由）,Yuzawa-Muikamachi Line (via Maiko),湯澤六日町線（經舞子）,汤泽六日町线（经舞子）,유자와·무이카마치선 (마이코 경유),東口 2號月台,东口 2号站台,동쪽 출구 2번 승강장
+TOKAMACHIAEON,TRUE,PUBLIC,六日町駅前,In front of Muikamachi Station,六日町・十日町・イオン線,Muikamachi/Tokamachi/Aeon Line,六日町・十日町・AEON線,六日町・十日町・AEON线,무이카마치·도카마치 이온선,六日町站前,六日町站前,무이카マ치역 앞
+GALA_SPRING,TRUE,PUBLIC,東口／西口,East Exit / West Exit,GALA湯沢 春季シャトル,GALA Yuzawa Spring Shuttle,GALA 湯澤春季班車,GALA 汤泽春季班车,GALA 유자와 춘계 셔틀,東口／西口,东口／西口,동쪽 출구 / 서쪽 출구
+HAKKAISAN,FALSE,PUBLIC,六日町駅前,In front of Muikamachi Station,六日町・八海山線,Muikamachi-Hakkaisan Line,六日町八海山線,六日町八海山线,무이카마치·핫카이산선,六日町站前,六日町站前,무이카마치역 앞
+BLUE,TRUE,WINTER,東口 5番のりば / 西口,East Exit Platform 5 / West Exit,湯沢ブルーライン,Yuzawa Blue Line,湯澤藍線,汤泽蓝线,유자와 블루 라인,東口 5號月台 / 西口,东口 5号站台 / 西口,동쪽 출구 5번 / 서쪽 출구
+ORANGE,TRUE,WINTER,東口 5番のりば / 西口,East Exit Platform 5 / West Exit,湯沢オレンジライン,Yuzawa Orange Line,湯澤橙線,汤泽橙线,유자와 오렌지 라인,東口 5號月台 / 西口,东口 5号站台 / 西口,동쪽 출구 5번 / 서쪽 출구
+KAGURA_LOCAL,TRUE,WINTER,東口 1番のりば,"East Exit, Platform 1",かぐら・苗場 各停便,Kagura / Naeba Local Bus,神樂・苗場 各站停靠巴士,神乐・苗场 各站停靠巴士,가구라·나에바 완행버스,東口 1號月台,东口 1号站台,동쪽 출구 1번 승강장
+KAGURA_EXPRESS,TRUE,WINTER,東口 1番のりば,"East Exit, Platform 1",かぐら・苗場 急行便,Kagura / Naeba Express,神樂・苗場 急行巴士,神乐・苗场 急行巴士,가구라·나え바 급행버스,東口 1號月台,东口 1号站台,동쪽 출구 1번 승강장
+ISHIUCHI_DIRECT,TRUE,WINTER,東口 ロータリー,East Exit Rotary,石打丸山 直行便,Ishiuchi Maruyama Direct Shuttle,石打丸山 直達接駁車,石打丸山 直达班车,이시우치 마루야마 직행 셔틀,東口 接駁專區,东口 接驳专区,동쪽 출구 로터리
+ISHIUCHI_LOOP,TRUE,WINTER,東口 ロータリー,East Exit Rotary,石打丸山 循環便,Ishiuchi Maruyama Loop Shuttle,石打丸山 循環接駁車,石打丸山 循环班车,이시우치 마루야마 순환 셔틀,東口 接駁專區,东口 接驳专区,동쪽 출구 로터리
+ISHIUCHI_NIGHT,TRUE,WINTER,東口 ロータリー,East Exit Rotary,石打丸山 ナイター便,Ishiuchi Maruyama Night Shuttle,石打丸山 夜場接駁車,石打丸山 夜场班车,이시우치 마루야마 야간 셔틀,東口 接駁專區,东口 接驳专区,동쪽 출구 로터리
+IWAHARA,TRUE,WINTER,東口 案内所前,"East Exit, in front of the information desk",岩原スキー場シャトル,Iwappara Ski Resort Shuttle,岩原滑雪渡假村接駁車,岩原滑雪度假村班车,이와하라 스키장 셔틀,東口 服務台前,东口 服务台前,동쪽 출구 안내소 앞
+IWAHARA_JOKOKU,TRUE,WINTER,東口 案内所前,"East Exit, in front of the information desk",岩原・上越国際 連絡シャトル,Iwappara / Joetsu Kokusai Shuttle,岩原/上越國際接駁車,岩原/上越国际班车,이와하라・죠에쓰 국제 연락 셔틀,東口 服務台前,东口 服务台前,동쪽 출구 안내소 앞
+NAKASATO,TRUE,WINTER,西口 エンゼル案内所,West Exit Angel Information Center,湯沢中里シャトル,Yuzawa Nakazato Shuttle,湯澤中里班車,汤泽中里班车,유자와 나카자토 셔틀,西口 Angel服務台,西口 Angel服务台,서쪽 출구 엔젤 안내소
+MAIKO_DIRECT,TRUE,WINTER,東口 ロータリー,East Exit Rotary,舞子スノーリゾート直行便,Maiko Snow Resort Direct Shuttle,舞子滑雪度假村 直達接駁車,舞子滑雪度假村 直达班车,마이코 스노우 리조트 직행 셔틀,東口 接駁專區,东口 接驳专区,동쪽 출구 로터리
+MAIKO_HOTEL,TRUE,WINTER,東口 ロータリー,East Exit Rotary,舞子高原ホテル送迎便,Maiko Kogen Hotel Shuttle,舞子高原飯店接駁車服務,舞子高原酒店班车服务,마이코 고원 호텔 교통편,東口 接駁專區,东口 接驳专区,동쪽 출구 로터리
+CHATEAU_SHIOZAWA,TRUE,WINTER,塩沢駅,Shiozawa Station,シャトー塩沢シャトル,Chateau Shiozawa Shuttle,鹽澤城堡穿梭巴士,盐泽城堡穿梭巴士,샤토 시오자와 셔틀,鹽澤站,盐泽站,시오자와역
+MUICA,TRUE,WINTER,六日町駅東口,Muikamachi Station East Exit,ムイカシャトル,Muica Shuttle,Muica溫泉飯店接駁車,Muica温泉酒店接驳车,무이카 셔틀,六日町站東口,六日町站东口,무이카마치역 동쪽 출구
