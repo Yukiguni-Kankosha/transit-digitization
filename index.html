@@ -254,18 +254,22 @@
       justify-content: center;
       gap: 6px;
       width: 100%;
-      background: rgba(52, 211, 153, 0.18);
-      color: #6ee7b7;
-      border: 1px solid rgba(52, 211, 153, 0.45);
-      padding: 7px 12px;
-      border-radius: 8px;
-      font-size: 0.82rem;
-      font-weight: 700;
+      background: #10b981;
+      color: #052e16;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 9px;
+      font-size: 0.88rem;
+      font-weight: 800;
       text-decoration: none;
-      margin-top: 4px;
-      transition: background 0.15s;
+      margin-top: 6px;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+      transition: transform 0.12s ease, background 0.15s ease;
     }
-    .hero-map-btn:hover { background: rgba(52, 211, 153, 0.3); }
+    .hero-map-btn:hover, .hero-map-btn:active {
+      background: #34d399;
+      transform: translateY(-1px);
+    }
     .hero-following {
       margin-top: 4px;
       padding-top: 8px;
@@ -333,6 +337,29 @@
       color: #cbd5e1;
       margin: 0;
       line-height: 1.4;
+    }
+    .route-stops-strip {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(148, 163, 184, 0.2);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.74rem;
+    }
+    .route-stops-label {
+      font-weight: 700;
+      color: #7dd3fc;
+      margin-right: 2px;
+    }
+    .route-stop-pill {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border);
+      color: #e2e8f0;
+      padding: 2px 7px;
+      border-radius: 6px;
+      white-space: nowrap;
     }
 
     /* Services Cross-Link Banner */
@@ -502,11 +529,20 @@
       border: 1px solid rgba(16, 185, 129, 0.35);
     }
     .map-link {
-      font-size: 0.75rem;
-      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #0f172a;
+      background: var(--accent);
+      padding: 4px 10px;
+      border-radius: 6px;
       text-decoration: none;
-      font-weight: 600;
+      white-space: nowrap;
+      transition: opacity 0.15s ease;
     }
+    .map-link:hover, .map-link:active { opacity: 0.88; }
     .notice {
       text-align: center;
       padding: 28px 16px;
@@ -718,15 +754,16 @@
       terminal: { en: 'Terminal Station', jp: '発着拠点', zh_tr: '出發總站', zh_si: '始发总站', ko: '출발/도착역' },
       toFromStation: { en: '(to/from Sta.)', jp: '(駅発着運賃)', zh_tr: '(往返車站票價)', zh_si: '(往返车站票价)', ko: '(역 왕복 요금)' },
       trip: { en: 'Trip', jp: '便', zh_tr: '班次', zh_si: '班次', ko: '운행편' },
-      map: { en: 'Map ↗', jp: '地図 ↗', zh_tr: '地圖 ↗', zh_si: '地图 ↗', ko: '지도 ↗' },
+      map: { en: '📍 Map ↗', jp: '📍 地図 ↗', zh_tr: '📍 地圖 ↗', zh_si: '📍 地图 ↗', ko: '📍 지도 ↗' },
       nextBus: { en: 'NEXT BUS', jp: '次のバス', zh_tr: '下一班車', zh_si: '下一班车', ko: '다음 버스' },
       firstTomorrow: { en: 'FIRST BUS (TOMORROW)', jp: '明日の始発', zh_tr: '明日首班車', zh_si: '明日首班车', ko: '내일 첫차' },
       boardingAt: { en: 'WHERE TO BOARD', jp: '乗車場所・のりば', zh_tr: '乘車地點・月台', zh_si: '乘车地点・站台', ko: '탑승 위치・정류장' },
-      stopMap: { en: 'Open Boarding Stop Map ↗', jp: 'のりば地図を開く ↗', zh_tr: '開啟乘車站地圖 ↗', zh_si: '打开乘车站地图 ↗', ko: '탑승 위치 지도 열기 ↗' },
+      stopMap: { en: 'Open in Google Maps ↗', jp: 'Googleマップで開く ↗', zh_tr: '在 Google 地圖開啟 ↗', zh_si: '在 Google 地图打开 ↗', ko: 'Google 지도에서 열기 ↗' },
       inMins: { en: 'in {m} min', jp: 'あと{m}分', zh_tr: '{m}分鐘後', zh_si: '{m}分钟后', ko: '{m}분 후' },
       inHrsMins: { en: 'in {h}h {m}m', jp: 'あと{h}時間{m}分', zh_tr: '{h}小時{m}分後', zh_si: '{h}小时{m}分后', ko: '{h}시간 {m}분 후' },
       departingNow: { en: 'Departing now', jp: 'まもなく発車', zh_tr: '即將發車', zh_si: '即将发车', ko: '곧 출발' },
       following: { en: 'Next after:', jp: 'その次:', zh_tr: '後續班次:', zh_si: '后续班次:', ko: '다음 편:' },
+      stopsAt: { en: 'Stops / Resorts:', jp: '主な停車スキー場・停留所:', zh_tr: '停靠雪場 / 站點:', zh_si: '停靠雪场 / 站点:', ko: '정차 스키장 / 정류장:' },
       loading: { en: 'Loading timetables...', jp: '時刻表を読み込み中...', zh_tr: '正在載入時刻表...', zh_si: '正在加载时刻表...', ko: '시간표를 불러오는 중...' },
       noDepartures: { en: 'No departures found for this selection.', jp: '該当する運行便がありません。', zh_tr: '沒有找到符合條件的班次。', zh_si: '没有找到符合条件的班次。', ko: '해당 조건의 운행 정보가 없습니다.' },
       searchPlaceholder: {
@@ -1032,27 +1069,63 @@
            {};
   }
 
+  function getRouteStopsList(mode, routeCode) {
+    const rKey = normalizeKey(routeCode);
+    const colKey = stopLangKeys[currentLang] || 'Stop_Name_EN';
+    const matching = (cache[mode].rawStops || [])
+      .filter(s => {
+        const srKey = normalizeKey(s.Route_Code || s.Route_ID || '');
+        if (srKey === rKey) return true;
+        if ((rKey === 'KAGURA_LOCAL' || rKey === 'KAGURA_EXPRESS') && srKey === 'KAGURA_NAEBA') return true;
+        return false;
+      })
+      .sort((a, b) => (parseFloat(a.Stop_Order || a.Sequence_Order || 999) - parseFloat(b.Stop_Order || b.Sequence_Order || 999)));
+
+    const seen = new Set();
+    const names = [];
+    matching.forEach(s => {
+      const n = (s[colKey] || s.Stop_Name_EN || s.Stop_Name_JP || '').trim();
+      if (n && !seen.has(n)) {
+        seen.add(n);
+        names.push(n);
+      }
+    });
+    return names;
+  }
+
   function renderRouteBanner(routeCode, lang = "en") {
     const bannerEl = document.getElementById('routeMetaContainer');
     if (!bannerEl) return;
 
     const rKey = normalizeKey(routeCode);
     const config = ROUTE_CONFIG[rKey] || ROUTE_CONFIG[routeCode];
-    if (!config) {
+    const winterStops = currentMode === 'winter' ? getRouteStopsList('winter', routeCode) : [];
+
+    if (!config && winterStops.length === 0) {
       bannerEl.innerHTML = '';
       return;
     }
 
-    const badgesHtml = config.badges
-      .map(b => `<span class="badge ${b.includes('No') || b.includes('Weekday') ? 'badge-warn' : 'badge-info'}">${b}</span>`)
-      .join(" ");
+    const badgesHtml = config
+      ? `<div class="card-badges">${config.badges.map(b => `<span class="badge ${b.includes('No') || b.includes('Weekday') ? 'badge-warn' : 'badge-info'}">${b}</span>`).join(" ")}</div>`
+      : '';
+    const noteHtml = config
+      ? `<p class="card-disclaimer">${config.notes[lang] || config.notes.en}</p>`
+      : '';
 
-    const noteText = config.notes[lang] || config.notes.en;
+    const stopsLabel = I18N.ui.stopsAt[lang] || I18N.ui.stopsAt.en;
+    const stopsHtml = winterStops.length > 0
+      ? `<div class="route-stops-strip" style="${!config ? 'margin-top:0;padding-top:0;border-top:none;' : ''}">
+           <span class="route-stops-label">🏔️ ${stopsLabel}</span>
+           ${winterStops.map(name => `<span class="route-stop-pill">${name}</span>`).join('')}
+         </div>`
+      : '';
 
     bannerEl.innerHTML = `
       <div class="route-meta-banner">
-        <div class="card-badges">${badgesHtml}</div>
-        <p class="card-disclaimer">${noteText}</p>
+        ${badgesHtml}
+        ${noteHtml}
+        ${stopsHtml}
       </div>
     `;
   }
@@ -1681,7 +1754,7 @@
             ${showJpSub ? `<div class="hero-stop-jp">${fromStopJp}</div>` : ''}
           </div>
           ${bayText ? `<div class="hero-bay-row"><span class="hero-bay-badge">🚏 ${bayText}</span></div>` : ''}
-          <a class="hero-map-btn" href="${mapUrl}" target="_blank" rel="noopener">🗺️ ${stopMapLabel}</a>
+          <a class="hero-map-btn" href="${mapUrl}" target="_blank" rel="noopener">📍 ${stopMapLabel}</a>
         </div>
       </div>
     `;
