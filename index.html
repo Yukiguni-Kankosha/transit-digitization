@@ -266,6 +266,26 @@
       transition: background 0.15s;
     }
     .hero-map-btn:hover { background: rgba(52, 211, 153, 0.3); }
+    .hero-following {
+      margin-top: 4px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(56, 189, 248, 0.22);
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+    .hero-next-chip {
+      background: rgba(56, 189, 248, 0.14);
+      color: #e0f2fe;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 1px 7px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
 
     /* Timetable Cards (Compact & Uniform) */
     .card {
@@ -706,6 +726,7 @@
       inMins: { en: 'in {m} min', jp: 'あと{m}分', zh_tr: '{m}分鐘後', zh_si: '{m}分钟后', ko: '{m}분 후' },
       inHrsMins: { en: 'in {h}h {m}m', jp: 'あと{h}時間{m}分', zh_tr: '{h}小時{m}分後', zh_si: '{h}小时{m}分后', ko: '{h}시간 {m}분 후' },
       departingNow: { en: 'Departing now', jp: 'まもなく発車', zh_tr: '即將發車', zh_si: '即将发车', ko: '곧 출발' },
+      following: { en: 'Next after:', jp: 'その次:', zh_tr: '後續班次:', zh_si: '后续班次:', ko: '다음 편:' },
       loading: { en: 'Loading timetables...', jp: '時刻表を読み込み中...', zh_tr: '正在載入時刻表...', zh_si: '正在加载时刻表...', ko: '시간표를 불러오는 중...' },
       noDepartures: { en: 'No departures found for this selection.', jp: '該当する運行便がありません。', zh_tr: '沒有找到符合條件的班次。', zh_si: '没有找到符合条件的班次。', ko: '해당 조건의 운행 정보가 없습니다.' },
       searchPlaceholder: {
@@ -1382,8 +1403,16 @@
     if (prevStop && routeStopIds.includes(prevStop)) {
       stopSelect.value = prevStop;
     } else if (routeStopIds.length > 0) {
-      stopSelect.selectedIndex = 0;
-      stopSelect.value = routeStopIds[0];
+      const isFromStationDir = !/INBOUND|TO_STATION|TO_YUZAWA_STA|RETURN/i.test(normalizeKey(dir));
+      let defaultStopId = routeStopIds[0];
+      if (isFromStationDir) {
+        const stationStopId = routeStopIds.find(sId => {
+          const st = resolveStop(currentMode, route, sId);
+          return /湯沢駅|Yuzawa Sta/i.test((st.Stop_Name_JP || '') + ' ' + (st.Stop_Name_EN || ''));
+        });
+        if (stationStopId) defaultStopId = stationStopId;
+      }
+      stopSelect.value = defaultStopId;
     }
 
     if (destSelect) {
@@ -1579,7 +1608,7 @@
     return loopReturnText[currentLang] || loopReturnText.en;
   }
 
-  function renderDualHeroCards({ route, fromStopObj, boardingStopId, isStationOrigin, isLoopSelection, destStopId, heroJourney, isTomorrow, currentMins }) {
+  function renderDualHeroCards({ route, fromStopObj, boardingStopId, isStationOrigin, isLoopSelection, destStopId, heroJourney, followingJourneys, isTomorrow, currentMins }) {
     const heroContainer = document.getElementById('nextBusHeroContainer');
     if (!heroContainer) return;
 
@@ -1634,6 +1663,12 @@
             ${heroJourney.duration > 0 ? `<span>⏱ ${heroJourney.duration}${minWord}</span>` : ''}
             ${heroFareBadge}
           </div>
+          ${followingJourneys && followingJourneys.length > 0 ? `
+            <div class="hero-following">
+              <span>${I18N.ui.following[currentLang] || I18N.ui.following.en}</span>
+              ${followingJourneys.map(fj => `<span class="hero-next-chip">${fj.departureTime}</span>`).join('')}
+            </div>
+          ` : ''}
         </div>
 
         <!-- Card 2: Where to Board -->
@@ -1773,6 +1808,7 @@
     }
 
     // Render Dual Hero Cards above timetable
+    const startIdx = nextIndex !== -1 ? nextIndex : 0;
     renderDualHeroCards({
       route,
       fromStopObj,
@@ -1780,7 +1816,8 @@
       isStationOrigin,
       isLoopSelection,
       destStopId,
-      heroJourney: nextIndex !== -1 ? journeys[nextIndex] : journeys[0],
+      heroJourney: journeys[startIdx],
+      followingJourneys: journeys.slice(startIdx + 1, startIdx + 3),
       isTomorrow: nextIndex === -1,
       currentMins
     });
