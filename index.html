@@ -914,6 +914,10 @@
       gpsUnsupported: { en: 'Geolocation is not supported in this browser.', jp: 'このブラウザは位置情報に対応していません。', zh_tr: '此瀏覽器不支援定位功能。', zh_si: '此浏览器不支持定位功能。', ko: '이 브라우저에서는 위치 정보를 지원하지 않습니다.' },
       gpsDenied: { en: 'Location permission denied or unavailable.', jp: '位置情報の取得が許可されていないか、利用できません。', zh_tr: '無法取得定位權限或目前無法使用。', zh_si: '无法获取定位权限或当前不可用。', ko: '위치 권한이 거부되었거나 사용할 수 없습니다.' },
       approxBayNote: { en: 'Approximate station bay pin — add Lat/Lng in Stops sheet to fine-tune.', jp: '駅のりばの目安位置（シートのLat/Lngで微調整可能）', zh_tr: '車站月台參考位置（可在表單 Lat/Lng 微調）', zh_si: '车站站台参考位置（可在表单 Lat/Lng 微调）', ko: '역 승강장 참고 위치 (시트 Lat/Lng에서 미세 조정 가능)' },
+      winterPeriodLabel: { en: 'Service Period:', jp: '運行期間:', zh_tr: '營運期間:', zh_si: '运营期间:', ko: '운행 기간:' },
+      winterPeriodGeneral: { en: 'Mid-Dec – Late Mar (dates vary by resort)', jp: '12月中旬〜3月下旬頃（スキー場により異なります）', zh_tr: '約12月中旬～3月下旬（依各雪場公告為準）', zh_si: '约12月中旬～3月下旬（以各雪场公告为准）', ko: '12월 중순 ~ 3월 하순 (스키장별 상이)' },
+      startsOn: { en: 'Starts {d}', jp: '{d} 運行開始', zh_tr: '{d} 起運行', zh_si: '{d} 起运营', ko: '{d} 운행 시작' },
+      seasonEnded: { en: 'Season Ended ({d})', jp: '今季運行終了（〜{d}）', zh_tr: '本季已結束（至 {d}）', zh_si: '本季已结束（至 {d}）', ko: '시즌 종료 (~{d})' },
       stopsAt: { en: 'Stops / Resorts:', jp: '主な停車スキー場・停留所:', zh_tr: '停靠雪場 / 站點:', zh_si: '停靠雪场 / 站点:', ko: '정차 스키장 / 정류장:' },
       loading: { en: 'Loading timetables...', jp: '時刻表を読み込み中...', zh_tr: '正在載入時刻表...', zh_si: '正在加载时刻表...', ko: '시간표를 불러오는 중...' },
       noDepartures: { en: 'No departures found for this selection.', jp: '該当する運行便がありません。', zh_tr: '沒有找到符合條件的班次。', zh_si: '没有找到符合条件的班次。', ko: '해당 조건의 운행 정보가 없습니다.' },
@@ -1252,9 +1256,29 @@
     const config = ROUTE_CONFIG[rKey] || ROUTE_CONFIG[routeCode];
     const winterStops = currentMode === 'winter' ? getRouteStopsList('winter', routeCode) : [];
 
-    if (!config && winterStops.length === 0) {
+    if (!config && winterStops.length === 0 && currentMode !== 'winter') {
       bannerEl.innerHTML = '';
       return;
+    }
+
+    let seasonHtml = '';
+    if (currentMode === 'winter') {
+      const pLabel = I18N.ui.winterPeriodLabel[lang] || I18N.ui.winterPeriodLabel.en;
+      if (config && config.activeStart && config.activeEnd) {
+        const jstNow = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+        let statusTag = '';
+        if (jstNow < config.activeStart) {
+          const msg = (I18N.ui.startsOn[lang] || I18N.ui.startsOn.en).replace('{d}', config.activeStart);
+          statusTag = `<span class="badge badge-warn">⏳ ${msg}</span>`;
+        } else if (jstNow > config.activeEnd) {
+          const msg = (I18N.ui.seasonEnded[lang] || I18N.ui.seasonEnded.en).replace('{d}', config.activeEnd);
+          statusTag = `<span class="badge badge-warn">❄️ ${msg}</span>`;
+        }
+        seasonHtml = `<div class="card-badges" style="margin-bottom:6px;"><span class="badge badge-info">📅 ${pLabel} ${config.activeStart} – ${config.activeEnd}</span>${statusTag}</div>`;
+      } else {
+        const genText = I18N.ui.winterPeriodGeneral[lang] || I18N.ui.winterPeriodGeneral.en;
+        seasonHtml = `<div class="card-badges" style="margin-bottom:6px;"><span class="badge badge-info">📅 ${pLabel} ${genText}</span></div>`;
+      }
     }
 
     const badgesHtml = config
@@ -1274,6 +1298,7 @@
 
     bannerEl.innerHTML = `
       <div class="route-meta-banner">
+        ${seasonHtml}
         ${badgesHtml}
         ${noteHtml}
         ${stopsHtml}
@@ -1655,6 +1680,30 @@
   
   // --- ROUTE METADATA & OPERATIONAL DISCLAIMERS ---
   const ROUTE_CONFIG = {
+    MUICA: {
+      isResort: true,
+      badges: ["📅 Weekends/Holidays: No Res.", "🏨 Weekdays: Hotel Guests Only", "🚏 No Permanent Sign"],
+      notes: {
+        en: "⚠️ Weekends, holidays & New Year period: no reservation needed. Weekdays: Muika Onsen Hotel overnight guests only — reserve by phone (025-773-3311) by the day before. Note: No permanent bus sign at Muikamachi Sta. East Exit; shuttles pull up along the drop-off/pick-up curb right outside the glass doors.",
+        jp: "⚠️ 土日祝日・年末年始はご予約不要。平日は「むいか温泉ホテル」ご宿泊者限定・予約制です（前日までに 025-773-3311 へ要電話予約）。※六日町駅東口に専用停留所看板はありません。東口ガラスドアを出てすぐの乗降レーン付近でお待ちください。",
+        zh_tr: "⚠️ 週末、國定假日及年末年始無須預約。平日僅限「Muika 溫泉飯店」住宿旅客搭乘且採預約制（前一天致電 025-773-3311 預約）。※六日町站東口無固定站牌，請在東口玻璃門外的接送車道旁候車。",
+        zh_si: "⚠️ 周末、节假日及年末年初无需预约。平日仅限“Muika 温泉酒店”住宿旅客搭乘且需预约（前一天致电 025-773-3311 预约）。※六日町站东口无固定站牌，请在东口玻璃门外的接送车道旁候车。",
+        ko: "⚠️ 주말·공휴일 및 연말연시에는 예약 불필요. 평일은 '무이카 온천 호텔' 숙박객 전용 사전 예약제입니다 (전날까지 025-773-3311 전화 예약). ※무이카마치역 동쪽 출구에는 고정 정류장 표지판이 없으며, 유리문 바로 앞 승하차 구역에 정차합니다."
+      }
+    },
+
+    CHATEAU_SHIOZAWA: {
+      isResort: true,
+      badges: ["🏨 Overnight Guests Only", "📞 Reservation Required"],
+      notes: {
+        en: "⚠️ Available only for overnight hotel/resort guests with an advance reservation. Please contact the hotel/resort in advance before heading to the stop.",
+        jp: "⚠️ 宿泊者・事前予約制の専用シャトルバスです。ご利用の際は事前に宿泊施設へご予約ください。",
+        zh_tr: "⚠️ 僅限住宿旅客且須事先預約搭乘。前往乘車前請務必提前向住宿設施預約。",
+        zh_si: "⚠️ 仅限住宿旅客且须事先预约搭乘。前往乘车前请务必提前向住宿设施预约。",
+        ko: "⚠️ 숙박객 전용 및 사전 예약제 셔틀버스입니다. 이용 전 반드시 숙소에 미리 예약해 주세요."
+      }
+    },
+
     BLUE: {
       isResort: true,
       activeStart: "2026-12-24",
