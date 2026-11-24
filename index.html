@@ -137,7 +137,137 @@
     .control-group { display: flex; flex-direction: column; gap: 4px; }
     label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
 
-     /* Timetable Cards (Compact & Uniform) */
+    /* Dual Hero Cards: Next Bus + Where to Board */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    @media (max-width: 520px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .hero-card {
+      background: linear-gradient(145deg, rgba(56, 189, 248, 0.14) 0%, rgba(30, 41, 59, 0.96) 100%);
+      border: 1.5px solid rgba(56, 189, 248, 0.55);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+      box-shadow: 0 8px 18px -6px rgba(15, 23, 42, 0.6);
+    }
+    .hero-card.where-card {
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.12) 0%, rgba(30, 41, 59, 0.96) 100%);
+      border-color: rgba(52, 211, 153, 0.45);
+    }
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--accent);
+      color: #0f172a;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .hero-pill.where-pill {
+      background: #34d399;
+      color: #064e3b;
+    }
+    .hero-countdown {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #7dd3fc;
+      white-space: nowrap;
+    }
+    .hero-time-block {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .hero-big-time {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+    .hero-arr-time {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+    .hero-subline {
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+    .hero-stop-main {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #f8fafc;
+      line-height: 1.3;
+    }
+    .hero-stop-jp {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .hero-bay-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+    }
+    .hero-bay-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #34d399;
+      background: rgba(16, 185, 129, 0.16);
+      border: 1px solid rgba(52, 211, 153, 0.45);
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+    .hero-map-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      background: rgba(52, 211, 153, 0.18);
+      color: #6ee7b7;
+      border: 1px solid rgba(52, 211, 153, 0.45);
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: 4px;
+      transition: background 0.15s;
+    }
+    .hero-map-btn:hover { background: rgba(52, 211, 153, 0.3); }
+
+    /* Timetable Cards (Compact & Uniform) */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -330,7 +460,6 @@
       color: #f8fafc;
       background: rgba(255, 255, 255, 0.12);
     }
-        /* Replace the duplicate .card-meta / .badge block at the bottom of <style> with this: */
     .card-main {
       display: flex;
       justify-content: space-between;
@@ -460,8 +589,11 @@
     <button type="button" class="alert-close-btn" onclick="dismissAlert('winterAlert')" aria-label="Dismiss alert">&times;</button>
   </div>
 
-    <!-- Route-Level Operational Metadata Banner -->
+  <!-- Route-Level Operational Metadata Banner -->
   <div id="routeMetaContainer"></div>
+
+  <!-- Pinned Dual Hero Cards: Next Bus + Where to Board -->
+  <div id="nextBusHeroContainer"></div>
 
   <!-- Timetable List -->
   <div id="scheduleContainer">
@@ -507,7 +639,8 @@
   // --- 2. GLOBAL STATE & CACHE ---
   const cache = {
     winter: { rawStops: [], schedules: [], stopsMap: {}, loaded: false },
-    public: { rawStops: [], schedules: [], stopsMap: {}, loaded: false }
+    public: { rawStops: [], schedules: [], stopsMap: {}, loaded: false },
+    routesMaster: { map: {}, loaded: false }
   };
 
   let currentMode = window.location.hash === '#winter' ? 'winter' : 'public';
@@ -516,28 +649,33 @@
   const SHEET_BASE_PERSONAL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT4XgepABOjpsBX4-KSJ93em-AETYmfY-1VLszziG7MuluSKtLLCG-MYlaTD5hY6t5WZTvx46RBtXep/pub';
   
   const DATA_CONFIG = {
+    routesMaster: [
+      `${SHEET_BASE_WORK}?gid=198418427&single=true&output=csv`,
+      `${SHEET_BASE_PERSONAL}?gid=198418427&single=true&output=csv`,
+      './Routes_Master.csv'
+    ],
     winter: {
       stops: [
-        `${SHEET_BASE_WORK}?gid=1435758286&single=true&output=csv`,      // Tier 1: Work Account
-        `${SHEET_BASE_PERSONAL}?gid=1435758286&single=true&output=csv`,  // Tier 2: Personal Account
-        './Winter_Transit_Stops.csv'                                     // Tier 3: Root Static Backup
+        `${SHEET_BASE_WORK}?gid=1435758286&single=true&output=csv`,
+        `${SHEET_BASE_PERSONAL}?gid=1435758286&single=true&output=csv`,
+        './Winter_Transit_Stops.csv'
       ],
       schedules: [
-        `${SHEET_BASE_WORK}?gid=1362971870&single=true&output=csv`,      // Tier 1: Work Account
-        `${SHEET_BASE_PERSONAL}?gid=1362971870&single=true&output=csv`,  // Tier 2: Personal Account
-        './Winter_Transit_Schedule.csv'                                  // Tier 3: Root Static Backup
+        `${SHEET_BASE_WORK}?gid=1362971870&single=true&output=csv`,
+        `${SHEET_BASE_PERSONAL}?gid=1362971870&single=true&output=csv`,
+        './Winter_Transit_Schedule.csv'
       ]
     },
     public: {
       stops: [
-        `${SHEET_BASE_WORK}?gid=1059473422&single=true&output=csv`,      // Tier 1: Work Account
-        `${SHEET_BASE_PERSONAL}?gid=1059473422&single=true&output=csv`,  // Tier 2: Personal Account
-        './Public_Transit_Stops.csv'                                     // Tier 3: Root Static Backup
+        `${SHEET_BASE_WORK}?gid=1059473422&single=true&output=csv`,
+        `${SHEET_BASE_PERSONAL}?gid=1059473422&single=true&output=csv`,
+        './Public_Transit_Stops.csv'
       ],
       schedules: [
-        `${SHEET_BASE_WORK}?gid=0&single=true&output=csv`,               // Tier 1: Work Account
-        `${SHEET_BASE_PERSONAL}?gid=0&single=true&output=csv`,           // Tier 2: Personal Account
-        './Public_Transit_Schedule.csv'                                  // Tier 3: Root Static Backup
+        `${SHEET_BASE_WORK}?gid=0&single=true&output=csv`,
+        `${SHEET_BASE_PERSONAL}?gid=0&single=true&output=csv`,
+        './Public_Transit_Schedule.csv'
       ]
     }
   };
@@ -561,7 +699,13 @@
       toFromStation: { en: '(to/from Sta.)', jp: '(駅発着運賃)', zh_tr: '(往返車站票價)', zh_si: '(往返车站票价)', ko: '(역 왕복 요금)' },
       trip: { en: 'Trip', jp: '便', zh_tr: '班次', zh_si: '班次', ko: '운행편' },
       map: { en: 'Map ↗', jp: '地図 ↗', zh_tr: '地圖 ↗', zh_si: '地图 ↗', ko: '지도 ↗' },
-      nextBus: { en: 'NEXT', jp: '次発', zh_tr: '下一班', zh_si: '下一班', ko: '다음 버스' },
+      nextBus: { en: 'NEXT BUS', jp: '次のバス', zh_tr: '下一班車', zh_si: '下一班车', ko: '다음 버스' },
+      firstTomorrow: { en: 'FIRST BUS (TOMORROW)', jp: '明日の始発', zh_tr: '明日首班車', zh_si: '明日首班车', ko: '내일 첫차' },
+      boardingAt: { en: 'WHERE TO BOARD', jp: '乗車場所・のりば', zh_tr: '乘車地點・月台', zh_si: '乘车地点・站台', ko: '탑승 위치・정류장' },
+      stopMap: { en: 'Open Boarding Stop Map ↗', jp: 'のりば地図を開く ↗', zh_tr: '開啟乘車站地圖 ↗', zh_si: '打开乘车站地图 ↗', ko: '탑승 위치 지도 열기 ↗' },
+      inMins: { en: 'in {m} min', jp: 'あと{m}分', zh_tr: '{m}分鐘後', zh_si: '{m}分钟后', ko: '{m}분 후' },
+      inHrsMins: { en: 'in {h}h {m}m', jp: 'あと{h}時間{m}分', zh_tr: '{h}小時{m}分後', zh_si: '{h}小时{m}分后', ko: '{h}시간 {m}분 후' },
+      departingNow: { en: 'Departing now', jp: 'まもなく発車', zh_tr: '即將發車', zh_si: '即将发车', ko: '곧 출발' },
       loading: { en: 'Loading timetables...', jp: '時刻表を読み込み中...', zh_tr: '正在載入時刻表...', zh_si: '正在加载时刻表...', ko: '시간표를 불러오는 중...' },
       noDepartures: { en: 'No departures found for this selection.', jp: '該当する運行便がありません。', zh_tr: '沒有找到符合條件的班次。', zh_si: '没有找到符合条件的班次。', ko: '해당 조건의 운행 정보가 없습니다.' },
       searchPlaceholder: {
@@ -747,17 +891,40 @@
   // --- 3. CORE FUNCTIONS ---
 
   function normalizeKey(str) {
-  if (typeof str !== 'string') return '';
-  return str.trim().toUpperCase()
-    .replace(/IWAHARA/g, 'IWAPPARA')
-    .replace(/JOUKOKU/g, 'JOKOKU')
-    .replace(/TOUKAMACHI/g, 'TOKAMACHI')
-    .replace(/[\s/&・·,._~～—–+()（）[\]【】\-]+/g, '_')
-    .replace(/^_+|_+$/g, '');
-}
+    if (typeof str !== 'string') return '';
+    return str.trim().toUpperCase()
+      .replace(/IWAHARA/g, 'IWAPPARA')
+      .replace(/JOUKOKU/g, 'JOKOKU')
+      .replace(/TOUKAMACHI/g, 'TOKAMACHI')
+      .replace(/[\s/&・·,._~～—–+()（）[\]【】\-]+/g, '_')
+      .replace(/^_+|_+$/g, '');
+  }
+
+  function isRouteActive(routeCode) {
+    if (!cache.routesMaster.loaded) return true;
+    const key = normalizeKey(routeCode);
+    const meta = cache.routesMaster.map[key];
+    return meta ? meta.active : true;
+  }
+
+  function getStationBay(routeCode) {
+    const key = normalizeKey(routeCode);
+    const meta = cache.routesMaster.map[key];
+    if (meta && meta.bays) {
+      const bayText = meta.bays[currentLang] || meta.bays.en || meta.bays.jp;
+      if (bayText) return bayText;
+    }
+    const poleData = STATION_POLE_MAP[key] || STATION_POLE_MAP[routeCode];
+    return poleData ? (poleData[currentLang] || poleData.en) : '';
+  }
 
   function translateRoute(rawRoute) {
     const key = normalizeKey(rawRoute);
+    const meta = cache.routesMaster.map[key];
+    if (meta && meta.names) {
+      const name = meta.names[currentLang] || meta.names.en || meta.names.jp;
+      if (name) return name;
+    }
     const entry = I18N.routes[key] || I18N.routes[rawRoute];
     return (entry && entry[currentLang]) ? entry[currentLang] : rawRoute.replace(/_/g, ' ');
   }
@@ -786,6 +953,20 @@
     const isHoliday = JP_HOLIDAYS.has(dateStr);
 
     return (isWeekend || isHoliday) ? 'WEEKEND' : 'WEEKDAY';
+  }
+
+  function formatCountdown(diffMins) {
+    if (diffMins <= 1) {
+      return I18N.ui.departingNow[currentLang] || I18N.ui.departingNow.en;
+    }
+    if (diffMins >= 60) {
+      const h = Math.floor(diffMins / 60);
+      const m = diffMins % 60;
+      const tmpl = I18N.ui.inHrsMins[currentLang] || I18N.ui.inHrsMins.en;
+      return tmpl.replace('{h}', h).replace('{m}', m);
+    }
+    const tmpl = I18N.ui.inMins[currentLang] || I18N.ui.inMins.en;
+    return tmpl.replace('{m}', diffMins);
   }
 
   function updateStaticUI() {
@@ -858,7 +1039,6 @@
   function formatFareBadge(routeCode, originStop, destStop) {
     const freeText = I18N.ui.free[currentLang] || I18N.ui.free.en;
 
-    // 1. Check ROUTE_CONFIG rules (Resort shuttles, Tsuchitaru flat fare, or Seiriken)
     if (typeof resolveCardFare === 'function') {
       const specialFare = resolveCardFare(routeCode, originStop, destStop);
       if (specialFare) {
@@ -872,10 +1052,8 @@
       }
     }
 
-    // 2. Extract numeric fare from destStop properties
     const num = extractStopFare(destStop);
 
-    // 3. Fallback rendering
     if (currentMode === 'winter') {
       if (num !== null && num > 0) {
         return `<span class="fare-tag paid">¥${num.toLocaleString()}</span>`;
@@ -921,6 +1099,49 @@
     return '';
   }
 
+  async function loadRoutesMaster() {
+    if (cache.routesMaster.loaded) return true;
+    const csvText = await fetchWithFallback(DATA_CONFIG.routesMaster);
+    if (!csvText) {
+      console.warn('[Routes_Master] Unavailable; falling back to built-in route list.');
+      return false;
+    }
+
+    Papa.parse(csvText, {
+      header: true, skipEmptyLines: 'greedy',
+      transformHeader: h => h.trim().replace(/^\ufeff/, ''),
+      complete: (results) => {
+        (results.data || []).forEach(r => {
+          const rawCode = (r.Route_Code || '').trim();
+          if (!rawCode || /^route_?code$/i.test(rawCode)) return;
+          const activeRaw = String(r.Active ?? 'TRUE').trim().toUpperCase();
+          const isActive = activeRaw !== 'FALSE' && activeRaw !== '0' && activeRaw !== 'NO';
+          cache.routesMaster.map[normalizeKey(rawCode)] = {
+            code: rawCode,
+            active: isActive,
+            season: (r.Season || '').trim().toUpperCase(),
+            bays: {
+              jp: (r.Station_Bay_JP || '').trim(),
+              en: (r.Station_Bay_EN || '').trim(),
+              zh_tr: (r.Station_Bay_ZH_TR || '').trim(),
+              zh_si: (r.Station_Bay_ZH_SI || '').trim(),
+              ko: (r.Station_Bay_KO || '').trim()
+            },
+            names: {
+              jp: (r.Name_JP || '').trim(),
+              en: (r.Name_EN || '').trim(),
+              zh_tr: (r.Name_ZH_TR || '').trim(),
+              zh_si: (r.Name_ZH_SI || '').trim(),
+              ko: (r.Name_KO || '').trim()
+            }
+          };
+        });
+        cache.routesMaster.loaded = Object.keys(cache.routesMaster.map).length > 0;
+      }
+    });
+    return cache.routesMaster.loaded;
+  }
+
   async function loadDataForMode(mode) {
     if (cache[mode].loaded) return true;
 
@@ -934,7 +1155,8 @@
 
     const [stopsRes, schedRes] = await Promise.all([
       fetchWithFallback(stopsSources),
-      fetchWithFallback(schedSources)
+      fetchWithFallback(schedSources),
+      loadRoutesMaster()
     ]);
 
     if (!stopsRes || !schedRes) {
@@ -1012,10 +1234,12 @@
     document.getElementById('searchInput').value = '';
     document.getElementById('clearSearch').style.display = 'none';
     document.getElementById('searchDropdown').style.display = 'none';
+    const heroEl = document.getElementById('nextBusHeroContainer');
+    if (heroEl) heroEl.innerHTML = '';
     document.getElementById('scheduleContainer').innerHTML = `<div class="notice">${I18N.ui.loading[currentLang] || I18N.ui.loading.en}</div>`;
     
     const ok = await loadDataForMode(mode);
-    if (mode !== currentMode) return; // Prevent race condition if user clicked again
+    if (mode !== currentMode) return;
 
     if (!ok) {
       document.getElementById('scheduleContainer').innerHTML = `<div class="notice">⚠️ Unable to load timetable data. Please check your connection and try again.</div>`;
@@ -1029,7 +1253,9 @@
     const routeSelect = document.getElementById('routeSelect');
     const prevRoute = preserveState ? routeSelect.value : null;
 
-    const uniqueRoutes = [...new Set(cache[currentMode].schedules.map(s => s.routeCode))];
+    const uniqueRoutes = [...new Set(cache[currentMode].schedules.map(s => s.routeCode))]
+      .filter(route => isRouteActive(route));
+
     routeSelect.innerHTML = '';
     uniqueRoutes.forEach(route => {
       const opt = document.createElement('option');
@@ -1051,7 +1277,6 @@
     const dirSelect = document.getElementById('dirSelect');
     const prevDir = preserveState ? dirSelect.value : null;
 
-    // Filter out Loop_Return so users just select Loop
     const allDirs = cache[currentMode].schedules
       .filter(s => normalizeKey(s.routeCode) === normalizeKey(route))
       .map(s => s.direction);
@@ -1068,7 +1293,6 @@
       dirSelect.appendChild(opt);
     });
 
-    // iPad WebKit fix: Explicitly lock the value and selectedIndex
     if (prevDir && availableDirs.includes(prevDir)) {
       dirSelect.value = prevDir;
     } else if (availableDirs.length > 0) {
@@ -1088,14 +1312,12 @@
     const destSelect = document.getElementById('destSelect');
 
     const route = routeSelect.value;
-    // Fallback ensures dir is NEVER empty on iPad
     const dir = dirSelect.value || (dirSelect.options[0] ? dirSelect.options[0].value : '');
 
     const prevDay = preserveState ? daySelect.value : null;
     const prevStop = preserveState ? stopSelect.value : null;
     const prevDest = (preserveState && destSelect) ? destSelect.value : null;
     
-    // Group Loop and Loop_Return under Loop selection
     const isLoopSelection = /LOOP/i.test(normalizeKey(dir));
     const routeSchedules = cache[currentMode].schedules.filter(s => {
       if (normalizeKey(s.routeCode) !== normalizeKey(route)) return false;
@@ -1178,7 +1400,7 @@
     renderTimetable();
   }
   
-    // --- ROUTE METADATA & OPERATIONAL DISCLAIMERS ---
+  // --- ROUTE METADATA & OPERATIONAL DISCLAIMERS ---
   const ROUTE_CONFIG = {
     BLUE: {
       isResort: true,
@@ -1307,29 +1529,6 @@
     return { type: "seiriken", text: seirikenI18n[currentLang] || seirikenI18n.en };
   }
 
-  function renderCardMetadata(routeCode, originStop, destStop, lang = "en") {
-    const rKey = normalizeKey(routeCode);
-    const config = ROUTE_CONFIG[rKey] || ROUTE_CONFIG[routeCode];
-    if (!config) return "";
-
-    const fare = resolveCardFare(rKey, originStop, destStop);
-    const badgesHtml = config.badges
-      .map(b => `<span class="badge ${b.includes('No') || b.includes('Weekday') ? 'badge-warn' : 'badge-info'}">${b}</span>`)
-      .join(" ");
-
-    const noteText = config.notes[lang] || config.notes.en;
-
-    return `
-      <div class="card-meta">
-        <div class="card-badges">
-          ${fare ? `<span class="badge badge-fare">${fare.text}</span>` : ""}
-          ${badgesHtml}
-        </div>
-        <p class="card-disclaimer">${noteText}</p>
-      </div>
-    `;
-  }
-
   function dismissAlert(alertId) {
     const el = document.getElementById(alertId);
     if (el) el.style.display = 'none';
@@ -1369,6 +1568,90 @@
     return adjustedH * 60 + m;
   }
 
+  function getLoopReturnLabel() {
+    const loopReturnText = {
+      en: '🔄 Full Loop (via Ishiuchi / GALA)',
+      jp: '🔄 循環（石打・GALA経由）',
+      zh_tr: '🔄 全線循環（經由石打・GALA）',
+      zh_si: '🔄 全线循环（经由石打・GALA）',
+      ko: '🔄 순환 (이시우치・GALA 경유)'
+    };
+    return loopReturnText[currentLang] || loopReturnText.en;
+  }
+
+  function renderDualHeroCards({ route, fromStopObj, boardingStopId, isStationOrigin, isLoopSelection, destStopId, heroJourney, isTomorrow, currentMins }) {
+    const heroContainer = document.getElementById('nextBusHeroContainer');
+    if (!heroContainer) return;
+
+    if (!heroJourney) {
+      heroContainer.innerHTML = '';
+      return;
+    }
+
+    const colKey = stopLangKeys[currentLang] || 'Stop_Name_EN';
+    const minWord = I18N.ui.mins[currentLang] || 'min';
+    const nextPillText = isTomorrow
+      ? (I18N.ui.firstTomorrow[currentLang] || I18N.ui.firstTomorrow.en)
+      : (I18N.ui.nextBus[currentLang] || I18N.ui.nextBus.en);
+    const countdownText = !isTomorrow ? formatCountdown(heroJourney.depTotal - currentMins) : '';
+
+    const heroDestStop = resolveStop(currentMode, route, heroJourney.toStopId);
+    let heroDestName = heroJourney.arrivalTime
+      ? (heroDestStop[colKey] || heroDestStop['Stop_Name_EN'] || heroJourney.toStopId)
+      : translateDirection(heroJourney.direction);
+    if (isLoopSelection && destStopId === 'TERMINUS') {
+      heroDestName = getLoopReturnLabel();
+    }
+
+    const heroFareBadge = formatFareBadge(route, fromStopObj, heroDestStop);
+
+    const fromStopName = fromStopObj[colKey] || fromStopObj['Stop_Name_EN'] || boardingStopId;
+    const fromStopJp = fromStopObj.Stop_Name_JP || '';
+    const showJpSub = currentLang !== 'jp' && fromStopJp && fromStopJp !== fromStopName;
+    const bayText = isStationOrigin ? getStationBay(route) : '';
+
+    const mapUrl = fromStopObj.Google_Maps_URL ||
+      `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((fromStopJp || fromStopName) + ' 湯沢 バス停')}`;
+    const boardingTitle = I18N.ui.boardingAt[currentLang] || I18N.ui.boardingAt.en;
+    const stopMapLabel = I18N.ui.stopMap[currentLang] || I18N.ui.stopMap.en;
+
+    heroContainer.innerHTML = `
+      <div class="hero-grid">
+        <!-- Card 1: Earliest Next Bus -->
+        <div class="hero-card">
+          <div class="hero-card-header">
+            <span class="hero-pill">🚌 ${nextPillText}</span>
+            ${countdownText ? `<span class="hero-countdown">⏱ ${countdownText}</span>` : ''}
+          </div>
+          <div class="hero-time-block">
+            <span class="hero-big-time">${heroJourney.departureTime}</span>
+            ${heroJourney.arrivalTime ? `<span class="hero-arr-time">➔ ${heroJourney.arrivalTime}</span>` : ''}
+          </div>
+          <div class="hero-subline">
+            <span>➔ ${heroDestName}</span>
+          </div>
+          <div class="hero-subline">
+            ${heroJourney.duration > 0 ? `<span>⏱ ${heroJourney.duration}${minWord}</span>` : ''}
+            ${heroFareBadge}
+          </div>
+        </div>
+
+        <!-- Card 2: Where to Board -->
+        <div class="hero-card where-card">
+          <div class="hero-card-header">
+            <span class="hero-pill where-pill">📍 ${boardingTitle}</span>
+          </div>
+          <div>
+            <div class="hero-stop-main">${fromStopName}</div>
+            ${showJpSub ? `<div class="hero-stop-jp">${fromStopJp}</div>` : ''}
+          </div>
+          ${bayText ? `<div class="hero-bay-row"><span class="hero-bay-badge">🚏 ${bayText}</span></div>` : ''}
+          <a class="hero-map-btn" href="${mapUrl}" target="_blank" rel="noopener">🗺️ ${stopMapLabel}</a>
+        </div>
+      </div>
+    `;
+  }
+
   function renderTimetable() {
     const route = document.getElementById('routeSelect').value;
     const dir = document.getElementById('dirSelect').value;
@@ -1378,7 +1661,6 @@
     const destStopId = destSelect ? destSelect.value : 'TERMINUS';
     const container = document.getElementById('scheduleContainer');
 
-        // Render single route-level banner above the timetable list
     renderRouteBanner(route, currentLang);
 
     const isLoopSelection = /LOOP/i.test(normalizeKey(dir));
@@ -1460,6 +1742,8 @@
     journeys.sort((a, b) => a.depTotal - b.depTotal);
 
     if (journeys.length === 0) {
+      const heroEl = document.getElementById('nextBusHeroContainer');
+      if (heroEl) heroEl.innerHTML = '';
       container.innerHTML = `<div class="notice">${I18N.ui.noDepartures[currentLang] || I18N.ui.noDepartures.en}</div>`;
       return;
     }
@@ -1467,25 +1751,39 @@
     const jstNow = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
     const nowH = jstNow.getHours();
     const currentMins = (nowH < 4 ? nowH + 24 : nowH) * 60 + jstNow.getMinutes();
-    let nextIndex = journeys.findIndex(j => j.depTotal >= currentMins);
+    const nextIndex = journeys.findIndex(j => j.depTotal >= currentMins);
 
     const tripWord = I18N.ui.trip[currentLang] || I18N.ui.trip.en;
     const minWord = I18N.ui.mins[currentLang] || 'min';
-    const nextText = I18N.ui.nextBus[currentLang] || 'NEXT';
+    const nextText = I18N.ui.nextBus[currentLang] || 'NEXT BUS';
     const mapWord = I18N.ui.map[currentLang] || 'Map ↗';
     const colKey = stopLangKeys[currentLang] || 'Stop_Name_EN';
 
     const fromStopObj = resolveStop(currentMode, route, boardingStopId);
-    const isStationOrigin = /湯沢駅|S-01/i.test(boardingStopId) || /湯沢駅/i.test(fromStopObj.Stop_Name_JP || '') || /Yuzawa Sta/i.test(fromStopObj.Stop_Name_EN || '');
+    const isStationOrigin = /湯沢駅|六日町駅|塩沢駅|S-01|KY-03/i.test(boardingStopId) ||
+                            /湯沢駅|六日町駅|塩沢駅/i.test(fromStopObj.Stop_Name_JP || '') ||
+                            /Yuzawa Sta|Muikamachi Sta|Shiozawa Sta/i.test(fromStopObj.Stop_Name_EN || '');
 
     let platformBadge = '';
     if (isStationOrigin) {
-      const poleData = STATION_POLE_MAP[normalizeKey(route)] || STATION_POLE_MAP[route];
-      if (poleData) {
-        const poleText = poleData[currentLang] || poleData.en;
-        platformBadge = `<div class="platform-badge">🚏 ${poleText}</div>`;
+      const bayText = getStationBay(route);
+      if (bayText) {
+        platformBadge = `<div class="platform-badge">🚏 ${bayText}</div>`;
       }
     }
+
+    // Render Dual Hero Cards above timetable
+    renderDualHeroCards({
+      route,
+      fromStopObj,
+      boardingStopId,
+      isStationOrigin,
+      isLoopSelection,
+      destStopId,
+      heroJourney: nextIndex !== -1 ? journeys[nextIndex] : journeys[0],
+      isTomorrow: nextIndex === -1,
+      currentMins
+    });
 
     container.innerHTML = journeys.map((j, index) => {
       const isNext = index === nextIndex;
@@ -1498,20 +1796,12 @@
         : translateDirection(j.direction);
 
       if (isLoopSelection && destStopId === 'TERMINUS') {
-        const loopReturnText = {
-          en: '🔄 Full Loop (via Ishiuchi / GALA)',
-          jp: '🔄 循環（石打・GALA経由）',
-          zh_tr: '🔄 全線循環（經由石打・GALA）',
-          zh_si: '🔄 全线循环（经由石打・GALA）',
-          ko: '🔄 순환 (이시우치・GALA 경유)'
-        };
-        destName = loopReturnText[currentLang] || loopReturnText.en;
+        destName = getLoopReturnLabel();
       }
 
       const fareBadge = formatFareBadge(route, fromStopObj, destStop);
       const mapUrl = destStop.Google_Maps_URL;
       const mapLink = mapUrl ? `<a class="map-link" href="${mapUrl}" target="_blank" rel="noopener">${mapWord}</a>` : '';
-      const cardMetaHtml = ''; // route-level banner above the list already shows this
 
       const timeHtml = j.arrivalTime
         ? `<div style="display: flex; align-items: baseline; gap: 6px;">
@@ -1539,15 +1829,9 @@
               <div class="details">${fareBadge} ${mapLink}</div>
             </div>
           </div>
-          ${cardMetaHtml}
         </div>
       `;
     }).join('');
-
-    setTimeout(() => {
-      const nextEl = document.getElementById('next-bus');
-      if (nextEl) nextEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }, 150);
   }
 
   // --- 4. SEARCH ENGINE ---
@@ -1567,7 +1851,7 @@
 
     await loadDataForMode(currentMode);
 
-    const activeStops = cache[currentMode].rawStops || [];
+    const activeStops = (cache[currentMode].rawStops || []).filter(s => isRouteActive(s.Route_Code || ''));
     const q = rawQ
       .replace(/iwahara/g, 'iwappara')
       .replace(/joukoku/g, 'jokoku')
@@ -1729,6 +2013,11 @@
 
     renderTimetable();
   }
+
+  // Keep Next Bus countdown live every 30s
+  setInterval(() => {
+    if (cache[currentMode].loaded) renderTimetable();
+  }, 30000);
 
   // --- 5. INITIALIZATION ---
   if ('serviceWorker' in navigator) {
