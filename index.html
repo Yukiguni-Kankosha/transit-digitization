@@ -2138,6 +2138,78 @@
   }
 
 
+
+  // === Visitor & QR Scan Analytics (GA4 + Google Sheet Apps Script Logger) ===
+  const ANALYTICS_CONFIG = {
+    app: 'transit',
+    ga4MeasurementId: '', // Paste your GA4 ID (e.g. 'G-XXXXXXXXXX') when ready
+    appsScriptUrl: ''     // Paste your Google Apps Script Web App URL when deployed
+  };
+
+  (function initAnalytics() {
+    if (ANALYTICS_CONFIG.ga4MeasurementId) {
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ANALYTICS_CONFIG.ga4MeasurementId)}`;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function() { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', ANALYTICS_CONFIG.ga4MeasurementId);
+    }
+  })();
+
+  let lastLoggedKey = '';
+  function trackAnalyticsEvent(eventName, extra = {}) {
+    const params = new URLSearchParams(window.location.search);
+    const src = params.get('src') || params.get('utm_source') || 'direct';
+    const route = extra.route || (document.getElementById('routeSelect') ? document.getElementById('routeSelect').value : '');
+    const stopId = extra.stopId || (document.getElementById('stopSelect') ? document.getElementById('stopSelect').value : '');
+    const resortPick = extra.resortPick || activeResortPickId || '';
+
+    const dedupeKey = `${eventName}|${currentMode}|${route}|${stopId}|${resortPick}|${currentLang}`;
+    if (dedupeKey === lastLoggedKey) return;
+    lastLoggedKey = dedupeKey;
+
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', eventName, {
+        app_name: ANALYTICS_CONFIG.app,
+        qr_source: src,
+        ui_lang: currentLang,
+        transit_mode: currentMode,
+        route_code: route,
+        stop_id: stopId,
+        resort_pick: resortPick,
+        browser_locale: navigator.language || '',
+        user_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || ''
+      });
+    }
+
+    if (ANALYTICS_CONFIG.appsScriptUrl) {
+      const payload = {
+        app: ANALYTICS_CONFIG.app,
+        src,
+        lang: currentLang,
+        mode: currentMode,
+        route,
+        stopId,
+        resortPick,
+        locale: navigator.language || '',
+        tz: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
+        device: window.innerWidth <= 768 ? 'mobile' : 'desktop'
+      };
+      try {
+        fetch(ANALYTICS_CONFIG.appsScriptUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload),
+          keepalive: true
+        }).catch(() => {});
+      } catch (e) {}
+    }
+  }
+
   // === Interactive Boarding Map (Leaflet + GSI Japan Tiles) ===
   let boardingMap = null;
   let boardingLayerStreet = null;
@@ -2448,6 +2520,7 @@
       </div>
     `;
     renderBoardingMap({ route, fromStopObj, boardingStopId, isStationOrigin });
+    trackAnalyticsEvent('transit_view', { route, stopId: boardingStopId });
   }
 
   function renderTimetable() {
@@ -2658,13 +2731,22 @@
       .replace(/toukamachi/g, 'tokamachi')
       .replace(/이와하라/g, '이와파라');
 
-    const matches = activeStops.filter(stop => {
+    const scored = [];
+    activeStops.forEach(stop => {
       const routeTitle = translateRoute(stop.Route_Code || '').toLowerCase();
-      const names = [stop.Stop_Name_EN, stop.Stop_Name_JP, stop.Stop_Name_ZH_TR, stop.Stop_Name_ZH_SI, stop.Stop_Name_KO, routeTitle].filter(Boolean);
-      return names.some(n => n.toLowerCase().includes(q));
+      const stopNames = [stop.Stop_Name_EN, stop.Stop_Name_JP, stop.Stop_Name_ZH_TR, stop.Stop_Name_ZH_SI, stop.Stop_Name_KO]
+        .filter(Boolean)
+        .map(n => n.toLowerCase());
+      let score = 0;
+      if (stopNames.some(n => n === q)) score = 4;
+      else if (stopNames.some(n => n.startsWith(q))) score = 3;
+      else if (stopNames.some(n => n.includes(q))) score = 2;
+      else if (routeTitle.includes(q)) score = 1;
+      if (score > 0) scored.push({ stop, score });
     });
 
-    renderSearchResults(matches);
+    scored.sort((a, b) => b.score - a.score);
+    renderSearchResults(scored.map(item => item.stop));
   });
 
   function renderSearchResults(matches) {
