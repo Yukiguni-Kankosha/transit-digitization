@@ -675,6 +675,61 @@
       font-size: 0.74rem;
       font-weight: 700;
     }
+
+    /* Ski Resort Quick-Picker */
+    .resort-quick-bar {
+      display: none;
+      margin-bottom: 14px;
+      padding: 10px 12px;
+      background: rgba(30, 41, 59, 0.75);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    .resort-quick-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .resort-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .resort-pill {
+      background: var(--card-bg);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .resort-pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .resort-pill.active {
+      background: var(--accent);
+      color: #0f172a;
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+    .badge-link {
+      background: rgba(16, 185, 129, 0.16);
+      color: #34d399;
+      border: 1px solid rgba(52, 211, 153, 0.4);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .badge-link:hover {
+      background: rgba(16, 185, 129, 0.28);
+    }
   </style>
 </head>
 <body>
@@ -717,6 +772,12 @@
   <div class="mode-toggle">
     <button class="mode-btn" id="btnWinter" onclick="switchMode('winter')">❄️ Winter Shuttles</button>
     <button class="mode-btn active" id="btnPublic" onclick="switchMode('public')">🚍 Public Transit</button>
+  </div>
+
+  <!-- Ski Resort Quick-Picker (Winter Mode) -->
+  <div id="resortQuickBar" class="resort-quick-bar">
+    <span class="resort-quick-label" id="resortQuickLabel">🏔️ Quick Pick by Ski Resort:</span>
+    <div id="resortPills" class="resort-pills"></div>
   </div>
 
   <!-- Filter Grid -->
@@ -914,6 +975,8 @@
       gpsUnsupported: { en: 'Geolocation is not supported in this browser.', jp: 'このブラウザは位置情報に対応していません。', zh_tr: '此瀏覽器不支援定位功能。', zh_si: '此浏览器不支持定位功能。', ko: '이 브라우저에서는 위치 정보를 지원하지 않습니다.' },
       gpsDenied: { en: 'Location permission denied or unavailable.', jp: '位置情報の取得が許可されていないか、利用できません。', zh_tr: '無法取得定位權限或目前無法使用。', zh_si: '无法获取定位权限或当前不可用。', ko: '위치 권한이 거부되었거나 사용할 수 없습니다.' },
       approxBayNote: { en: 'Approximate station bay pin — add Lat/Lng in Stops sheet to fine-tune.', jp: '駅のりばの目安位置（シートのLat/Lngで微調整可能）', zh_tr: '車站月台參考位置（可在表單 Lat/Lng 微調）', zh_si: '车站站台参考位置（可在表单 Lat/Lng 微调）', ko: '역 승강장 참고 위치 (시트 Lat/Lng에서 미세 조정 가능)' },
+      resortQuickLabel: { en: '🏔️ Quick Pick by Ski Resort (shows earliest bus):', jp: '🏔️ スキー場から探す（最短の便を表示）:', zh_tr: '🏔️ 依滑雪場快速搜尋（顯示最快班次）:', zh_si: '🏔️ 按滑雪场快速搜索（显示最快班次）:', ko: '🏔️ 스키장으로 빠르게 찾기 (가장 빠른 버스):' },
+      busGoLabel: { en: '🚌 BusGo Live Tracker ↗', jp: '🚌 BusGo 運行状況・案内 ↗', zh_tr: '🚌 BusGo 即時動態 ↗', zh_si: '🚌 BusGo 实时动态 ↗', ko: '🚌 BusGo 실시간 위치 ↗' },
       winterPeriodLabel: { en: 'Service Period:', jp: '運行期間:', zh_tr: '營運期間:', zh_si: '运营期间:', ko: '운행 기간:' },
       winterPeriodGeneral: { en: 'Mid-Dec – Late Mar (dates vary by resort)', jp: '12月中旬〜3月下旬頃（スキー場により異なります）', zh_tr: '約12月中旬～3月下旬（依各雪場公告為準）', zh_si: '约12月中旬～3月下旬（以各雪场公告为准）', ko: '12월 중순 ~ 3월 하순 (스키장별 상이)' },
       startsOn: { en: 'Starts {d}', jp: '{d} 運行開始', zh_tr: '{d} 起運行', zh_si: '{d} 起运营', ko: '{d} 운행 시작' },
@@ -981,7 +1044,7 @@
       'MUIKAMACHI': { en: 'Muikamachi Line', jp: '六日町線', zh_tr: '六日町線', zh_si: '六日町线', ko: '무이카마치선' },
       'DAIGENTA': { en: 'Daigenta Canyon Line', jp: '大源太線', zh_tr: '大源太峽谷線', zh_si: '大源太峡谷线', ko: '다이겐타선' },
       'TSUCHITARU': { en: 'Tsuchitaru Line', jp: '土樽線', zh_tr: '土樽線', zh_si: '土樽线', ko: '츠치타루선' },
-      'BLUE': { en: 'Blue Line (GALA / NASPA)', jp: 'ブルーライン（GALA・NASPA）', zh_tr: '藍線（GALA・NASPA）', zh_si: '蓝线（GALA・NASPA）', ko: '블루 라인 (GALA・NASPA)' },
+      'BLUE': { en: 'Blue Line (GALA / Yuzawa Kogen / NASPA)', jp: 'ブルーライン（GALA・湯沢高原・NASPA）', zh_tr: '藍線（GALA・湯澤高原・NASPA）', zh_si: '蓝线（GALA・汤泽高原・NASPA）', ko: '블루 라인 (GALA・유자와고겐・NASPA)' },
       'ORANGE': { en: 'Orange Line', jp: 'オレンジライン', zh_tr: '橘線', zh_si: '橙线', ko: '오렌지 라인' },
       'PURPLE': { en: 'Purple Line', jp: 'パープルライン', zh_tr: '紫線', zh_si: '紫线', ko: '퍼플 라인' },
       'GREEN': { en: 'Green Line', jp: 'グリーンライン', zh_tr: '綠線', zh_si: '绿线', ko: '그린 라인' },
@@ -1216,9 +1279,17 @@
     const map = cache[mode].stopsMap;
     const rKey = normalizeKey(routeCode);
     const sId = (stopId || '').trim();
+    const altRoute = (rKey === 'KAGURA_EXPRESS' || rKey === 'KAGURA_LOCAL') ? 'KAGURA_NAEBA' : rKey;
+    const altIdKN = sId.replace(/^KN-/, 'KG-');
+    const altIdKG = sId.replace(/^KG-/, 'KN-');
 
     return map[`${rKey}__${sId}`] ||
+           map[`${altRoute}__${sId}`] ||
+           map[`${altRoute}__${altIdKN}`] ||
+           map[`${altRoute}__${altIdKG}`] ||
            map[sId] ||
+           map[altIdKN] ||
+           map[altIdKG] ||
            map[sId.replace(/^S-/, 'SC-')] ||
            map[sId.replace(/^SC-/, 'S-')] ||
            {};
@@ -1281,8 +1352,11 @@
       }
     }
 
+    const busGoBadge = (config && config.busGoUrl)
+      ? `<a class="badge badge-link" href="${config.busGoUrl}" target="_blank" rel="noopener">${I18N.ui.busGoLabel[lang] || I18N.ui.busGoLabel.en}</a>`
+      : '';
     const badgesHtml = config
-      ? `<div class="card-badges">${config.badges.map(b => `<span class="badge ${b.includes('No') || b.includes('Weekday') ? 'badge-warn' : 'badge-info'}">${b}</span>`).join(" ")}</div>`
+      ? `<div class="card-badges">${config.badges.map(b => `<span class="badge ${b.includes('No') || b.includes('Weekday') ? 'badge-warn' : 'badge-info'}">${b}</span>`).join(" ")} ${busGoBadge}</div>`
       : '';
     const noteHtml = config
       ? `<p class="card-disclaimer">${config.notes[lang] || config.notes.en}</p>`
@@ -1519,12 +1593,167 @@
   }
 
 
+  const ROUTE_PRIORITY_ORDER = {
+    winter: [
+      'BLUE', 'ORANGE', 'KAGURA_EXPRESS', 'KAGURA_LOCAL', 'KANDATSU',
+      'ISHIUCHI_DIRECT', 'IWAHARA', 'IWAHARA_JOKOKU',
+      'MAIKO_DIRECT', 'MAIKO_HOTEL', 'NAKASATO',
+      'ISHIUCHI_NIGHT', 'CHATEAU_SHIOZAWA', 'MUICA'
+    ],
+    public: [
+      'KIYOTSUKYO', 'SEIBU_CRYSTAL', 'GALA_SPRING',
+      'DAIGENTA', 'MAIKO', 'TSUCHITARU', 'TOKAMACHIAEON'
+    ]
+  };
+
+  const SKI_RESORT_QUICK_PICKS = [
+    {
+      id: 'kogen',
+      routes: ['BLUE', 'ORANGE'],
+      destStops: ['BL-07', 'OL-05'],
+      labels: { en: 'Yuzawa Kogen', jp: '湯沢高原', zh_tr: '湯澤高原', zh_si: '汤泽高原', ko: '유자와 고겐' }
+    },
+    {
+      id: 'gala',
+      routes: ['BLUE', 'ORANGE'],
+      destStops: ['BL-09', 'OL-07'],
+      labels: { en: 'GALA Yuzawa', jp: 'GALA湯沢', zh_tr: 'GALA湯澤', zh_si: 'GALA汤泽', ko: 'GALA 유자와' }
+    },
+    {
+      id: 'naeba',
+      routes: ['KAGURA_EXPRESS', 'KAGURA_LOCAL'],
+      destStops: ['KN-08', 'KG-08', 'KG-06'],
+      labels: { en: 'Naeba (Paid Bus)', jp: '苗場（路線バス）', zh_tr: '苗場（路線巴士）', zh_si: '苗场（路线公交）', ko: '나에바 (노선버스)' }
+    },
+    {
+      id: 'kagura',
+      routes: ['KAGURA_EXPRESS', 'KAGURA_LOCAL'],
+      destStops: ['KN-02', 'KN-05', 'KG-02', 'KG-05'],
+      labels: { en: 'Kagura / Tashiro', jp: 'かぐら・田代', zh_tr: '神樂 / 田代', zh_si: '神乐 / 田代', ko: '카구라·타시로' }
+    },
+    {
+      id: 'naspa',
+      routes: ['BLUE', 'ORANGE'],
+      destStops: ['BL-01', 'OL-01'],
+      labels: { en: 'NASPA', jp: 'NASPA', zh_tr: 'NASPA', zh_si: 'NASPA', ko: 'NASPA' }
+    },
+    {
+      id: 'kandatsu',
+      routes: ['KANDATSU'],
+      destStops: ['KD-02'],
+      labels: { en: 'Kandatsu', jp: '神立', zh_tr: '神立', zh_si: '神立', ko: '간다쓰' }
+    },
+    {
+      id: 'ishiuchi',
+      routes: ['ISHIUCHI_DIRECT', 'BLUE', 'ORANGE'],
+      destStops: ['IM-01', 'BL-10', 'OL-08'],
+      labels: { en: 'Ishiuchi Maruyama', jp: '石打丸山', zh_tr: '石打丸山', zh_si: '石打丸山', ko: '이시우치 마루야마' }
+    },
+    {
+      id: 'iwappara',
+      routes: ['IWAHARA', 'IWAHARA_JOKOKU'],
+      destStops: ['IW-02', 'IW-03'],
+      labels: { en: 'Iwappara', jp: '岩原', zh_tr: '岩原', zh_si: '岩原', ko: '이와파라' }
+    },
+    {
+      id: 'maiko',
+      routes: ['MAIKO_DIRECT', 'MAIKO_HOTEL'],
+      destStops: ['MK-05', 'MK-04'],
+      labels: { en: 'Maiko', jp: '舞子', zh_tr: '舞子', zh_si: '舞子', ko: '마이코' }
+    },
+    {
+      id: 'nakasato',
+      routes: ['NAKASATO'],
+      destStops: ['NK-02'],
+      labels: { en: 'Yuzawa Nakasato', jp: '湯沢中里', zh_tr: '湯澤中里', zh_si: '汤泽中里', ko: '유자와 나카사토' }
+    }
+  ];
+
+  let activeResortPickId = '';
+
+  function renderResortQuickBar(availableRoutes) {
+    const bar = document.getElementById('resortQuickBar');
+    const pillsEl = document.getElementById('resortPills');
+    const lblEl = document.getElementById('resortQuickLabel');
+    if (!bar || !pillsEl) return;
+
+    if (currentMode !== 'winter') {
+      bar.style.display = 'none';
+      return;
+    }
+
+    if (lblEl && I18N.ui.resortQuickLabel) {
+      lblEl.textContent = I18N.ui.resortQuickLabel[currentLang] || I18N.ui.resortQuickLabel.en;
+    }
+
+    const availSet = new Set(availableRoutes.map(r => normalizeKey(r)));
+    const matchingPicks = SKI_RESORT_QUICK_PICKS.filter(p => p.routes.some(r => availSet.has(normalizeKey(r))));
+    if (matchingPicks.length === 0) {
+      bar.style.display = 'none';
+      return;
+    }
+
+    bar.style.display = 'block';
+    pillsEl.innerHTML = matchingPicks.map(p => `
+      <button type="button" class="resort-pill ${activeResortPickId === p.id ? 'active' : ''}" onclick="selectSkiResortPick('${p.id}')">
+        ${p.labels[currentLang] || p.labels.en}
+      </button>
+    `).join('');
+  }
+
+  window.selectSkiResortPick = function(pickId) {
+    const pick = SKI_RESORT_QUICK_PICKS.find(p => p.id === pickId);
+    if (!pick) return;
+    activeResortPickId = pickId;
+
+    const routeSelect = document.getElementById('routeSelect');
+    const options = Array.from(routeSelect.options).map(o => o.value);
+    const targetRoute = pick.routes.find(r => options.some(o => normalizeKey(o) === normalizeKey(r)));
+    if (!targetRoute) return;
+
+    const matchedOpt = options.find(o => normalizeKey(o) === normalizeKey(targetRoute));
+    routeSelect.value = matchedOpt;
+    populateDirections(false);
+
+    const dirSelect = document.getElementById('dirSelect');
+    if (dirSelect) {
+      const outboundDir = Array.from(dirSelect.options).find(o => /TO_RESORT|TO_NAEBA|OUTBOUND|FROM_STATION|LOOP/i.test(normalizeKey(o.value)));
+      if (outboundDir && dirSelect.value !== outboundDir.value) {
+        dirSelect.value = outboundDir.value;
+        populateDaysAndStops(false);
+      }
+    }
+
+    // Try to select the matching resort destination if available in destSelect (and different from boarding stop)
+    const stopSelect = document.getElementById('stopSelect');
+    const destSelect = document.getElementById('destSelect');
+    if (destSelect && pick.destStops) {
+      const boardingVal = stopSelect ? stopSelect.value : '';
+      const destOpt = Array.from(destSelect.options).find(o => pick.destStops.includes(o.value) && o.value !== boardingVal);
+      if (destOpt) {
+        destSelect.value = destOpt.value;
+        renderTimetable();
+      }
+    }
+    renderResortQuickBar(options);
+  };
+
   function populateRoutes(preserveState = false) {
     const routeSelect = document.getElementById('routeSelect');
     const prevRoute = preserveState ? routeSelect.value : null;
 
+    const orderList = ROUTE_PRIORITY_ORDER[currentMode] || [];
     const uniqueRoutes = [...new Set(cache[currentMode].schedules.map(s => s.routeCode))]
-      .filter(route => isRouteActive(route));
+      .filter(route => isRouteActive(route))
+      .sort((a, b) => {
+        const ia = orderList.indexOf(normalizeKey(a));
+        const ib = orderList.indexOf(normalizeKey(b));
+        if (ia !== -1 && ib !== -1) return ia - ib;
+        if (ia !== -1) return -1;
+        if (ib !== -1) return 1;
+        return a.localeCompare(b);
+      });
+    renderResortQuickBar(uniqueRoutes);
 
     routeSelect.innerHTML = '';
     uniqueRoutes.forEach(route => {
@@ -1538,7 +1767,11 @@
       routeSelect.value = prevRoute;
     }
 
-    routeSelect.onchange = () => populateDirections(false);
+    routeSelect.onchange = () => {
+      activeResortPickId = '';
+      renderResortQuickBar(uniqueRoutes);
+      populateDirections(false);
+    };
     populateDirections(preserveState);
   }
 
@@ -1553,7 +1786,16 @@
 
     const availableDirs = [...new Set(
       allDirs.filter(d => normalizeKey(d) !== 'LOOP_RETURN')
-    )];
+    )].sort((a, b) => {
+      const score = d => {
+        const k = normalizeKey(d);
+        if (/TO_RESORT|TO_NAEBA|OUTBOUND|FROM_STATION/.test(k)) return 0;
+        if (/LOOP/.test(k)) return 1;
+        if (/TO_STATION|INBOUND/.test(k)) return 2;
+        return 1;
+      };
+      return score(a) - score(b);
+    });
 
     dirSelect.innerHTML = '';
     availableDirs.forEach(dir => {
@@ -1680,6 +1922,18 @@
   
   // --- ROUTE METADATA & OPERATIONAL DISCLAIMERS ---
   const ROUTE_CONFIG = {
+    KANDATSU: {
+      isResort: true,
+      badges: ["🆓 Free Shuttle", "🚏 East Exit #5", "🌙 Night Ski (18:05–24:15)"],
+      notes: {
+        en: "Free shuttle from Echigo-Yuzawa Sta. East Exit #5. Note: 14:00–17:59 departures do not operate if no passengers board at the ski resort. Departures from 18:05 onward run on Night Ski days only.",
+        jp: "越後湯沢駅東口5番のりば発の無料シャトルバス。※14:00〜17:59の時間帯はスキー場発時刻に乗車するお客様がいない場合は運行しません。18:05以降はナイター営業日のみ運行。",
+        zh_tr: "越後湯澤站東口5號月台發車的免費接駁車。※14:00～17:59 時段若滑雪場發車時無乘客搭乘則停駛；18:05 起僅於夜滑營業日運行。",
+        zh_si: "越后汤泽站东口5号站台发车的免费接驳车。※14:00～17:59 时段若滑雪场发车时无乘客搭乘则停驶；18:05 起仅于夜滑营业日运行。",
+        ko: "에치고유자와역 동쪽 출구 5번 승강장 출발 무료 셔틀버스. ※14:00~17:59 시간대는 스키장 출발 시 탑승객이 없을 경우 운행하지 않습니다. 18:05 이후는 야간 개장일만 운행."
+      }
+    },
+
     MUICA: {
       isResort: true,
       badges: ["📅 Weekends/Holidays: No Res.", "🏨 Weekdays: Hotel Guests Only", "🚏 No Permanent Sign"],
@@ -1708,26 +1962,28 @@
       isResort: true,
       activeStart: "2026-12-24",
       activeEnd: "2027-03-22",
+      busGoUrl: "http://skishuttle.bus-go.com/",
       badges: ["📱 Web: ¥100 1-Day", "💳 Tap/QR: ¥100/ride", "🚫 No Cash / No Suica"],
       notes: {
-        en: "No cash accepted onboard. Pre-purchase web pass (¥100/day) or tap credit card/QR code at boarding (¥100/ride). Transit IC (Suica/Pasmo) is NOT supported.",
-        jp: "車内現金払い不可（完全キャッシュレス）。Web購入（1日100円）または乗車時にクレカタッチ／QR決済（1回100円）。※Suica等交通系IC不可。",
-        zh_tr: "車內不收現金（完全無現金化）。請使用Web購票（1日100日圓）或上車感應信用卡／QR碼（單次100日圓）。※不可使用Suica等交通IC卡。",
-        zh_si: "车内不收现金（完全无现金化）。请使用Web购票（1日100日元）或上车感应信用卡／二维码（单次100日元）。※不可使用Suica等交通IC卡。",
-        ko: "차내 현금 결제 불가. 사전 웹 구매(1일 100엔) 또는 탑승 시 신용카드 터치/QR코드 결제(1회 100엔). ※Suica 등 교통카드 이용 불가."
+        en: "No cash accepted onboard (¥100/ride via Web pass, tap card, or QR; Suica/Pasmo not supported). Serves Yuzawa Kogen, GALA Yuzawa, NASPA & Ishiuchi. ⚠️ Timetable is approximate and subject to delays due to snow and road conditions.",
+        jp: "車内現金払い不可（Web・クレカタッチ・QRで100円／Suica等不可）。湯沢高原・GALA・NASPA・石打を循環。※時刻表は目安であり、積雪や道路状況により遅延する場合があります。",
+        zh_tr: "車內不收現金（Web購票、信用卡感應或QR碼每次100日圓／不可用Suica）。停靠湯澤高原、GALA、NASPA、石打。※時刻表僅供參考，實際可能因積雪與路況延誤。",
+        zh_si: "车内不收现金（Web购票、信用卡感应或二维码每次100日元／不可用Suica）。停靠汤泽高原、GALA、NASPA、石打。※时刻表仅供参考，实际可能因积雪与路况延误。",
+        ko: "차내 현금 불가 (웹/카드 터치/QR 100엔, Suica 불가). 유자와고겐·GALA·NASPA·이시우치 경유. ※시간표는 참고용이며 적설 및 도로 상황에 따라 지연될 수 있습니다."
       }
     },
     ORANGE: {
       isResort: true,
       activeStart: "2026-12-24",
       activeEnd: "2027-03-22",
+      busGoUrl: "http://skishuttle.bus-go.com/",
       badges: ["📱 Web: ¥100 1-Day", "💳 Tap/QR: ¥100/ride", "🚫 No Cash / No Suica"],
       notes: {
-        en: "No cash accepted onboard. Pre-purchase web pass (¥100/day) or tap credit card/QR code at boarding (¥100/ride). Transit IC (Suica/Pasmo) is NOT supported.",
-        jp: "車内現金払い不可（完全キャッシュレス）。Web購入（1日100円）または乗車時にクレカタッチ／QR決済（1回100円）。※Suica等交通系IC不可。",
-        zh_tr: "車內不收現金（完全無現金化）。請使用Web購票（1日100日圓）或上車感應信用卡／QR碼（單次100日圓）。※不可使用Suica等交通IC卡。",
-        zh_si: "车内不收现金（完全无现金化）。请使用Web购票（1日100日元）或上车感应信用卡／二维码（单次100日元）。※不可使用Suica等交通IC卡。",
-        ko: "차내 현금 결제 불가. 사전 웹 구매(1일 100엔) 또는 탑승 시 신용카드 터치/QR코드 결제(1회 100엔). ※Suica 등 교통카드 이용 불가."
+        en: "No cash accepted onboard (¥100/ride via Web pass, tap card, or QR; Suica/Pasmo not supported). Serves Yuzawa Kogen, GALA Yuzawa, NASPA & Ishiuchi. ⚠️ Timetable is approximate and subject to delays due to snow and road conditions.",
+        jp: "車内現金払い不可（Web・クレカタッチ・QRで100円／Suica等不可）。湯沢高原・GALA・NASPA・石打を循環。※時刻表は目安であり、積雪や道路状況により遅延する場合があります。",
+        zh_tr: "車內不收現金（Web購票、信用卡感應或QR碼每次100日圓／不可用Suica）。停靠湯澤高原、GALA、NASPA、石打。※時刻表僅供參考，實際可能因積雪與路況延誤。",
+        zh_si: "车内不收现金（Web购票、信用卡感应或二维码每次100日元／不可用Suica）。停靠汤泽高原、GALA、NASPA、石打。※时刻表仅供参考，实际可能因积雪与路况延误。",
+        ko: "차내 현금 불가 (웹/카드 터치/QR 100엔, Suica 불가). 유자와고겐·GALA·NASPA·이시우치 경유. ※시간표는 참고용이며 적설 및 도로 상황에 따라 지연될 수 있습니다."
       }
     },
     DAIGENTA: {
@@ -2452,7 +2708,9 @@
     clearSearchBtn.style.display = 'none';
 
     const routeSelect = document.getElementById('routeSelect');
-    const matchingRouteOpt = Array.from(routeSelect.options).find(o => normalizeKey(o.value) === normalizeKey(routeCode));
+    const rNorm = normalizeKey(routeCode);
+    const matchingRouteOpt = Array.from(routeSelect.options).find(o => normalizeKey(o.value) === rNorm)
+      || (rNorm === 'KAGURA_NAEBA' ? Array.from(routeSelect.options).find(o => normalizeKey(o.value) === 'KAGURA_EXPRESS' || normalizeKey(o.value) === 'KAGURA_LOCAL') : null);
     if (matchingRouteOpt) {
       routeSelect.value = matchingRouteOpt.value;
     }
