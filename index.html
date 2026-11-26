@@ -2329,7 +2329,7 @@
           ${currentLang !== 'jp' && sJp && sJp !== sName ? `<br><span style="color:#94a3b8;font-size:0.75rem;">${sJp}</span>` : ''}
           <br><a class="popup-walk-btn" href="${walkUrl}" target="_blank" rel="noopener">${walkLabel}</a>
         </div>
-      `);
+      `, { autoPanPaddingTopLeft: [16, 64] });
       if (!isActive && sId) {
         marker.on('click', () => {
           const stopSel = document.getElementById('stopSelect');
@@ -2359,7 +2359,7 @@
       activeMarker = addStopPin(fromStopObj, activeCoords, true);
     }
 
-    map.flyTo([activeCoords.lat, activeCoords.lng], 18, { duration: 0.5 });
+    map.flyTo([activeCoords.lat + 0.00028, activeCoords.lng], 18, { duration: 0.5 });
     setTimeout(() => {
       if (activeMarker) activeMarker.openPopup();
     }, 550);
