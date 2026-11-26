@@ -135,14 +135,15 @@
     }
 
     /* Filter Controls */
-    .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-    .control-group { display: flex; flex-direction: column; gap: 4px; }
+    .controls { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; margin-bottom: 16px; }
+    .control-group { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .control-group select { width: 100%; min-width: 0; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
 
     /* Dual Hero Cards: Next Bus + Where to Board */
     .hero-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: 10px;
       margin-bottom: 14px;
     }
@@ -1717,7 +1718,10 @@
 
     const dirSelect = document.getElementById('dirSelect');
     if (dirSelect) {
-      const outboundDir = Array.from(dirSelect.options).find(o => /TO_RESORT|TO_NAEBA|OUTBOUND|FROM_STATION|LOOP/i.test(normalizeKey(o.value)));
+      const dirOpts = Array.from(dirSelect.options);
+      const outboundDir = dirOpts.find(o => /TO_RESORT|TO_NAEBA|TO_HOTEL/i.test(normalizeKey(o.value)))
+        || dirOpts.find(o => /^OUTBOUND$|FROM_STATION/i.test(normalizeKey(o.value)))
+        || dirOpts.find(o => /LOOP/i.test(normalizeKey(o.value)));
       if (outboundDir && dirSelect.value !== outboundDir.value) {
         dirSelect.value = outboundDir.value;
         populateDaysAndStops(false);
@@ -1789,9 +1793,10 @@
     )].sort((a, b) => {
       const score = d => {
         const k = normalizeKey(d);
-        if (/TO_RESORT|TO_NAEBA|OUTBOUND|FROM_STATION/.test(k)) return 0;
-        if (/LOOP/.test(k)) return 1;
-        if (/TO_STATION|INBOUND/.test(k)) return 2;
+        if (/TO_RESORT|TO_NAEBA|TO_HOTEL/.test(k)) return 0;
+        if (/^OUTBOUND$|FROM_STATION/.test(k)) return 1;
+        if (/LOOP/.test(k)) return 2;
+        if (/TO_STATION|INBOUND/.test(k)) return 3;
         return 1;
       };
       return score(a) - score(b);
@@ -2142,8 +2147,8 @@
   // === Visitor & QR Scan Analytics (GA4 + Google Sheet Apps Script Logger) ===
   const ANALYTICS_CONFIG = {
     app: 'transit',
-    ga4MeasurementId: 'G-DQ1HWEYHSZ', // Paste your GA4 ID (e.g. 'G-XXXXXXXXXX') when ready
-    appsScriptUrl: 'https://script.google.com/macros/s/AKfycbwiW0XNz_MeA3bzOnSXFwc-2ZZe3fMK8H7ihjmnRy_cMIShqjjAWQojAxEzLkmL3OsB/exec'     // Paste your Google Apps Script Web App URL when deployed
+    ga4MeasurementId: '', // Paste your GA4 ID (e.g. 'G-XXXXXXXXXX') when ready
+    appsScriptUrl: ''     // Paste your Google Apps Script Web App URL when deployed
   };
 
   (function initAnalytics() {
