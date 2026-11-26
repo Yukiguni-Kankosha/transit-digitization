@@ -2290,7 +2290,7 @@
     if (noteEl) {
       noteEl.textContent = activeCoords.source === 'approx'
         ? (I18N.ui.approxBayNote[currentLang] || I18N.ui.approxBayNote.en)
-        : `📍 ${activeCoords.lat.toFixed(5)}, ${activeCoords.lng.toFixed(5)}`;
+        : '';
     }
 
     const renderKey = `${currentMode}|${route}|${boardingStopId}|${currentLang}|${activeCoords.lat},${activeCoords.lng}`;
