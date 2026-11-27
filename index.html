@@ -357,12 +357,27 @@
       margin-right: 2px;
     }
     .route-stop-pill {
-      background: rgba(15, 23, 42, 0.7);
+      background: rgba(15, 23, 42, 0.75);
       border: 1px solid var(--border);
       color: #e2e8f0;
-      padding: 2px 7px;
+      padding: 3px 8px;
       border-radius: 6px;
       white-space: nowrap;
+      font-size: inherit;
+      font-family: inherit;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: all 0.15s ease;
+    }
+    .route-stop-pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .route-stop-pill.active {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: var(--accent);
+      color: #7dd3fc;
+      font-weight: 700;
     }
 
     /* Services Cross-Link Banner */
@@ -702,11 +717,16 @@
       background: var(--card-bg);
       color: var(--text-main);
       border: 1px solid var(--border);
-      padding: 5px 10px;
+      padding: 6px 11px;
       border-radius: 999px;
       font-size: 0.76rem;
       font-weight: 600;
       cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      position: relative;
+      z-index: 5;
       transition: all 0.15s ease;
     }
     .resort-pill:hover {
@@ -976,6 +996,8 @@
       gpsUnsupported: { en: 'Geolocation is not supported in this browser.', jp: 'このブラウザは位置情報に対応していません。', zh_tr: '此瀏覽器不支援定位功能。', zh_si: '此浏览器不支持定位功能。', ko: '이 브라우저에서는 위치 정보를 지원하지 않습니다.' },
       gpsDenied: { en: 'Location permission denied or unavailable.', jp: '位置情報の取得が許可されていないか、利用できません。', zh_tr: '無法取得定位權限或目前無法使用。', zh_si: '无法获取定位权限或当前不可用。', ko: '위치 권한이 거부되었거나 사용할 수 없습니다.' },
       approxBayNote: { en: 'Approximate station bay pin — add Lat/Lng in Stops sheet to fine-tune.', jp: '駅のりばの目安位置（シートのLat/Lngで微調整可能）', zh_tr: '車站月台參考位置（可在表單 Lat/Lng 微調）', zh_si: '车站站台参考位置（可在表单 Lat/Lng 微调）', ko: '역 승강장 참고 위치 (시트 Lat/Lng에서 미세 조정 가능)' },
+      publicQuickLabel: { en: '🚍 Quick Pick by Destination (shows earliest bus):', jp: '🚍 目的地から探す（最短の便を表示）:', zh_tr: '🚍 依目的地快速搜尋（顯示最快班次）:', zh_si: '🚍 按目的地快速搜索（显示最快班次）:', ko: '🚍 목적지로 빠르게 찾기 (가장 빠른 버스):' },
+      keyStopsLabel: { en: 'Key Stops:', jp: '主な停留所:', zh_tr: '主要停靠站:', zh_si: '主要停靠站:', ko: '주요 정류장:' },
       resortQuickLabel: { en: '🏔️ Quick Pick by Ski Resort (shows earliest bus):', jp: '🏔️ スキー場から探す（最短の便を表示）:', zh_tr: '🏔️ 依滑雪場快速搜尋（顯示最快班次）:', zh_si: '🏔️ 按滑雪场快速搜索（显示最快班次）:', ko: '🏔️ 스키장으로 빠르게 찾기 (가장 빠른 버스):' },
       busGoLabel: { en: '🚌 BusGo Live Tracker ↗', jp: '🚌 BusGo 運行状況・案内 ↗', zh_tr: '🚌 BusGo 即時動態 ↗', zh_si: '🚌 BusGo 实时动态 ↗', ko: '🚌 BusGo 실시간 위치 ↗' },
       winterPeriodLabel: { en: 'Service Period:', jp: '運行期間:', zh_tr: '營運期間:', zh_si: '运营期间:', ko: '운행 기간:' },
@@ -1309,15 +1331,15 @@
       .sort((a, b) => (parseFloat(a.Stop_Order || a.Sequence_Order || 999) - parseFloat(b.Stop_Order || b.Sequence_Order || 999)));
 
     const seen = new Set();
-    const names = [];
+    const stops = [];
     matching.forEach(s => {
       const n = (s[colKey] || s.Stop_Name_EN || s.Stop_Name_JP || '').trim();
       if (n && !seen.has(n)) {
         seen.add(n);
-        names.push(n);
+        stops.push(s);
       }
     });
-    return names;
+    return stops;
   }
 
   function renderRouteBanner(routeCode, lang = "en") {
@@ -1326,9 +1348,23 @@
 
     const rKey = normalizeKey(routeCode);
     const config = ROUTE_CONFIG[rKey] || ROUTE_CONFIG[routeCode];
-    const winterStops = currentMode === 'winter' ? getRouteStopsList('winter', routeCode) : [];
+    const allModeStops = getRouteStopsList(currentMode, routeCode);
+    const KEY_PUBLIC_STOP_IDS = new Set([
+      'KY-03', 'KY-15', 'KY-56',
+      'SC-01', 'SC-13', 'SC-15', 'SC-23', 'SC-26',
+      'DG-01', 'DG-20', 'DG-22',
+      'GL-01', 'GL-02', 'GL-03',
+      'YM-03', 'YM-37',
+      'MA-01', 'MA-04',
+      'TT-01', 'TT-14'
+    ]);
+    const bannerStops = currentMode === 'winter'
+      ? allModeStops
+      : (allModeStops.length <= 8
+          ? allModeStops
+          : allModeStops.filter(s => KEY_PUBLIC_STOP_IDS.has((s.Stop_ID || '').trim())));
 
-    if (!config && winterStops.length === 0 && currentMode !== 'winter') {
+    if (!config && bannerStops.length === 0 && currentMode !== 'winter') {
       bannerEl.innerHTML = '';
       return;
     }
@@ -1363,11 +1399,22 @@
       ? `<p class="card-disclaimer">${config.notes[lang] || config.notes.en}</p>`
       : '';
 
-    const stopsLabel = I18N.ui.stopsAt[lang] || I18N.ui.stopsAt.en;
-    const stopsHtml = winterStops.length > 0
+    const colKey = stopLangKeys[lang] || 'Stop_Name_EN';
+    const curStopVal = document.getElementById('stopSelect')?.value || '';
+    const curDestVal = document.getElementById('destSelect')?.value || '';
+    const stopsLabel = currentMode === 'winter'
+      ? (I18N.ui.stopsAt[lang] || I18N.ui.stopsAt.en)
+      : (I18N.ui.keyStopsLabel[lang] || I18N.ui.keyStopsLabel.en);
+    const stopsIcon = currentMode === 'winter' ? '🏔️' : '🚏';
+    const stopsHtml = bannerStops.length > 0
       ? `<div class="route-stops-strip" style="${!config ? 'margin-top:0;padding-top:0;border-top:none;' : ''}">
-           <span class="route-stops-label">🏔️ ${stopsLabel}</span>
-           ${winterStops.map(name => `<span class="route-stop-pill">${name}</span>`).join('')}
+           <span class="route-stops-label">${stopsIcon} ${stopsLabel}</span>
+           ${bannerStops.map(s => {
+             const sId = (s.Stop_ID || '').trim();
+             const name = (s[colKey] || s.Stop_Name_EN || s.Stop_Name_JP || sId).trim();
+             const isSel = sId && (sId === curDestVal || sId === curStopVal);
+             return `<button type="button" class="route-stop-pill ${isSel ? 'active' : ''}" data-banner-stop="${sId}">${name}</button>`;
+           }).join('')}
          </div>`
       : '';
 
@@ -1379,6 +1426,29 @@
         ${stopsHtml}
       </div>
     `;
+    bannerEl.onclick = (ev) => {
+      const btn = ev.target.closest('[data-banner-stop]');
+      if (!btn) return;
+      const targetId = btn.getAttribute('data-banner-stop');
+      const altId = targetId.replace(/^KG-/, 'KN-');
+      const stopSel = document.getElementById('stopSelect');
+      const destSel = document.getElementById('destSelect');
+      if (destSel) {
+        const destOpt = Array.from(destSel.options).find(o => o.value === targetId || o.value === altId);
+        if (destOpt && (!stopSel || destOpt.value !== stopSel.value)) {
+          destSel.value = destOpt.value;
+          renderTimetable();
+          return;
+        }
+      }
+      if (stopSel) {
+        const stopOpt = Array.from(stopSel.options).find(o => o.value === targetId || o.value === altId);
+        if (stopOpt) {
+          stopSel.value = stopOpt.value;
+          renderTimetable();
+        }
+      }
+    };
   }
 
   function formatFareBadge(routeCode, originStop, destStop) {
@@ -1670,6 +1740,51 @@
     }
   ];
 
+  const PUBLIC_DEST_QUICK_PICKS = [
+    {
+      id: 'pub_kiyotsu',
+      routes: ['KIYOTSUKYO'],
+      destStops: ['KY-15', 'KY-56'],
+      labels: { en: 'Kiyotsukyo Gorge', jp: '清津峡', zh_tr: '清津峽', zh_si: '清津峡', ko: '키요츠쿄' }
+    },
+    {
+      id: 'pub_naeba',
+      routes: ['SEIBU_CRYSTAL'],
+      destStops: ['SC-23', 'SC-15'],
+      labels: { en: 'Naeba / Kagura', jp: '苗場・かぐら', zh_tr: '苗場・神樂', zh_si: '苗场・神乐', ko: '나에바·카구라' }
+    },
+    {
+      id: 'pub_daigenta',
+      routes: ['DAIGENTA'],
+      destStops: ['DG-22', 'DG-20'],
+      labels: { en: 'Daigenta Canyon', jp: '大源太キャニオン', zh_tr: '大源太峽谷', zh_si: '大源太峡谷', ko: '다이겐타 캐니언' }
+    },
+    {
+      id: 'pub_gala',
+      routes: ['GALA_SPRING'],
+      destStops: ['GL-01'],
+      labels: { en: 'GALA Yuzawa', jp: 'GALA湯沢', zh_tr: 'GALA湯澤', zh_si: 'GALA汤泽', ko: 'GALA 유자와' }
+    },
+    {
+      id: 'pub_maiko',
+      routes: ['MAIKO'],
+      destStops: ['YM-37'],
+      labels: { en: 'Maiko / Muikamachi', jp: '舞子・六日町', zh_tr: '舞子・六日町', zh_si: '舞子・六日町', ko: '마이코·무이카마치' }
+    },
+    {
+      id: 'pub_aeon',
+      routes: ['TOKAMACHIAEON'],
+      destStops: ['MA-04'],
+      labels: { en: 'Aeon Muikamachi', jp: 'イオン六日町', zh_tr: 'AEON 六日町', zh_si: 'AEON 六日町', ko: '이온 무이카마치' }
+    },
+    {
+      id: 'pub_tsuchitaru',
+      routes: ['TSUCHITARU'],
+      destStops: ['TT-14'],
+      labels: { en: 'Tsuchitaru', jp: '土樽・旭原', zh_tr: '土樽・旭原', zh_si: '土樽・旭原', ko: '쓰치타루' }
+    }
+  ];
+
   let activeResortPickId = '';
 
   function renderResortQuickBar(availableRoutes) {
@@ -1678,17 +1793,15 @@
     const lblEl = document.getElementById('resortQuickLabel');
     if (!bar || !pillsEl) return;
 
-    if (currentMode !== 'winter') {
-      bar.style.display = 'none';
-      return;
-    }
-
-    if (lblEl && I18N.ui.resortQuickLabel) {
-      lblEl.textContent = I18N.ui.resortQuickLabel[currentLang] || I18N.ui.resortQuickLabel.en;
+    const isWinter = currentMode === 'winter';
+    const sourceList = isWinter ? SKI_RESORT_QUICK_PICKS : PUBLIC_DEST_QUICK_PICKS;
+    const lblDict = isWinter ? I18N.ui.resortQuickLabel : I18N.ui.publicQuickLabel;
+    if (lblEl && lblDict) {
+      lblEl.textContent = lblDict[currentLang] || lblDict.en;
     }
 
     const availSet = new Set(availableRoutes.map(r => normalizeKey(r)));
-    const matchingPicks = SKI_RESORT_QUICK_PICKS.filter(p => p.routes.some(r => availSet.has(normalizeKey(r))));
+    const matchingPicks = sourceList.filter(p => p.routes.some(r => availSet.has(normalizeKey(r))));
     if (matchingPicks.length === 0) {
       bar.style.display = 'none';
       return;
@@ -1696,14 +1809,19 @@
 
     bar.style.display = 'block';
     pillsEl.innerHTML = matchingPicks.map(p => `
-      <button type="button" class="resort-pill ${activeResortPickId === p.id ? 'active' : ''}" onclick="selectSkiResortPick('${p.id}')">
+      <button type="button" class="resort-pill ${activeResortPickId === p.id ? 'active' : ''}" data-pick-id="${p.id}">
         ${p.labels[currentLang] || p.labels.en}
       </button>
     `).join('');
+    pillsEl.onclick = (ev) => {
+      const btn = ev.target.closest('[data-pick-id]');
+      if (btn) selectSkiResortPick(btn.getAttribute('data-pick-id'));
+    };
   }
 
   window.selectSkiResortPick = function(pickId) {
-    const pick = SKI_RESORT_QUICK_PICKS.find(p => p.id === pickId);
+    const sourceList = currentMode === 'winter' ? SKI_RESORT_QUICK_PICKS : PUBLIC_DEST_QUICK_PICKS;
+    const pick = sourceList.find(p => p.id === pickId);
     if (!pick) return;
     activeResortPickId = pickId;
 
