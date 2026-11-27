@@ -756,7 +756,7 @@
         <span id="servicesNavSub">Luggage storage, day-use onsen, taxi plans & town map</span>
       </div>
     </div>
-    <a id="servicesNavBtnLink" href="https://umiwumi.github.io/services/" class="services-nav-btn">
+    <a id="servicesNavBtnLink" href="https://yukiguni-kankosha.github.io/services/" class="services-nav-btn">
       <span id="servicesNavBtn">View Guide</span>
       <span>→</span>
     </a>
@@ -1270,7 +1270,7 @@
     if (btnEl && I18N.ui.servicesNavBtn) btnEl.textContent = I18N.ui.servicesNavBtn[currentLang] || I18N.ui.servicesNavBtn.en;
 
     if (linkEl) {
-      linkEl.href = `https://umiwumi.github.io/services/?lang=${currentLang}`;
+      linkEl.href = `https://yukiguni-kankosha.github.io/services/?lang=${currentLang}`;
     }
 
     safeSetItem('yuzawa_lang', currentLang);
@@ -1927,6 +1927,29 @@
   
   // --- ROUTE METADATA & OPERATIONAL DISCLAIMERS ---
   const ROUTE_CONFIG = {
+    KAGURA_EXPRESS: {
+      isResort: false,
+      badges: ["🚍 Paid Public Bus", "🚏 East Exit #1", "🚫 No Free Shuttle"],
+      notes: {
+        en: "No free ski resort shuttle operates to Kagura, Tashiro, or Naeba. Please use this paid Minami Echigo public bus from Echigo-Yuzawa Sta. East Exit #1.",
+        jp: "かぐら・田代・苗場方面の無料シャトルバスはありません。越後湯沢駅東口1番のりば発の有料路線バス（南越後観光バス）をご利用ください。",
+        zh_tr: "前往神樂、田代、苗場方向無免費接駁車，請於越後湯澤站東口1號月台搭乘付費路線公車（南越後觀光巴士）。",
+        zh_si: "前往神乐、田代、苗场方向无免费接驳车，请于越后汤泽站东口1号站台搭乘付费路线公交（南越后观光巴士）。",
+        ko: "카구라·타시로·나에바 방면 무료 셔틀버스는 없습니다. 에치고유자와역 동쪽 출구 1번 승강장에서 출발하는 유료 노선버스(미나미에치고 버스)를 이용해 주세요."
+      }
+    },
+    KAGURA_LOCAL: {
+      isResort: false,
+      badges: ["🚍 Paid Public Bus", "🚏 East Exit #1", "🚫 No Free Shuttle"],
+      notes: {
+        en: "No free ski resort shuttle operates to Kagura, Tashiro, or Naeba. Please use this paid Minami Echigo public bus from Echigo-Yuzawa Sta. East Exit #1.",
+        jp: "かぐら・田代・苗場方面の無料シャトルバスはありません。越後湯沢駅東口1番のりば発の有料路線バス（南越後観光バス）をご利用ください。",
+        zh_tr: "前往神樂、田代、苗場方向無免費接駁車，請於越後湯澤站東口1號月台搭乘付費路線公車（南越後觀光巴士）。",
+        zh_si: "前往神乐、田代、苗场方向无免费接驳车，请于越后汤泽站东口1号站台搭乘付费路线公交（南越后观光巴士）。",
+        ko: "카구라·타시로·나에바 방면 무료 셔틀버스는 없습니다. 에치고유자와역 동쪽 출구 1번 승강장에서 출발하는 유료 노선버스(미나미에치고 버스)를 이용해 주세요."
+      }
+    },
+
     KANDATSU: {
       isResort: true,
       badges: ["🆓 Free Shuttle", "🚏 East Exit #5", "🌙 Night Ski (18:05–24:15)"],
